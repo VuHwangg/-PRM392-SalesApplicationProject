@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Cellphone App</string>
+    <string name="bottom_home">Home</string>
+    <string name="bottom_cart">My Cart</string>
+    <string name="bottom_order">My Orders</string>
+    <string name="bottom_chat">Chat Box</string>
+    <string name="bottom_account">Account</string>
+
+</resources>

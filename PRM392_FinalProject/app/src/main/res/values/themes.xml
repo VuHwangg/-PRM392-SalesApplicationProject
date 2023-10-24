@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PRM392_FinalProject" parent="Theme.AppCompat.Light">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/main_red</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="Theme.PRM392_FinalProject" parent="Base.Theme.PRM392_FinalProject" />
+</resources>
