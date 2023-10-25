@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,8 +84,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.menu_option1) {
             Toast.makeText(this, "Menu option 1 selected", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
+            startActivity(intent);
         } else if (id == R.id.menu_option2) {
             Toast.makeText(this, "Menu option 2 selected", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), UserRegisterActivity.class);
+            startActivity(intent);
         }
         return true;
     }
