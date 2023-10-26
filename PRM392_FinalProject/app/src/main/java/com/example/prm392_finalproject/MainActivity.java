@@ -82,13 +82,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menu_option1) {
+        if (id == R.id.menu_search) {
+            Toast.makeText(this, "Search selected", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menu_notification) {
+            Toast.makeText(this, "Notification selected", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menu_option1) {
             Toast.makeText(this, "Menu option 1 selected", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
             startActivity(intent);
         } else if (id == R.id.menu_option2) {
             Toast.makeText(this, "Menu option 2 selected", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), UserRegisterActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.menu_option3) {
+            Toast.makeText(this, "Menu option 3 selected", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), EmployeeLoginActivity.class);
             startActivity(intent);
         }
         return true;
