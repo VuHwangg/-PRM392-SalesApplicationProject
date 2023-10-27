@@ -2,6 +2,7 @@ package com.example.prm392_finalproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.prm392_finalproject.main_fragment.HomeFragment;
+import com.example.prm392_finalproject.main_fragment.ProductDetailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -100,5 +103,21 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return true;
+    }
+
+    public void goToDetailFragment(Product product) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        // Tương tự như intent dùng để gửi dữ liêu giữa các Fragment
+        ProductDetailFragment detailFragment = new ProductDetailFragment();
+
+        Bundle mybundle =new Bundle();
+        mybundle.putSerializable("object_product", product);
+
+        detailFragment.setArguments(mybundle);
+
+        fragmentTransaction.replace(R.id.main_activity, detailFragment);
+        fragmentTransaction.addToBackStack(ProductDetailFragment.TAG);
+        fragmentTransaction.commit();
     }
 }

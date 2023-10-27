@@ -1,13 +1,17 @@
 package com.example.prm392_finalproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_finalproject.main_fragment.HomeFragment;
@@ -18,9 +22,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private Context mContext;
     private List<Product> mListProduct;
+    private IClickItemListener mIClickItemListener;
+    public interface IClickItemListener{
+        void onClickItemProduct(Product product);
+    }
 
-    public ProductAdapter(Context mContext) {
+    public ProductAdapter(Context mContext, IClickItemListener listener) {
         this.mContext = mContext;
+        this.mIClickItemListener = listener;
     }
 
     public void setData(List<Product> list) {
@@ -44,6 +53,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.imgProduct.setImageResource(product.getImage());
         holder.tvName.setText(product.getName());
         holder.tvPrice.setText((int) product.getPrice() + " VND");
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext, "", Toast.LENGTH_SHORT).show();
+                mIClickItemListener.onClickItemProduct(product);
+            }
+        });
     }
 
     @Override
@@ -59,6 +75,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         private ImageView imgProduct;
         private TextView tvName;
         private TextView tvPrice;
+        CardView cardView;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +83,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             imgProduct = itemView.findViewById(R.id.img_product);
             tvName = itemView.findViewById(R.id.tv_name_product);
             tvPrice = itemView.findViewById(R.id.tv_price_product);
+            cardView = itemView.findViewById(R.id.card_view);
         }
     }
 }

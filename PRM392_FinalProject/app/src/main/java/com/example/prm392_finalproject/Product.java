@@ -1,15 +1,17 @@
 package com.example.prm392_finalproject;
 
-public class Product {
+import java.io.Serializable;
 
-    private int image;
-    private String name;
-    private double price;
+public class Product implements Serializable {
 
-    public Product(int image, String name, double price) {
+    private int image, price;
+    private String name, description;
+
+    public Product(int image, String name, String description, int price) {
         this.image = image;
         this.name = name;
         this.price = price;
+        this.description = description;
     }
 
     public int getImage() {
@@ -28,11 +30,19 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }
