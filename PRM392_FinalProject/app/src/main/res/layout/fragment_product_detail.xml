@@ -4,30 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_fragment.ProductDetailFragment"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/tv_name_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Product Detail Fragment"
-        android:textSize="30dp"
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Back"
-        app:layout_constraintEnd_toEndOf="@+id/tv_name_product"
-        app:layout_constraintHorizontal_bias="0.5
-"
-        app:layout_constraintStart_toStartOf="@+id/tv_name_product"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_product" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_productdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:background="@drawable/shape_edit_text"
+                    android:scaleType="fitCenter"
+                    android:padding="10dp"
+                    android:src="@drawable/iphone15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_name_productdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Iphone 15"
+                    android:textColor="@color/black"
+                    android:textSize="36dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/img_productdetail"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/img_productdetail"
+                    app:layout_constraintTop_toBottomOf="@+id/img_productdetail" />
+
+                <TextView
+                    android:id="@+id/tv_price_productdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="20000000 VND"
+                    android:textColor="@color/main_red"
+                    android:textSize="32dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_name_productdetail"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tv_name_productdetail"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name_productdetail" />
+
+                <TextView
+                    android:id="@+id/tv_description_productdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="iPhone 1 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ"
+                    android:textSize="24dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_price_productdetail"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tv_price_productdetail"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_price_productdetail" />
+
+                <Button
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Back"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_description_productdetail"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tv_description_productdetail"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_description_productdetail" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+<!--    <Button-->
+<!--        android:id="@+id/button"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="Thêm vào giỏ hàng"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

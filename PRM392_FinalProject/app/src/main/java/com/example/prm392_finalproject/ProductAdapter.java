@@ -1,20 +1,16 @@
 package com.example.prm392_finalproject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.prm392_finalproject.main_fragment.HomeFragment;
 
 import java.util.List;
 
@@ -52,7 +48,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
         holder.imgProduct.setImageResource(product.getImage());
         holder.tvName.setText(product.getName());
-        holder.tvPrice.setText((int) product.getPrice() + " VND");
+        holder.tvPrice.setText((int) product.getPrice() + " VNĐ");
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
