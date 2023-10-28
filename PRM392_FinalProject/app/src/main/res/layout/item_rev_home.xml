@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="12dp">
-        
+
         <ImageView
             android:id="@+id/img_product"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:src="@drawable/iphone15"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/iphone15" />
 
         <TextView
             android:id="@+id/tv_name_product"

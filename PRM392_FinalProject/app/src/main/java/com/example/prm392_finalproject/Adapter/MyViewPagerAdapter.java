@@ -1,4 +1,4 @@
-package com.example.prm392_finalproject;
+package com.example.prm392_finalproject.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
