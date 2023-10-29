@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.Product;
 import com.example.prm392_finalproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,9 +24,10 @@ public class ProductDetailFragment extends Fragment {
     private ImageView image;
     private TextView tvName, tvDes, btn_back;
     private TextView tvPrice, tvDiscount;
-    private Button btn_addtocart;
+    private Button btn_addtocart, btn_loadmore;
     private View mView;
     private BottomNavigationView bottomNavigationView;
+    private boolean isExpanded = false;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -43,16 +46,19 @@ public class ProductDetailFragment extends Fragment {
         tvPrice = mView.findViewById(R.id.tv_price_productdetail);
         btn_back = mView.findViewById(R.id.btn_back);
         btn_addtocart = mView.findViewById(R.id.btn_addtocart);
-
+        btn_loadmore = mView.findViewById(R.id.btn_loadmore);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
 
         Bundle myBundle = getArguments();
         if (myBundle != null) {
-            Product product = (Product) myBundle.get("object_product");
+            Home_Product_DTO product = (Home_Product_DTO) myBundle.get("object_product");
             if (product != null) {
-                image.setImageResource(product.getImage());
+                Glide.with(ProductDetailFragment.this)
+                        .load(product.getImage())
+                        .centerCrop()
+                        .into(image);
                 tvName.setText(product.getName());
-                tvDes.setText(product.getDescription());
+//                tvDes.setText(product.getDescription());
                 tvPrice.setText((int) product.getPrice() + "VNĐ");
                 tvDiscount.setText("Giảm giá " + (double) product.getDiscount() + "%");
             }
@@ -74,7 +80,19 @@ public class ProductDetailFragment extends Fragment {
             }
         });
 
-
+        btn_loadmore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isExpanded = !isExpanded;
+                if (isExpanded) {
+                    tvDes.setMaxLines(Integer.MAX_VALUE);
+                    btn_loadmore.setText("Thu gọn");
+                } else {
+                    tvDes.setMaxLines(3);
+                    btn_loadmore.setText("Xem thêm");
+                }
+            }
+        });
 
 
 
