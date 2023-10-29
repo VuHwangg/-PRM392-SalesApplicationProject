@@ -11,7 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.prm392_finalproject.main_fragment.HomeFragment;
+import com.example.prm392_finalproject.Adapter.MyViewPagerAdapter;
+import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.main_fragment.ProductDetailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -105,8 +106,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    // Đưa data của một product truyền vào sang detail fragment
-    public void goToDetailFragment(Product product) {
+    public void goToDetailFragment(Home_Product_DTO product) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         // Tương tự như intent dùng để gửi dữ liêu giữa các Fragment

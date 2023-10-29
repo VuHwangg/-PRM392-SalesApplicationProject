@@ -1,4 +1,4 @@
-package com.example.prm392_finalproject;
+package com.example.prm392_finalproject.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,21 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
+import com.example.prm392_finalproject.Product;
+import com.example.prm392_finalproject.R;
 
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
 
     private Context mContext;
-    private List<Product> mListProduct;
+    private List<Home_Product_DTO> mListProduct;
     private IClickItemListener mIClickItemListener;
     public interface IClickItemListener{
-        void onClickItemProduct(Product product);
+        void onClickItemProduct(Home_Product_DTO product);
     }
 
     public ProductAdapter(Context mContext, IClickItemListener listener) {
@@ -28,7 +32,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.mIClickItemListener = listener;
     }
 
-    public void setData(List<Product> list) {
+    public void setData(List<Home_Product_DTO> list) {
         this.mListProduct = list;
         notifyDataSetChanged();
     }
@@ -42,11 +46,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product product = mListProduct.get(position);
+        Home_Product_DTO product = mListProduct.get(position);
         if (product == null) {
             return;
         }
-        holder.imgProduct.setImageResource(product.getImage());
+        Glide.with(holder.itemView)
+                .load(product.getImage())
+                .centerCrop()
+                .into(holder.imgProduct);
         holder.tvName.setText(product.getName());
         holder.tvPrice.setText((int) product.getPrice() + " VNĐ");
         holder.tvDiscount.setText((double) product.getDiscount() + "%");

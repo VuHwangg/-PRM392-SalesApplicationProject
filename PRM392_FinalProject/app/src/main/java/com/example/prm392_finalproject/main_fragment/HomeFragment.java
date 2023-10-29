@@ -1,6 +1,5 @@
 package com.example.prm392_finalproject.main_fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prm392_finalproject.API.APIService;
+import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.MainActivity;
 import com.example.prm392_finalproject.Product;
-import com.example.prm392_finalproject.ProductAdapter;
+import com.example.prm392_finalproject.Adapter.ProductAdapter;
 import com.example.prm392_finalproject.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
@@ -37,7 +42,7 @@ public class HomeFragment extends Fragment {
         revProduct = mView.findViewById(R.id.rev_home);
         mProductAdapter = new ProductAdapter(mMainActivity, new ProductAdapter.IClickItemListener() {
             @Override
-            public void onClickItemProduct(Product product) {
+            public void onClickItemProduct(Home_Product_DTO product) {
                 mMainActivity.goToDetailFragment(product);
             }
         });
@@ -45,30 +50,36 @@ public class HomeFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mMainActivity, 2);
         revProduct.setLayoutManager(gridLayoutManager);
 
-        mProductAdapter.setData(getListProduct());
-        revProduct.setAdapter(mProductAdapter);
-
+//        mProductAdapter.setData(getListProduct());
+//        revProduct.setAdapter(mProductAdapter);
+        callAPIHomePage();
         return mView;
     }
 
 
-    private List<Product> getListProduct() {
-        List<Product> list = new ArrayList<>();
-        list.add(new Product(R.drawable.iphone4, "Iphone1", "iPhone 1 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 123456, 10));
-        list.add(new Product(R.drawable.iphone8, "Iphone2", "iPhone 2 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 9250000, 6));
-        list.add(new Product(R.drawable.iphone15, "Iphone3", "iPhone 3 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 25000000, 5.2));
-        list.add(new Product(R.drawable.iphone4, "Iphone4", "iPhone 4 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 123456, 89.9));
-        list.add(new Product(R.drawable.iphone8, "Iphone5", "iPhone 5 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 9250000, 0));
-        list.add(new Product(R.drawable.iphone15, "Iphone6", "iPhone 6 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 25000000, 0.5));
-        list.add(new Product(R.drawable.iphone4, "Iphone7", "iPhone 7 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 123456, 2));
-        list.add(new Product(R.drawable.iphone8, "Iphone8", "iPhone 8 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 9250000, 13));
-        list.add(new Product(R.drawable.iphone15, "IphoneX", "iPhone X thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 25000000, 14));
-        list.add(new Product(R.drawable.iphone4, "Iphon11", "iPhone 11 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 123456, 15));
-        list.add(new Product(R.drawable.iphone8, "Iphone12", "iPhone 12 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 9250000, 23));
-        list.add(new Product(R.drawable.iphone15, "Iphone13", "iPhone 13 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 25000000, 24));
-        list.add(new Product(R.drawable.iphone4, "Iphone14", "iPhone 14 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 123456, 25));
-        list.add(new Product(R.drawable.iphone8, "Iphone15", "iPhone 15 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ", 9250000, 26));
-        return list;
+
+    private List<Home_Product_DTO> callAPIHomePage() {
+        boolean check = true;
+        List<Home_Product_DTO> list = new ArrayList<>();
+//        list.add(new Home_Product_DTO(1,"https://www.tsttourist.com/vnt_upload/news/07_2021/tsttourist-10-buc-anh-troi-dem-dep-nhat-the-gioi-1.jpeg", "Iphone1", 123456,1));
+//        list.add(new Home_Product_DTO(1,"https://www.tsttourist.com/vnt_upload/news/07_2021/tsttourist-10-buc-anh-troi-dem-dep-nhat-the-gioi-1.jpeg", "Iphone1", 123456,1));
+//        list.add(new Home_Product_DTO(1,"https://www.tsttourist.com/vnt_upload/news/07_2021/tsttourist-10-buc-anh-troi-dem-dep-nhat-the-gioi-1.jpeg", "Iphone1", 123456,1));
+        APIService.apiService.listProductHomePage().enqueue(new Callback<ArrayList<Home_Product_DTO>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Home_Product_DTO>> call, Response<ArrayList<Home_Product_DTO>> response) {
+                Toast.makeText(mMainActivity, "Call API failure", Toast.LENGTH_SHORT).show();
+                List<Home_Product_DTO> list = response.body();
+                mProductAdapter.setData(list);
+                revProduct.setAdapter(mProductAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Home_Product_DTO>> call, Throwable t) {
+                Toast.makeText(mMainActivity, "Call API failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return null;
     }
 
 }
