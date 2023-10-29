@@ -20,9 +20,9 @@ public class ProductDetailFragment extends Fragment {
 
     public static final String TAG = ProductDetailFragment.class.getName();
     private ImageView image;
-    private TextView tvName, tvDes;
+    private TextView tvName, tvDes, btn_back;
     private TextView tvPrice, tvDiscount;
-    private Button btn_back, btn_addtocart;
+    private Button btn_addtocart;
     private View mView;
     private BottomNavigationView bottomNavigationView;
 
