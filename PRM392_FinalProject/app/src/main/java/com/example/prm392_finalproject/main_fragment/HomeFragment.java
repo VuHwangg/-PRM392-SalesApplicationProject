@@ -67,7 +67,6 @@ public class HomeFragment extends Fragment {
         APIService.apiService.listProductHomePage().enqueue(new Callback<ArrayList<Home_Product_DTO>>() {
             @Override
             public void onResponse(Call<ArrayList<Home_Product_DTO>> call, Response<ArrayList<Home_Product_DTO>> response) {
-                Toast.makeText(mMainActivity, "Call API failure", Toast.LENGTH_SHORT).show();
                 List<Home_Product_DTO> list = response.body();
                 mProductAdapter.setData(list);
                 revProduct.setAdapter(mProductAdapter);

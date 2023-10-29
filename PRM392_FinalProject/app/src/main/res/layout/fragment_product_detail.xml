@@ -27,19 +27,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <Button
+                    android:id="@+id/btn_loadmore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:fontFamily="sans-serif"
+                    android:text="Load more..."
+                    android:textAllCaps="false"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_description_productdetail"
+                    app:layout_constraintStart_toStartOf="@+id/tv_description_productdetail"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_description_productdetail" />
+
                 <TextView
                     android:id="@+id/btn_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:clickable="true"
                     android:drawableLeft="@drawable/ic_back"
                     android:drawablePadding="4dp"
+                    android:padding="10dp"
                     android:text="Quay lại"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textStyle="bold"
-                    android:padding="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,13 +91,13 @@
                     android:id="@+id/tv_name_productdetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="12dp"
                     android:text="Iphone 15"
                     android:textColor="@color/black"
                     android:textSize="36sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/img_productdetail"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.076"
                     app:layout_constraintStart_toStartOf="@+id/img_productdetail"
                     app:layout_constraintTop_toBottomOf="@+id/img_productdetail" />
 
@@ -90,13 +105,13 @@
                     android:id="@+id/tv_price_productdetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="4dp"
                     android:text="20000000 VND"
                     android:textColor="@color/main_red"
                     android:textSize="32sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/tv_name_productdetail"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/tv_name_productdetail"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name_productdetail" />
 
@@ -104,11 +119,13 @@
                     android:id="@+id/tv_description_productdetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="4dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
                     android:text="iPhone 1 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_price_productdetail"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.105"
                     app:layout_constraintStart_toStartOf="@+id/tv_price_productdetail"
                     app:layout_constraintTop_toBottomOf="@+id/tv_price_productdetail" />
 
