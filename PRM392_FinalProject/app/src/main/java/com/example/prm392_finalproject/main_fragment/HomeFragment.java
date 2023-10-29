@@ -38,7 +38,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        // Context của fragment
         mMainActivity = (MainActivity) getActivity();
+
         revProduct = mView.findViewById(R.id.rev_home);
         mProductAdapter = new ProductAdapter(mMainActivity, new ProductAdapter.IClickItemListener() {
             @Override
@@ -47,6 +49,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Layout hiện thị là dạng grid mỗi hàng có 2 cột
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mMainActivity, 2);
         revProduct.setLayoutManager(gridLayoutManager);
 

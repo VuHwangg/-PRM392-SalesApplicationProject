@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
-import com.example.prm392_finalproject.Product;
 import com.example.prm392_finalproject.R;
 
 import java.util.List;
@@ -88,7 +87,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvName = itemView.findViewById(R.id.tv_name_product);
             tvPrice = itemView.findViewById(R.id.tv_price_product);
             tvDiscount = itemView.findViewById(R.id.tv_discount);
-            cardView = itemView.findViewById(R.id.card_view);
+            cardView = itemView.findViewById(R.id.cv_home);
         }
     }
 }
