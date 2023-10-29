@@ -67,7 +67,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/shape_button"/>
+                android:background="@drawable/shape_button_red"/>
 
 <!--            <View-->
 <!--                android:layout_width="match_parent"-->
