@@ -49,6 +49,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.imgProduct.setImageResource(product.getImage());
         holder.tvName.setText(product.getName());
         holder.tvPrice.setText((int) product.getPrice() + " VNĐ");
+        holder.tvDiscount.setText((double) product.getDiscount() + "%");
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +71,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         private ImageView imgProduct;
         private TextView tvName;
         private TextView tvPrice;
+        private TextView tvDiscount;
         CardView cardView;
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -78,6 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             imgProduct = itemView.findViewById(R.id.img_product);
             tvName = itemView.findViewById(R.id.tv_name_product);
             tvPrice = itemView.findViewById(R.id.tv_price_product);
+            tvDiscount = itemView.findViewById(R.id.tv_discount);
             cardView = itemView.findViewById(R.id.card_view);
         }
     }

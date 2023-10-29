@@ -6,12 +6,14 @@ public class Product implements Serializable {
 
     private int image, price;
     private String name, description;
+    private double discount;
 
-    public Product(int image, String name, String description, int price) {
+    public Product(int image, String name, String description, int price, double discount) {
         this.image = image;
         this.name = name;
         this.price = price;
         this.description = description;
+        this.discount = discount;
     }
 
     public int getImage() {
@@ -44,5 +46,13 @@ public class Product implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 }

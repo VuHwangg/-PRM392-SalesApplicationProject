@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    // Đưa data của một product truyền vào sang detail fragment
     public void goToDetailFragment(Product product) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 

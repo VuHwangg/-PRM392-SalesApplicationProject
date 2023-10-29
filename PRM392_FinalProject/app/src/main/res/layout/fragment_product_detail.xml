@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,12 +31,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:background="@drawable/shape_edit_text"
-                    android:scaleType="fitCenter"
                     android:padding="10dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/iphone15"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_discount_productdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_percent_box2"
+                    android:padding="8dp"
+                    android:text="Giảm giá 10%"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_productdetail"
+                    app:layout_constraintEnd_toEndOf="@+id/img_productdetail"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_name_productdetail"
@@ -45,7 +60,7 @@
                     android:layout_marginTop="20dp"
                     android:text="Iphone 15"
                     android:textColor="@color/black"
-                    android:textSize="36dp"
+                    android:textSize="36sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/img_productdetail"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -59,7 +74,7 @@
                     android:layout_marginTop="10dp"
                     android:text="20000000 VND"
                     android:textColor="@color/main_red"
-                    android:textSize="32dp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/tv_name_productdetail"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -72,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="iPhone 1 thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc. Khả năng chụp ảnh đỉnh cao của iPhone 15 bản Pro Max đến từ camera chính 48MP, camera UltraWide 12MP và camera telephoto có khả năng zoom quang học đến 5x. Bên cạnh đó, iPhone 15 ProMax sử dụng chip A17 Pro mới mạnh mẽ"
-                    android:textSize="24dp"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_price_productdetail"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/tv_price_productdetail"
@@ -93,12 +108,15 @@
         </LinearLayout>
     </ScrollView>
 
-<!--    <Button-->
-<!--        android:id="@+id/button"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:text="Thêm vào giỏ hàng"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
+    <Button
+        android:id="@+id/btn_addtocart"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Thêm vào giỏ hàng"
+        android:background="@color/main_red"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
