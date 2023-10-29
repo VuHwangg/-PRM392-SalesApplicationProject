@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
+import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
+import com.example.prm392_finalproject.MainActivity;
 import com.example.prm392_finalproject.Product;
 import com.example.prm392_finalproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductDetailFragment extends Fragment {
 
@@ -28,6 +39,8 @@ public class ProductDetailFragment extends Fragment {
     private View mView;
     private BottomNavigationView bottomNavigationView;
     private boolean isExpanded = false;
+    private Product_Detail_DTO product;
+    private MainActivity mMainActivity;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -51,17 +64,8 @@ public class ProductDetailFragment extends Fragment {
 
         Bundle myBundle = getArguments();
         if (myBundle != null) {
-            Home_Product_DTO product = (Home_Product_DTO) myBundle.get("object_product");
-            if (product != null) {
-                Glide.with(ProductDetailFragment.this)
-                        .load(product.getImage())
-                        .centerCrop()
-                        .into(image);
-                tvName.setText(product.getName());
-//                tvDes.setText(product.getDescription());
-                tvPrice.setText((int) product.getPrice() + "VNĐ");
-                tvDiscount.setText("Giảm giá " + (double) product.getDiscount() + "%");
-            }
+            int id = (int) myBundle.get("product_id");
+            callAPIProductDetail(id);
         }
 
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +115,31 @@ public class ProductDetailFragment extends Fragment {
         super.onStop();
         // Hiển thị BottomNavigationView lại sau khi Fragment dừng
         bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
+    private void callAPIProductDetail(int id) {
+        APIService.apiService.getProductDetail(id).enqueue(new Callback<Product_Detail_DTO>() {
+            @Override
+            public void onResponse(Call<Product_Detail_DTO> call, Response<Product_Detail_DTO> response) {
+                product = response.body();
+                if (product != null) {
+                    Glide.with(ProductDetailFragment.this)
+                            .load(product.getImage())
+                            .centerCrop()
+                            .into(image);
+                    tvName.setText(product.getName());
+                tvDes.setText(product.getDescription());
+                    tvPrice.setText((int) product.getPrice() + "VNĐ");
+                    tvDiscount.setText("Giảm giá " + (double) product.getDiscount() + "%");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Product_Detail_DTO> call, Throwable t) {
+                Toast.makeText(mMainActivity, "Call API failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 }

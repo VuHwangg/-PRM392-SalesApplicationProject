@@ -106,5 +106,5 @@
         android:textStyle="bold"
         android:drawableLeft="@drawable/ic_settings"
         android:drawablePadding="8dp"/>
-    
+
 </LinearLayout>

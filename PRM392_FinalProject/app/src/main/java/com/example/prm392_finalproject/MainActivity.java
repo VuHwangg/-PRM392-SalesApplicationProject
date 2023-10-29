@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         ProductDetailFragment detailFragment = new ProductDetailFragment();
 
         Bundle mybundle =new Bundle();
-        mybundle.putSerializable("object_product", product);
+        mybundle.putSerializable("product_id", product.getId());
 
         detailFragment.setArguments(mybundle);
 
