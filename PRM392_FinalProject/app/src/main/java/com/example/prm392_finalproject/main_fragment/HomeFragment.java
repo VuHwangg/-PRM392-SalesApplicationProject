@@ -13,10 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_finalproject.API.APIService;
+import com.example.prm392_finalproject.Adapter.ProductAdapter;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.MainActivity;
-import com.example.prm392_finalproject.Product;
-import com.example.prm392_finalproject.Adapter.ProductAdapter;
 import com.example.prm392_finalproject.R;
 
 import java.util.ArrayList;
@@ -43,6 +42,7 @@ public class HomeFragment extends Fragment {
 
         revProduct = mView.findViewById(R.id.rev_home);
         mProductAdapter = new ProductAdapter(mMainActivity, new ProductAdapter.IClickItemListener() {
+            // Định nghĩa interface onClickItemProduct
             @Override
             public void onClickItemProduct(Home_Product_DTO product) {
                 mMainActivity.goToDetailFragment(product);

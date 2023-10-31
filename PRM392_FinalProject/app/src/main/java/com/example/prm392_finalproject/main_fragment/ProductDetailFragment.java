@@ -1,10 +1,6 @@
 package com.example.prm392_finalproject.main_fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.example.prm392_finalproject.API.APIService;
-import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
 import com.example.prm392_finalproject.MainActivity;
-import com.example.prm392_finalproject.Product;
 import com.example.prm392_finalproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +26,7 @@ public class ProductDetailFragment extends Fragment {
 
     public static final String TAG = ProductDetailFragment.class.getName();
     private ImageView image;
-    private TextView tvName, tvDes, btn_back;
+    private TextView tvName, tvDes, btnBack;
     private TextView tvPrice, tvDiscount;
     private Button btn_addtocart, btn_loadmore;
     private View mView;
@@ -57,7 +50,7 @@ public class ProductDetailFragment extends Fragment {
         tvName = mView.findViewById(R.id.tv_name_productdetail);
         tvDes = mView.findViewById(R.id.tv_description_productdetail);
         tvPrice = mView.findViewById(R.id.tv_price_productdetail);
-        btn_back = mView.findViewById(R.id.btn_back);
+        btnBack = mView.findViewById(R.id.btn_back);
         btn_addtocart = mView.findViewById(R.id.btn_addtocart);
         btn_loadmore = mView.findViewById(R.id.btn_loadmore);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
@@ -68,7 +61,7 @@ public class ProductDetailFragment extends Fragment {
             callAPIProductDetail(id);
         }
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (getFragmentManager() != null) {
