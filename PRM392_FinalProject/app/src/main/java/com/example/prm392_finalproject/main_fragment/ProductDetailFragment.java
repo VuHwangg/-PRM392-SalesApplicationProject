@@ -15,11 +15,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.prm392_finalproject.API.APIService;
+import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
 import com.example.prm392_finalproject.MainActivity;
 import com.example.prm392_finalproject.Product;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -80,7 +82,19 @@ public class ProductDetailFragment extends Fragment {
         btn_addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Add to cart successfully", Toast.LENGTH_SHORT).show();
+                boolean check =false;
+                CartSingleton cartSingleton = CartSingleton.getInstance();
+                for(Cart_Product_DTO cart_product_dto : cartSingleton.getCart()){
+                    if(cart_product_dto.getId() == product.getId()){
+                        cart_product_dto.setQuantity(cart_product_dto.getQuantity()+1);
+                        check =true;
+                        Log.d("b","b1");
+                    }
+                }
+                if (check == false){
+                    cartSingleton.getCart().add(new Cart_Product_DTO(product.getId(),product.getImage(),product.getName(),product.getPrice(),1));
+                    Log.d("b","a1");
+                }
             }
         });
 

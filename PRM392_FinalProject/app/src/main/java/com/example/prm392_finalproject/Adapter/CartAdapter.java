@@ -12,21 +12,27 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.Product;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Singleton.CartSingleton;
 
 import java.util.List;
 
 public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolder>{
 
     private Context mContext;
-    private List<Product> mListProduct;
+    private List<Cart_Product_DTO> mListProduct;
 
-    public CartAdapter(Context mContext) {
+    private TextView tvTotalCost;
+
+    public CartAdapter(Context mContext, TextView tvTotalCost) {
         this.mContext = mContext;
+        this.tvTotalCost = tvTotalCost;
     }
 
-    public void setData(List<Product> list) {
+    public void setData(List<Cart_Product_DTO> list) {
         this.mListProduct = list;
         notifyDataSetChanged();
     }
@@ -40,30 +46,65 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        Product product = mListProduct.get(position);
+        Cart_Product_DTO product = mListProduct.get(position);
         if (product == null) {
             return;
         }
-        holder.imgProduct.setImageResource(product.getImage());
+        Glide.with(holder.itemView)
+                .load(product.getImage())
+                .centerCrop()
+                .into(holder.imgProduct);
         holder.tvName.setText(product.getName());
 
         holder.tvPrice.setText((int) product.getPrice() + " VND");
+        holder.tvQuantity.setText(String.valueOf((int) product.getQuantity()));
         holder.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Button minus clicked", Toast.LENGTH_SHORT).show();
+                for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart())
+                {
+                    if(cart_product_dto.getId()== product.getId())
+                    {
+                        if(cart_product_dto.getQuantity()==1)
+                        {
+                            CartSingleton.getInstance().getCart().remove(cart_product_dto);
+                        }
+                        else
+                        {
+                            cart_product_dto.setQuantity(cart_product_dto.getQuantity()-1);
+                        }
+                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                        notifyDataSetChanged();
+                    }
+                }
             }
         });
         holder.btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Button plus clicked", Toast.LENGTH_SHORT).show();
+                for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart())
+                {
+                    if(cart_product_dto.getId()== product.getId())
+                    {
+                        cart_product_dto.setQuantity(cart_product_dto.getQuantity()+1);
+                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                        notifyDataSetChanged();
+                    }
+                }
             }
         });
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Button delete clicked", Toast.LENGTH_SHORT).show();
+                for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart())
+                {
+                    if(cart_product_dto.getId()== product.getId())
+                    {
+                        CartSingleton.getInstance().getCart().remove(cart_product_dto);
+                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                        notifyDataSetChanged();
+                    }
+                }
             }
         });
     }
@@ -76,11 +117,20 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
         return 0;
     }
 
+    public double getTotalCost(){
+        double totalCost = 0;
+        for(Cart_Product_DTO cart_product_dto : mListProduct){
+            totalCost+=cart_product_dto.getPrice()* cart_product_dto.getQuantity();
+        }
+        return totalCost;
+    }
+
     public class CartViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imgProduct;
         private TextView tvName;
         private TextView tvPrice;
+        private TextView tvQuantity;
         private Button btnMinus, btnPlus, btnDelete;
 
         public CartViewHolder(@NonNull View itemView) {
@@ -89,6 +139,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
             imgProduct = itemView.findViewById(R.id.img_productcart);
             tvName = itemView.findViewById(R.id.tv_name_productcart);
             tvPrice = itemView.findViewById(R.id.tv_price_productcart);
+            tvQuantity = itemView.findViewById(R.id.tv_quantity_productcart);
             btnMinus = itemView.findViewById(R.id.btn_minus_quantity);
             btnPlus = itemView.findViewById(R.id.btn_plus_quantity);
             btnDelete = itemView.findViewById(R.id.btn_delete_cart);
