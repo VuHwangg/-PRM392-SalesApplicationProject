@@ -14,10 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.prm392_finalproject.API.APIService;
-
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
-import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
-
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
 import com.example.prm392_finalproject.MainActivity;
 import com.example.prm392_finalproject.R;
@@ -50,7 +47,8 @@ public class ProductDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_product_detail, container, false);
-
+        // Context của fragment
+        mMainActivity = (MainActivity) getActivity();
         image = mView.findViewById(R.id.img_productdetail);
         tvDiscount = mView.findViewById(R.id.tv_discount_productdetail);
         tvName = mView.findViewById(R.id.tv_name_productdetail);
@@ -86,11 +84,13 @@ public class ProductDetailFragment extends Fragment {
                         cart_product_dto.setQuantity(cart_product_dto.getQuantity()+1);
                         check =true;
                         Log.d("b","b1");
+                        Toast.makeText(mMainActivity, "Thêm vào giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if (check == false){
                     cartSingleton.getCart().add(new Cart_Product_DTO(product.getId(),product.getImage(),product.getName(),product.getPrice(),1));
                     Log.d("b","a1");
+                    Toast.makeText(mMainActivity, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -101,10 +101,10 @@ public class ProductDetailFragment extends Fragment {
                 isExpanded = !isExpanded;
                 if (isExpanded) {
                     tvDes.setMaxLines(Integer.MAX_VALUE);
-                    btn_loadmore.setText("Thu gọn");
+                    btn_loadmore.setText("Thu gọn...");
                 } else {
                     tvDes.setMaxLines(3);
-                    btn_loadmore.setText("Xem thêm");
+                    btn_loadmore.setText("Xem thêm...");
                 }
             }
         });
@@ -139,7 +139,7 @@ public class ProductDetailFragment extends Fragment {
                             .centerCrop()
                             .into(image);
                     tvName.setText(product.getName());
-                tvDes.setText(product.getDescription());
+                    tvDes.setText(product.getDescription());
                     tvPrice.setText((int) product.getPrice() + "VNĐ");
                     tvDiscount.setText("Giảm giá " + (double) product.getDiscount() + "%");
                 }
