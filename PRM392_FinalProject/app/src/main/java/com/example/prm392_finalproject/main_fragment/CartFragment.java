@@ -2,13 +2,11 @@ package com.example.prm392_finalproject.main_fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.TextView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_finalproject.Adapter.CartAdapter;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.MainActivity;
-import com.example.prm392_finalproject.Product;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends Fragment {
@@ -60,12 +56,12 @@ public class CartFragment extends Fragment {
         revProduct.setLayoutManager(linearLayoutManager);
         CartSingleton cartSingleton = CartSingleton.getInstance();
         mCartAdapter.setData(cartSingleton.getCart());
-        revProduct.setAdapter(mCartAdapter);double totalCost = 0;
+        revProduct.setAdapter(mCartAdapter);
+        double totalCost = 0;
         for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart()){
             totalCost += cart_product_dto.getPrice()*cart_product_dto.getQuantity();
         }
         tvCost.setText(String.valueOf((int) totalCost));
-
         return mView;
     }
 

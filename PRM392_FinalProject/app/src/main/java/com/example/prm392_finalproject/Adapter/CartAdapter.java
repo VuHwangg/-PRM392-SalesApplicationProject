@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
-import com.example.prm392_finalproject.Product;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 
@@ -56,7 +55,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                 .into(holder.imgProduct);
         holder.tvName.setText(product.getName());
 
-        holder.tvPrice.setText((int) product.getPrice() + " VND");
+        holder.tvPrice.setText((int) product.getPrice() + " VNĐ");
         holder.tvQuantity.setText(String.valueOf((int) product.getQuantity()));
         holder.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +102,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                         CartSingleton.getInstance().getCart().remove(cart_product_dto);
                         tvTotalCost.setText(String.valueOf((int) getTotalCost()));
                         notifyDataSetChanged();
+                        Toast.makeText(mContext, "Sản phẩm đã bị xóa khỏi giỏ hàng", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
