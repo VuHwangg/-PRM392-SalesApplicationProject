@@ -60,7 +60,8 @@ public class CartFragment extends Fragment {
         revProduct.setLayoutManager(linearLayoutManager);
         CartSingleton cartSingleton = CartSingleton.getInstance();
         mCartAdapter.setData(cartSingleton.getCart());
-        revProduct.setAdapter(mCartAdapter);double totalCost = 0;
+        revProduct.setAdapter(mCartAdapter);
+        double totalCost = 0;
         for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart()){
             totalCost += cart_product_dto.getPrice()*cart_product_dto.getQuantity();
         }
@@ -75,9 +76,10 @@ public class CartFragment extends Fragment {
         // Ẩn BottomNavigationView
         List<Cart_Product_DTO>cart = CartSingleton.getInstance().getCart();
         mCartAdapter.setData(cart);
-//        double totalCost = 0;
-//        for(Cart_Product_DTO cart_product_dto : cart){
-//            totalCost += cart_product_dto.getPrice()*cart_product_dto.getQuantity();
-//        }
+        double totalCost = 0;
+        for(Cart_Product_DTO cart_product_dto : cart){
+            totalCost += cart_product_dto.getPrice()*cart_product_dto.getQuantity();
+        }
+        tvCost.setText(String.valueOf((int) totalCost));
     }
 }
