@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,19 +34,27 @@ public class CartFragment extends Fragment {
     private View mView;
     private TextView tvCost;
 
+    private Button btnCheckout;
+
     @SuppressLint("SuspiciousIndentation")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_cart, container, false);
 
+        btnCheckout = mView.findViewById(R.id.btn_checkout);
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMainActivity.goToPaymentFragment();
+            }
+        });
+
         // Context của fragment
         mMainActivity = (MainActivity) getActivity();
         revProduct = mView.findViewById(R.id.rev_cart);
         tvCost = mView.findViewById(R.id.tv_cart_cost);
-
         mCartAdapter = new CartAdapter(getActivity(),tvCost);
-
         // Layout hiện thị là dạng liner
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainActivity);
         revProduct.setLayoutManager(linearLayoutManager);

@@ -1,18 +1,19 @@
 package com.example.prm392_finalproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.example.prm392_finalproject.Adapter.MyViewPagerAdapter;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
+import com.example.prm392_finalproject.main_fragment.PaymentFragment;
 import com.example.prm392_finalproject.main_fragment.ProductDetailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -121,4 +122,14 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(ProductDetailFragment.TAG);
         fragmentTransaction.commit();
     }
+
+    public void goToPaymentFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        // Tương tự như intent dùng để gửi dữ liêu giữa các Fragment
+        PaymentFragment paymentFragment = new PaymentFragment();
+        fragmentTransaction.replace(R.id.main_activity, paymentFragment);
+        fragmentTransaction.addToBackStack(PaymentFragment.TAG);
+        fragmentTransaction.commit();
+    }
+
 }

@@ -59,6 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Kích hoạt interface
                 mIClickItemListener.onClickItemProduct(product);
             }
         });
