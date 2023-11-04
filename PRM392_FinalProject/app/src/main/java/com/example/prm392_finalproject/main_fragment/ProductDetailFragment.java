@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
-import com.example.prm392_finalproject.Activity.MainActivity;
+import com.example.prm392_finalproject.MainActivity;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,18 +29,14 @@ public class ProductDetailFragment extends Fragment {
 
     public static final String TAG = ProductDetailFragment.class.getName();
     private ImageView image;
-    private TextView tvName, tvDes, btnBack;
-    private TextView tvPrice, tvDiscount;
+    private TextView tvName, tvDes, tvPrice, tvDiscount;
+    private TextView btnBack;
     private Button btn_addtocart, btn_loadmore;
     private View mView;
     private BottomNavigationView bottomNavigationView;
     private boolean isExpanded = false;
     private Product_Detail_DTO product;
     private MainActivity mMainActivity;
-
-    public ProductDetailFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,6 +104,8 @@ public class ProductDetailFragment extends Fragment {
                 }
             }
         });
+
+
         return mView;
     }
 

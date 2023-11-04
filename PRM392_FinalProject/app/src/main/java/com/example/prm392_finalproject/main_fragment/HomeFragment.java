@@ -39,8 +39,8 @@ public class HomeFragment extends Fragment {
 
         // Context của fragment
         mMainActivity = (MainActivity) getActivity();
-
         revProduct = mView.findViewById(R.id.rev_home);
+
         mProductAdapter = new ProductAdapter(mMainActivity, new ProductAdapter.IClickItemListener() {
             // Định nghĩa interface onClickItemProduct
             @Override
