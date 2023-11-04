@@ -4,33 +4,28 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
 
 @Entity
-@Table(name = "tbl_order")
+@Table(name = "tbl_order_detail")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Order {
+public class OrderDetail {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id")
-    Customer customer;
+    @JoinColumn(name = "order_id")
+    Order order;
 
-    String phone;
-    String address;
-    LocalDate date;
-    float total;
-    int status;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
+    Product product;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-    List<OrderDetail> orderDetailList;
-
+    float price;
 }

@@ -27,6 +27,9 @@ public class Product {
     String description;
     String image;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     List<Cart> carts;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    List<OrderDetail> orderDetailList;
 }
