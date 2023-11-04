@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_customer")
@@ -24,7 +25,9 @@ public class Customer {
     String address;
     String phone;
 
+    @OneToMany(mappedBy = "customer")
+    List<Cart> carts;
 
-
-
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    List<Order> orders;
 }

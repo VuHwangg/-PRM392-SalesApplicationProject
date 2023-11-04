@@ -4,27 +4,28 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "tbl_cart")
+@Table(name = "tbl_customer")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Cart {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    int quantity;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    Product product;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     Customer customer;
+
+    String phone;
+    String address;
+    LocalDate date;
+    float total;
+    int status;
 }

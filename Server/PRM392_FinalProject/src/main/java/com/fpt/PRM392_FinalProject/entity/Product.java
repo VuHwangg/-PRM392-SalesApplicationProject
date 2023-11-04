@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_product")
@@ -25,4 +26,7 @@ public class Product {
     boolean category;
     String description;
     String image;
+
+    @OneToMany(mappedBy = "product")
+    List<Cart> carts;
 }
