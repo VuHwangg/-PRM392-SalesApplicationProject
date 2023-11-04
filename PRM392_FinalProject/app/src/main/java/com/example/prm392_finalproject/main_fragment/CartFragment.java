@@ -16,14 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_finalproject.Adapter.CartAdapter;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
-import com.example.prm392_finalproject.MainActivity;
+import com.example.prm392_finalproject.Activity.MainActivity;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 
 import java.util.List;
 
 public class CartFragment extends Fragment {
-
+    public static final String TAG = CartFragment.class.getName();
     private RecyclerView revProduct;
     private CartAdapter mCartAdapter;
     private MainActivity mMainActivity;

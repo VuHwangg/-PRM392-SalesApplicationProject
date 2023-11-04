@@ -23,7 +23,7 @@ public class CartSingleton {
         return cart;
     }
 
-    public void setProductList(Cart_Product_DTO product) {
-        this.cart.add(product);
+    public void setProductList(List<Cart_Product_DTO> cart) {
+        this.cart =cart;
     }
 }
