@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prm392_finalproject.Order;
+import com.example.prm392_finalproject.DTOModels.Order_DTO;
 import com.example.prm392_finalproject.R;
 
 import java.util.List;
@@ -20,12 +20,12 @@ import java.util.List;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
     private Context mContext;
-    private List<Order> mListOrder;
+    private List<Order_DTO> mListOrder;
 
     private IClickItemListener mIClickItemListener;
 
     public interface IClickItemListener{
-        void onClickItemOrder(Order order);
+        void onClickItemOrder(Order_DTO order);
     }
 
     public OrderAdapter(Context mContext, IClickItemListener listener) {
@@ -33,7 +33,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         this.mIClickItemListener = listener;
     }
 
-    public void setData(List<Order> list) {
+    public void setData(List<Order_DTO> list) {
         this.mListOrder = list;
         notifyDataSetChanged();
     }
@@ -47,39 +47,39 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = mListOrder.get(position);
+        Order_DTO order = mListOrder.get(position);
         if (order == null) {
             return;
         }
 
-        holder.tvOrderId.setText(order.getOrderId() + "");
+        holder.tvOrderId.setText(order.getId() + "");
 
-        if (order.getOrderStatus() == 0) {
+        if (order.getStatus() == 0) {
             holder.tvOrderStatus.setText("Đã đặt hàng");
             holder.tvOrderStatus.setTextColor(Color.parseColor("#80000000"));
             holder.layoutOrder.setBackgroundColor(Color.parseColor("#40000000"));
-       } else if (order.getOrderStatus() == 1) {
+        } else if (order.getStatus() == 1) {
             holder.tvOrderStatus.setText("Đã xác nhận");
             holder.tvOrderStatus.setTextColor(Color.parseColor("#9C27B0"));
             holder.layoutOrder.setBackgroundColor(Color.parseColor("#409C27B0"));
-        } else if (order.getOrderStatus() == 2) {
+        } else if (order.getStatus() == 2) {
             holder.tvOrderStatus.setText("Đang giao hàng");
             holder.tvOrderStatus.setTextColor(Color.parseColor("#3F51B5"));
             holder.layoutOrder.setBackgroundColor(Color.parseColor("#403F51B5"));
-        } else if (order.getOrderStatus() == 3) {
+        } else if (order.getStatus() == 3) {
             holder.tvOrderStatus.setText("Đã giao hàng");
             holder.tvOrderStatus.setTextColor(Color.parseColor("#369C3A"));
             holder.layoutOrder.setBackgroundColor(Color.parseColor("#40369C3A"));
-        } else if (order.getOrderStatus() == 4) {
+        } else if (order.getStatus() == 4) {
             holder.tvOrderStatus.setText("Đơn hàng bị hủy");
             holder.tvOrderStatus.setTextColor(Color.parseColor("#CC3125"));
             holder.layoutOrder.setBackgroundColor(Color.parseColor("#40CC3125"));
         }
 
-        holder.tvOrderUsername.setText(order.getUsername());
-        holder.tvOrderPhonenum.setText(order.getPhoneNum());
+        holder.tvOrderUsername.setText(order.getCustomerName());
+        holder.tvOrderPhonenum.setText(order.getPhone());
         holder.tvOrderAddress.setText(order.getAddress());
-        holder.tvOrderCost.setText(order.getOrderCost() + "");
+        holder.tvOrderCost.setText(order.getPrice() + "");
         holder.cvOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

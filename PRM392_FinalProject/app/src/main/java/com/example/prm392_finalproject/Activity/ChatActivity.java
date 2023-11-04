@@ -1,8 +1,8 @@
 package com.example.prm392_finalproject.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.prm392_finalproject.R;
 

@@ -1,13 +1,13 @@
 package com.example.prm392_finalproject.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_finalproject.Adapter.CartAdapter;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
@@ -30,7 +30,6 @@ public class CartActivity extends AppCompatActivity {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMainActivity.goToPaymentFragment();
             }
         });
 

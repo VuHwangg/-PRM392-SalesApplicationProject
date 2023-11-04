@@ -1,17 +1,23 @@
 package com.example.prm392_finalproject.Activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
+import com.example.prm392_finalproject.API.APIServiceTest;
 import com.example.prm392_finalproject.Adapter.OrderAdapter;
-import com.example.prm392_finalproject.Order;
+import com.example.prm392_finalproject.DTOModels.Order_DTO;
 import com.example.prm392_finalproject.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderActivity extends AppCompatActivity {
     private RecyclerView revOrder;
@@ -23,20 +29,36 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         revOrder = findViewById(R.id.rev_order);
 
-        mOrderAdapter = new OrderAdapter(this);
+        mOrderAdapter = new OrderAdapter(OrderActivity.this, new OrderAdapter.IClickItemListener() {
+            @Override
+            public void onClickItemOrder(Order_DTO order) {
+                onClicGoToOrderDetail(order);
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         revOrder.setLayoutManager(linearLayoutManager);
-
-        mOrderAdapter.setData(getListOrder());
-        revOrder.setAdapter(mOrderAdapter);
+        getListOrder();
     }
-    private List<Order> getListOrder() {
-        List<Order> list = new ArrayList<>();
-        list.add(new Order(1, 9210000, "Vũ Hoàng", "0833232520", "Khu 1 - Phai Dài - Thất Khê - Tràng Định - Lạng Sơn", 0));
-        list.add(new Order(2, 200000, "Vũ Đẹp Zai", "012345678", "Phai Dài - Thất Khê - Tràng Định - Lạng Sơn", 1));
-        list.add(new Order(3, 999999999, "Hoàng Chu Anh Vũ", "0833232520", "Thất Khê - Tràng Định - Lạng Sơn", 2));
-        list.add(new Order(4, 1234567, "Người yêu của Vũ", "012345678", "Tràng Định - Lạng Sơn", 3));
-        list.add(new Order(5, 20000, "Duy ngu", "0999999999", "Lạng Sơn", 4));
-        return list;
+    private void getListOrder() {
+        APIServiceTest.apiService.listOrder().enqueue(new Callback<ArrayList<Order_DTO>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Order_DTO>> call, Response<ArrayList<Order_DTO>> response) {
+                List<Order_DTO> list = response.body();
+                mOrderAdapter.setData(list);
+                revOrder.setAdapter(mOrderAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Order_DTO>> call, Throwable t) {
+
+            }
+        });
+    }
+    private void onClicGoToOrderDetail(Order_DTO order) {
+        Intent intent = new Intent(this, OrderDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Order", order);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

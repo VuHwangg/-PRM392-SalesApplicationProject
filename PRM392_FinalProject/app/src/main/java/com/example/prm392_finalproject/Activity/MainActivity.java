@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -16,25 +15,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.prm392_finalproject.API.APIService;
-import com.example.prm392_finalproject.API.APIServiceTest;
-import com.example.prm392_finalproject.Adapter.MyViewPagerAdapter;
 import com.example.prm392_finalproject.Adapter.ProductAdapter;
-import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.EmployeeLoginActivity;
 import com.example.prm392_finalproject.R;
-import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.example.prm392_finalproject.UserLoginActivity;
 import com.example.prm392_finalproject.UserRegisterActivity;
-import com.example.prm392_finalproject.main_fragment.CartFragment;
-import com.example.prm392_finalproject.main_fragment.PaymentFragment;
-import com.example.prm392_finalproject.main_fragment.ProductDetailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -55,20 +45,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        APIServiceTest.apiService.listCart().enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
-                CartSingleton.getInstance().setProductList(response.body());
-                if (!CartSingleton.getInstance().getCart().isEmpty()){
-                    sendPushNotification(CartSingleton.getInstance().getCart().size());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
-
-            }
-        });
+//        APIServiceTest.apiService.listCart().enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
+//                CartSingleton.getInstance().setProductList(response.body());
+//                if (!CartSingleton.getInstance().getCart().isEmpty()){
+//                    sendPushNotification(CartSingleton.getInstance().getCart().size());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
+//
+//            }
+//        });
         revProduct = findViewById(R.id.rev_home);
         mProductAdapter = new ProductAdapter(MainActivity.this, new ProductAdapter.IClickItemListener() {
             // Định nghĩa interface onClickItemProduct
@@ -142,15 +132,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToPaymentFragment() {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        // Tương tự như intent dùng để gửi dữ liêu giữa các Fragment
-        PaymentFragment paymentFragment = new PaymentFragment();
-        fragmentTransaction.replace(R.id.main_activity, paymentFragment);
-        fragmentTransaction.addToBackStack(PaymentFragment.TAG);
-        fragmentTransaction.commit();
-    }
-
     private void sendPushNotification(int cartSize)
     {   String channelID = "CHANNEL_ID_NOTIFICATION";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),channelID);
@@ -178,8 +159,6 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(0,builder.build());
     }
     private List<Home_Product_DTO> callAPIHomePage() {
-        boolean check = true;
-        List<Home_Product_DTO> list = new ArrayList<>();
         APIService.apiService.listProductHomePage().enqueue(new Callback<ArrayList<Home_Product_DTO>>() {
             @Override
             public void onResponse(Call<ArrayList<Home_Product_DTO>> call, Response<ArrayList<Home_Product_DTO>> response) {

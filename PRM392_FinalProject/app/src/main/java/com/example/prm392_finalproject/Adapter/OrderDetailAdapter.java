@@ -10,7 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prm392_finalproject.ProductOrder;
+import com.bumptech.glide.Glide;
+import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.R;
 
 import java.util.List;
@@ -18,13 +19,13 @@ import java.util.List;
 public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.OrderDetailViewHolder>{
 
     private Context mContext;
-    private List<ProductOrder> mListProductOrder;
+    private List<Cart_Product_DTO> mListProductOrder;
 
     public OrderDetailAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setData(List<ProductOrder> list) {
+    public void setData(List<Cart_Product_DTO> list) {
         this.mListProductOrder = list;
         // Load du lieu vao Adapter
         notifyDataSetChanged();
@@ -39,11 +40,14 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull OrderDetailViewHolder holder, int position) {
-        ProductOrder productOrder = mListProductOrder.get(position);
+        Cart_Product_DTO productOrder = mListProductOrder.get(position);
         if (productOrder == null) {
             return;
         }
-        holder.imgProduct.setImageResource(productOrder.getImage());
+        Glide.with(holder.itemView)
+                .load(productOrder.getImage())
+                .centerCrop()
+                .into(holder.imgProduct);
         holder.tvName.setText(productOrder.getName());
         holder.tvPrice.setText(productOrder.getPrice() +"");
         holder.tvQuantity.setText(productOrder.getQuantity()+"");

@@ -1,7 +1,5 @@
 package com.example.prm392_finalproject.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,13 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
-import com.example.prm392_finalproject.main_fragment.ProductDetailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import retrofit2.Call;

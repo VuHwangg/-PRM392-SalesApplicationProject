@@ -1,8 +1,7 @@
 package com.example.prm392_finalproject.API;
 
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
-import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
-import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
+import com.example.prm392_finalproject.DTOModels.Order_DTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -12,7 +11,6 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 public interface APIServiceTest {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -24,4 +22,8 @@ public interface APIServiceTest {
 
     @GET("/cart")
     Call<ArrayList<Cart_Product_DTO>> listCart();
+    @GET("/order")
+    Call<ArrayList<Order_DTO>> listOrder();
+    @GET("/orderDeatail")
+    Call<ArrayList<Cart_Product_DTO>> listOrderDetail();
 }
