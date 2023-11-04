@@ -30,7 +30,7 @@ public class Order {
     float total;
     int status;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     List<OrderDetail> orderDetailList;
 
 }

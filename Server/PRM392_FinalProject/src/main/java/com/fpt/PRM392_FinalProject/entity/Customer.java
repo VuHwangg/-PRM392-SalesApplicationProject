@@ -28,6 +28,6 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     List<Cart> carts;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     List<Order> orders;
 }

@@ -29,7 +29,7 @@ public class Product {
     String description;
     String image;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     List<Cart> carts;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
