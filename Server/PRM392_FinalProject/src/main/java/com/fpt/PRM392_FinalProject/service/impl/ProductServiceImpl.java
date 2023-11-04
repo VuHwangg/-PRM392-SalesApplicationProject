@@ -1,6 +1,9 @@
 package com.fpt.PRM392_FinalProject.service.impl;
 
+import com.fpt.PRM392_FinalProject.dto.ProductDTODetailResponse;
 import com.fpt.PRM392_FinalProject.dto.ProductDTOHomeResponse;
+import com.fpt.PRM392_FinalProject.entity.Product;
+import com.fpt.PRM392_FinalProject.exception.Exception;
 import com.fpt.PRM392_FinalProject.mapper.ProductMapper;
 import com.fpt.PRM392_FinalProject.repository.ProductRepository;
 import com.fpt.PRM392_FinalProject.service.ProductService;
@@ -24,5 +27,13 @@ public class ProductServiceImpl implements ProductService {
                 .stream()
                 .map(ProductMapper::toProductDTOHomeResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductDTODetailResponse getProductById(int id) {
+        Product product = productRepository
+                .findById(id)
+                .orElseThrow(() -> Exception.notFound("Product dose not exits"));
+        return ProductMapper.toProductDTODetailResponse(product);
     }
 }
