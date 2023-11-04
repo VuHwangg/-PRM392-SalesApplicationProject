@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.Adapter.ProductAdapter;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
-import com.example.prm392_finalproject.MainActivity;
+import com.example.prm392_finalproject.Activity.MainActivity;
 import com.example.prm392_finalproject.R;
 
 import java.util.ArrayList;
@@ -45,28 +45,18 @@ public class HomeFragment extends Fragment {
             // Định nghĩa interface onClickItemProduct
             @Override
             public void onClickItemProduct(Home_Product_DTO product) {
-                mMainActivity.goToDetailFragment(product);
+                mMainActivity.goToProductDetail(product);
             }
         });
 
-        // Layout hiện thị là dạng grid mỗi hàng có 2 cột
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mMainActivity, 2);
         revProduct.setLayoutManager(gridLayoutManager);
-
-//        mProductAdapter.setData(getListProduct());
-//        revProduct.setAdapter(mProductAdapter);
         callAPIHomePage();
         return mView;
     }
 
-
-
     private List<Home_Product_DTO> callAPIHomePage() {
         boolean check = true;
-        List<Home_Product_DTO> list = new ArrayList<>();
-//        list.add(new Home_Product_DTO(1,"https://www.tsttourist.com/vnt_upload/news/07_2021/tsttourist-10-buc-anh-troi-dem-dep-nhat-the-gioi-1.jpeg", "Iphone1", 123456,1));
-//        list.add(new Home_Product_DTO(1,"https://www.tsttourist.com/vnt_upload/news/07_2021/tsttourist-10-buc-anh-troi-dem-dep-nhat-the-gioi-1.jpeg", "Iphone1", 123456,1));
-//        list.add(new Home_Product_DTO(1,"https://www.tsttourist.com/vnt_upload/news/07_2021/tsttourist-10-buc-anh-troi-dem-dep-nhat-the-gioi-1.jpeg", "Iphone1", 123456,1));
         APIService.apiService.listProductHomePage().enqueue(new Callback<ArrayList<Home_Product_DTO>>() {
             @Override
             public void onResponse(Call<ArrayList<Home_Product_DTO>> call, Response<ArrayList<Home_Product_DTO>> response) {

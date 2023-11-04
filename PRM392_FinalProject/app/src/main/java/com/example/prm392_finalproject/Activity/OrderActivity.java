@@ -1,52 +1,35 @@
-package com.example.prm392_finalproject.main_fragment;
+package com.example.prm392_finalproject.Activity;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
+
 import com.example.prm392_finalproject.Adapter.OrderAdapter;
-import com.example.prm392_finalproject.Activity.MainActivity;
 import com.example.prm392_finalproject.Order;
 import com.example.prm392_finalproject.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderFragment extends Fragment {
-
+public class OrderActivity extends AppCompatActivity {
     private RecyclerView revOrder;
     private OrderAdapter mOrderAdapter;
-    private MainActivity mMainActivity;
-    private View mView;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_order, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order);
+        revOrder = findViewById(R.id.rev_order);
 
-        // Context của fragment
-        mMainActivity = (MainActivity) getActivity();
-        revOrder = mView.findViewById(R.id.rev_order);
-
-        mOrderAdapter = new OrderAdapter(getActivity());
-
-        // Layout hiện thị là dạng liner
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainActivity);
+        mOrderAdapter = new OrderAdapter(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         revOrder.setLayoutManager(linearLayoutManager);
 
         mOrderAdapter.setData(getListOrder());
         revOrder.setAdapter(mOrderAdapter);
-
-        return mView;
     }
-
     private List<Order> getListOrder() {
         List<Order> list = new ArrayList<>();
         list.add(new Order(1, 9210000, "Vũ Hoàng", "0833232520", "Khu 1 - Phai Dài - Thất Khê - Tràng Định - Lạng Sơn", 0));
