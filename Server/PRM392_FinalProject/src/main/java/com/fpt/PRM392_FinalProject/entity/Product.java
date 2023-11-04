@@ -2,6 +2,7 @@ package com.fpt.PRM392_FinalProject.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Product {
     double discount;
     String supplier;
     boolean category;
+    @Nationalized
     String description;
     String image;
 
