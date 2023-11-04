@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView revProduct;
     private ProductAdapter mProductAdapter;
-    private BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,24 +70,31 @@ public class MainActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, 2);
         revProduct.setLayoutManager(gridLayoutManager);
         callAPIHomePage();
-        mBottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // Cau hinh bottom navigation
+        BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
+        mBottomNavigationView.setSelectedItemId(R.id.bottom_home);
         mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.bottom_home) {
                 } else if (id == R.id.bottom_cart) {
-                    Intent intent = new Intent(MainActivity.this,CartActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),CartActivity.class);
                     startActivity(intent);
+                    finish();
                 } else if (id == R.id.bottom_order) {
-                    Intent intent = new Intent(MainActivity.this,OrderActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),OrderActivity.class);
                     startActivity(intent);
+                    finish();
                 } else if (id == R.id.bottom_chat) {
-                    Intent intent = new Intent(MainActivity.this,ChatActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
                     startActivity(intent);
+                    finish();
                 } else if (id == R.id.bottom_account) {
-                    Intent intent = new Intent(MainActivity.this,AccountActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 return true;
             }

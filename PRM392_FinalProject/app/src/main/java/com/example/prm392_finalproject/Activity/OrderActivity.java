@@ -2,7 +2,9 @@ package com.example.prm392_finalproject.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +13,8 @@ import com.example.prm392_finalproject.API.APIServiceTest;
 import com.example.prm392_finalproject.Adapter.OrderAdapter;
 import com.example.prm392_finalproject.DTOModels.Order_DTO;
 import com.example.prm392_finalproject.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,37 @@ public class OrderActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         revOrder.setLayoutManager(linearLayoutManager);
         getListOrder();
+
+
+        // Cau hinh bottom navigation
+        BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
+        mBottomNavigationView.setSelectedItemId(R.id.bottom_order);
+        mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.bottom_home) {
+                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (id == R.id.bottom_cart) {
+                    Intent intent = new Intent(getApplicationContext(),CartActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (id == R.id.bottom_order) {
+
+                } else if (id == R.id.bottom_chat) {
+                    Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (id == R.id.bottom_account) {
+                    Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                return true;
+            }
+        });
     }
     private void getListOrder() {
         APIServiceTest.apiService.listOrder().enqueue(new Callback<ArrayList<Order_DTO>>() {
