@@ -76,9 +76,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imgProduct;
-        private TextView tvName;
-        private TextView tvPrice;
-        private TextView tvDiscount;
+        private TextView tvName, tvDiscount, tvPrice;
         CardView cardView;
 
         public ProductViewHolder(@NonNull View itemView) {

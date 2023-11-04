@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -23,8 +22,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private Context mContext;
     private List<Order> mListOrder;
 
-    public OrderAdapter(Context mContext) {
+    private IClickItemListener mIClickItemListener;
+
+    public interface IClickItemListener{
+        void onClickItemOrder(Order order);
+    }
+
+    public OrderAdapter(Context mContext, IClickItemListener listener) {
         this.mContext = mContext;
+        this.mIClickItemListener = listener;
     }
 
     public void setData(List<Order> list) {
@@ -42,14 +48,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Order order = mListOrder.get(position);
+        if (order == null) {
+            return;
+        }
+
         holder.tvOrderId.setText(order.getOrderId() + "");
 
         if (order.getOrderStatus() == 0) {
             holder.tvOrderStatus.setText("Đã đặt hàng");
             holder.tvOrderStatus.setTextColor(Color.parseColor("#80000000"));
             holder.layoutOrder.setBackgroundColor(Color.parseColor("#40000000"));
-       }
-        else if (order.getOrderStatus() == 1) {
+       } else if (order.getOrderStatus() == 1) {
             holder.tvOrderStatus.setText("Đã xác nhận");
             holder.tvOrderStatus.setTextColor(Color.parseColor("#9C27B0"));
             holder.layoutOrder.setBackgroundColor(Color.parseColor("#409C27B0"));
@@ -74,7 +83,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.cvOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Order clicked", Toast.LENGTH_SHORT).show();
+                mIClickItemListener.onClickItemOrder(order);
             }
         });
     }

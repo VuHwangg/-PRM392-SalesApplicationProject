@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.prm392_finalproject.Adapter.MyViewPagerAdapter;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
+import com.example.prm392_finalproject.main_fragment.OrderDetailFragment;
 import com.example.prm392_finalproject.main_fragment.PaymentFragment;
 import com.example.prm392_finalproject.main_fragment.ProductDetailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -120,6 +121,22 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.replace(R.id.main_activity, detailFragment);
         fragmentTransaction.addToBackStack(ProductDetailFragment.TAG);
+        fragmentTransaction.commit();
+    }
+
+    public void goToOrderDetailFragment(Order order) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        // Tương tự như intent dùng để gửi dữ liêu giữa các Fragment
+        OrderDetailFragment orderDetailFragment = new OrderDetailFragment();
+
+        Bundle mybundle =new Bundle();
+        mybundle.putSerializable("object_order", order);
+
+        orderDetailFragment.setArguments(mybundle);
+
+        fragmentTransaction.replace(R.id.main_activity, orderDetailFragment);
+        fragmentTransaction.addToBackStack(OrderDetailFragment.TAG);
         fragmentTransaction.commit();
     }
 

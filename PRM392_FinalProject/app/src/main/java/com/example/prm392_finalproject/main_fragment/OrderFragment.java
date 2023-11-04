@@ -35,7 +35,12 @@ public class OrderFragment extends Fragment {
         mMainActivity = (MainActivity) getActivity();
         revOrder = mView.findViewById(R.id.rev_order);
 
-        mOrderAdapter = new OrderAdapter(getActivity());
+        mOrderAdapter = new OrderAdapter(mMainActivity, new OrderAdapter.IClickItemListener(){
+            @Override
+            public void onClickItemOrder(Order order) {
+                mMainActivity.goToOrderDetailFragment(order);
+            }
+        });
 
         // Layout hiện thị là dạng liner
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainActivity);
