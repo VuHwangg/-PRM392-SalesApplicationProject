@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_finalproject.Adapter.CartAdapter;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
+import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,6 +37,7 @@ public class CartActivity extends AppCompatActivity {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                goToPayment();
             }
         });
 
@@ -84,5 +87,23 @@ public class CartActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         CartSingleton.getInstance().getCartSelected().clear();
+    }
+    public void goToPayment() {
+        String costString = tvCost.getText().toString();
+        double costDouble = 0;
+        try {
+            costDouble = Double.parseDouble(costString);
+        } catch (NumberFormatException e) {
+        }
+        if(costDouble>0){
+            Intent intent = new Intent(this, PaymentActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("totalPrice", costDouble);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(CartActivity.this,"Chon sản phẩm để thanh toán",Toast.LENGTH_SHORT).show();
+        }
     }
 }
