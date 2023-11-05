@@ -12,6 +12,7 @@ public class ProductMapper {
                 .name(product.getName())
                 .price(product.getPrice())
                 .discount(product.getDiscount())
+                .color(product.getColor())
                 .build();
     }
 
@@ -23,6 +24,9 @@ public class ProductMapper {
                 .price(product.getPrice())
                 .discount(product.getDiscount())
                 .description(product.getDescription())
+                .supplier(product.getSupplier())
+                .category(product.isCategory())
+                .color(product.getColor())
                 .build();
     }
 
