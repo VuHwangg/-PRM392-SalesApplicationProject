@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/background"
-    tools:context=".UserLoginActivity">
+    tools:context=".Activity.UserLoginActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -27,23 +27,24 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="Đăng nhập"
                 android:textSize="36dp"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
+
             <EditText
-                android:id="@+id/edt_email"
+                android:id="@+id/edt_username"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/shape_edit_text"
                 android:layout_marginTop="40dp"
                 android:padding="12dp"
-                android:hint="Email"
+                android:hint="Tên đăng nhập"
                 android:drawableLeft="@drawable/ic_person"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"
-                android:inputType="textEmailAddress"/>
+                android:inputType="text"/>
 
             <EditText
                 android:id="@+id/edt_password"
@@ -52,7 +53,7 @@
                 android:background="@drawable/shape_edit_text"
                 android:layout_marginTop="20dp"
                 android:padding="12dp"
-                android:hint="Password"
+                android:hint="Mật khẩu"
                 android:drawableLeft="@drawable/ic_lock"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"
@@ -62,7 +63,7 @@
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Login"
+                android:text="Đăng nhập"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -77,34 +78,20 @@
 <!--                android:background="@android:color/darker_gray"/>-->
 
             <TextView
-                android:id="@+id/text_register"
+                android:id="@+id/btn_goto_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:clickable="true"
                 android:padding="12dp"
-                android:text="Don't have account yet? Register"
-                android:textSize="18sp"
+                android:text="Tôi chưa có tài khoản"
+                android:textSize="20sp"
                 android:textStyle="bold|italic"
                 android:textColor="#8A0404"/>
 
         </LinearLayout>
         
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/text_login_employee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:clickable="true"
-        android:padding="12dp"
-        android:text="I am an employee"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:drawableLeft="@drawable/ic_settings"
-        android:drawablePadding="8dp"/>
 
 </LinearLayout>

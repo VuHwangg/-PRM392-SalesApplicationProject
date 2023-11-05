@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,13 +69,26 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                         if(cart_product_dto.getQuantity()==1)
                         {
                             CartSingleton.getInstance().getCart().remove(cart_product_dto);
+                            for(Cart_Product_DTO cart_product_dto1 : CartSingleton.getInstance().getCartSelected()){
+                                if(cart_product_dto1.getId() == product.getId()){
+                                    CartSingleton.getInstance().getCartSelected().remove(cart_product_dto1);
+                                    break;
+                                }
+                            }
                         }
                         else
                         {
                             cart_product_dto.setQuantity(cart_product_dto.getQuantity()-1);
+                            for(Cart_Product_DTO cart_product_dto1 : CartSingleton.getInstance().getCartSelected()){
+                                if (cart_product_dto1.getId() == product.getId()){
+                                    cart_product_dto1.setQuantity(cart_product_dto1.getQuantity()-1);
+                                    break;
+                                }
+                            }
                         }
-                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
                         notifyDataSetChanged();
+                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                        break;
                     }
                 }
             }
@@ -86,8 +101,15 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                     if(cart_product_dto.getId()== product.getId())
                     {
                         cart_product_dto.setQuantity(cart_product_dto.getQuantity()+1);
-                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
                         notifyDataSetChanged();
+                        for(Cart_Product_DTO cart_product_dto1 : CartSingleton.getInstance().getCartSelected()){
+                            if (cart_product_dto1.getId() == product.getId()){
+                                cart_product_dto1.setQuantity(cart_product_dto1.getQuantity()+1);
+                                tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                                break;
+                            }
+                        }
+                        break;
                     }
                 }
             }
@@ -100,10 +122,34 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                     if(cart_product_dto.getId()== product.getId())
                     {
                         CartSingleton.getInstance().getCart().remove(cart_product_dto);
-                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
                         notifyDataSetChanged();
+                        for(Cart_Product_DTO cart_product_dto1 : CartSingleton.getInstance().getCartSelected()){
+                            if(cart_product_dto1.getId() == product.getId()){
+                                CartSingleton.getInstance().getCartSelected().remove(cart_product_dto1);
+                                tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                                break;
+                            }
+                        }
                         Toast.makeText(mContext, "Sản phẩm đã bị xóa khỏi giỏ hàng", Toast.LENGTH_SHORT).show();
+                        break;
                     }
+                }
+            }
+        });
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    CartSingleton.getInstance().getCartSelected().add(product);
+                    tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                }else{
+                    for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCartSelected()){
+                        if(cart_product_dto.getId() == product.getId()){
+                            CartSingleton.getInstance().getCartSelected().remove(cart_product_dto);
+                            break;
+                        }
+                    }
+                    tvTotalCost.setText(String.valueOf((int) getTotalCost()));
                 }
             }
         });
@@ -119,7 +165,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
 
     public double getTotalCost(){
         double totalCost = 0;
-        for(Cart_Product_DTO cart_product_dto : mListProduct){
+        for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCartSelected()){
             totalCost+=cart_product_dto.getPrice()* cart_product_dto.getQuantity();
         }
         return totalCost;
@@ -132,10 +178,10 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
         private TextView tvPrice;
         private TextView tvQuantity;
         private Button btnMinus, btnPlus, btnDelete;
+        private CheckBox checkBox;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-
             imgProduct = itemView.findViewById(R.id.img_productcart);
             tvName = itemView.findViewById(R.id.tv_name_productcart);
             tvPrice = itemView.findViewById(R.id.tv_price_productcart);
@@ -143,6 +189,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
             btnMinus = itemView.findViewById(R.id.btn_minus_quantity);
             btnPlus = itemView.findViewById(R.id.btn_plus_quantity);
             btnDelete = itemView.findViewById(R.id.btn_delete_cart);
+            checkBox = itemView.findViewById(R.id.itemSelected);
         }
     }
 }

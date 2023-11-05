@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -68,13 +69,11 @@ public class ProductDetailActivity extends AppCompatActivity {
                     if(cart_product_dto.getId() == product.getId()){
                         cart_product_dto.setQuantity(cart_product_dto.getQuantity()+1);
                         check =true;
-                        Log.d("b","b1");
-                        Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if (check == false){
                     cartSingleton.getCart().add(new Cart_Product_DTO(product.getId(),product.getImage(),product.getName(),product.getPrice(),1, product.getColor()));
-                    Log.d("b","a1");
                     Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -93,6 +92,13 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        // Ẩn action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
     }
     private void callAPIProductDetail(int id) {
         APIService.apiService.getProductDetail(id).enqueue(new Callback<Product_Detail_DTO>() {

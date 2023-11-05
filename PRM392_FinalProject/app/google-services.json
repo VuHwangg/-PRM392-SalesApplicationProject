@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "367186790957",
+    "project_id": "prm392-finalproject-f75af",
+    "storage_bucket": "prm392-finalproject-f75af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367186790957:android:d9cd570cafec733bbb06a4",
+        "android_client_info": {
+          "package_name": "com.example.prm392_finalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCahNVwHZXYi-7iXGHTcXt0lUdtsNOgfIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,6 +16,12 @@
         android:theme="@style/Theme.PRM392_FinalProject"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ChangeAddressActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.MapsActivity"
             android:exported="false" />
         <activity
@@ -43,10 +49,10 @@
             android:name=".EmployeeLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".UserRegisterActivity"
+            android:name=".Activity.UserRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".UserLoginActivity"
+            android:name=".Activity.UserLoginActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.MainActivity"
