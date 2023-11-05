@@ -10,10 +10,10 @@ public class Product_Detail_DTO implements Serializable {
     private double discount;
     private String description;
     private String supplier;
-    private String category;
+    private boolean category;
     private String color;
 
-    public Product_Detail_DTO(int id, String image, String name, double price, double discount, String description, String supplier, String category, String color) {
+    public Product_Detail_DTO(int id, String image, String name, double price, double discount, String description, String supplier, boolean category, String color) {
         this.id = id;
         this.image = image;
         this.name = name;
@@ -81,19 +81,19 @@ public class Product_Detail_DTO implements Serializable {
         this.supplier = supplier;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getColor() {
         return color;
     }
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public boolean isCategory() {
+        return category;
+    }
+
+    public void setCategory(boolean category) {
+        this.category = category;
     }
 }

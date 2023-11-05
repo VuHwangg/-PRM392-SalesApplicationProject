@@ -109,7 +109,11 @@ public class ProductDetailActivity extends AppCompatActivity {
                     tvPrice.setText((int) product.getPrice() + "VNĐ");
                     tvDiscount.setText("Giảm giá " + (double) product.getDiscount() + "%");
                     tvColor.setText(product.getColor());
-                    tvCategory.setText(product.getCategory());
+                    if(product.isCategory()){
+                        tvCategory.setText("Phone");
+                    }else {
+                        tvCategory.setText("Ipad");
+                    }
                     tvSupplier.setText(product.getSupplier());
                 }
             }
