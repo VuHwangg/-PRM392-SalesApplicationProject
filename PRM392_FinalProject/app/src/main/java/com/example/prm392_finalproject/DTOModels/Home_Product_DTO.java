@@ -8,13 +8,15 @@ public class Home_Product_DTO implements Serializable {
     private String name;
     private double price;
     private double discount;
+    private String color;
 
-    public Home_Product_DTO(int id, String image, String name, double price, double discount) {
+    public Home_Product_DTO(int id, String image, String name, double price, double discount, String color) {
         this.id = id;
         this.image = image;
         this.name = name;
         this.price = price;
         this.discount = discount;
+        this.color = color;
     }
 
     public int getId() {
@@ -55,5 +57,13 @@ public class Home_Product_DTO implements Serializable {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

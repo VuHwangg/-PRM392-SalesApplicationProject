@@ -72,7 +72,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     }
                 }
                 if (check == false){
-                    cartSingleton.getCart().add(new Cart_Product_DTO(product.getId(),product.getImage(),product.getName(),product.getPrice(),1));
+                    cartSingleton.getCart().add(new Cart_Product_DTO(product.getId(),product.getImage(),product.getName(),product.getPrice(),1, product.getColor()));
                     Log.d("b","a1");
                     Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                 }
