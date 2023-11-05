@@ -28,6 +28,7 @@ public class Product {
     @Nationalized
     String description;
     String image;
+    String color;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     List<Cart> carts;
