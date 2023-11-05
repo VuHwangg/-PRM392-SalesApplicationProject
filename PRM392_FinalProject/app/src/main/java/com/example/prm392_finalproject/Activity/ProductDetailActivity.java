@@ -16,7 +16,6 @@ import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,11 +23,9 @@ import retrofit2.Response;
 
 public class ProductDetailActivity extends AppCompatActivity {
     private ImageView image;
-    private TextView tvName, tvDes, btnBack;
-    private TextView tvPrice, tvDiscount;
+    private TextView tvName, tvDes, tvPrice, tvDiscount, tvCategory, tvColor, tvSupplier;
+    private TextView btnBack;
     private Button btn_addtocart, btn_loadmore;
-    private View mView;
-    private BottomNavigationView bottomNavigationView;
     private boolean isExpanded = false;
     private Product_Detail_DTO product;
 
@@ -41,6 +38,10 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvName = findViewById(R.id.tv_name_productdetail);
         tvDes = findViewById(R.id.tv_description_productdetail);
         tvPrice = findViewById(R.id.tv_price_productdetail);
+        tvColor = findViewById(R.id.tv_color_productdetail);
+        tvCategory = findViewById(R.id.tv_category_productdetail);
+        tvSupplier = findViewById(R.id.tv_supplier_productdetail);
+
         btnBack = findViewById(R.id.btn_back);
         btn_addtocart = findViewById(R.id.btn_addtocart);
         btn_loadmore = findViewById(R.id.btn_loadmore);
@@ -107,6 +108,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                     tvDes.setText(product.getDescription());
                     tvPrice.setText((int) product.getPrice() + "VNĐ");
                     tvDiscount.setText("Giảm giá " + (double) product.getDiscount() + "%");
+                    tvColor.setText(product.getColor());
+                    tvCategory.setText(product.getCategory());
+                    tvSupplier.setText(product.getSupplier());
                 }
             }
 
