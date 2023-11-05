@@ -9,14 +9,20 @@ public class Product_Detail_DTO implements Serializable {
     private double price;
     private double discount;
     private String description;
+    private String supplier;
+    private String category;
+    private String color;
 
-    public Product_Detail_DTO(int id, String image, String name, double price, double discount, String description) {
+    public Product_Detail_DTO(int id, String image, String name, double price, double discount, String description, String supplier, String category, String color) {
         this.id = id;
         this.image = image;
         this.name = name;
         this.price = price;
         this.discount = discount;
         this.description = description;
+        this.supplier = supplier;
+        this.category = category;
+        this.color = color;
     }
 
     public int getId() {
@@ -65,5 +71,29 @@ public class Product_Detail_DTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

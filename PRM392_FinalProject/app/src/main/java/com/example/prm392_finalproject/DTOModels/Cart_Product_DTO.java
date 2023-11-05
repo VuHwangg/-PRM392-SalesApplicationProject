@@ -8,13 +8,15 @@ public class Cart_Product_DTO implements Serializable {
     private String name;
     private double price;
     private int quantity;
+    private String color;
 
-    public Cart_Product_DTO(int id, String image, String name, double price, int quantity) {
+    public Cart_Product_DTO(int id, String image, String name, double price, int quantity, String color) {
         this.id = id;
         this.image = image;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.color = color;
     }
 
     public int getId() {
@@ -55,5 +57,13 @@ public class Cart_Product_DTO implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        color = color;
     }
 }
