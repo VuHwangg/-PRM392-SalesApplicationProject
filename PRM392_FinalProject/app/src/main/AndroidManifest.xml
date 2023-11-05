@@ -49,10 +49,10 @@
             android:name=".EmployeeLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".UserRegisterActivity"
+            android:name=".Activity.UserRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".UserLoginActivity"
+            android:name=".Activity.UserLoginActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.MainActivity"

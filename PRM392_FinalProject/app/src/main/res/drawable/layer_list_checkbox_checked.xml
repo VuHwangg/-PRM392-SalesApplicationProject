@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Hình dạng checkbox được chọn -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/main_red" /> <!-- Màu đỏ -->
-            <corners android:radius="8dp" /> <!-- Bo góc -->
-            <size android:width="34dp" android:height="34dp" /> <!-- Kích thước -->
+            <solid android:color="@color/main_red" />
+            <corners android:radius="8dp" />
+            <size android:width="34dp" android:height="34dp" />
         </shape>
     </item>
-    <!-- Dấu tick màu trắng -->
     <item
         android:drawable="@drawable/ic_check"
         android:gravity="center" />

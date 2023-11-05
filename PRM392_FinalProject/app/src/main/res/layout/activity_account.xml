@@ -56,7 +56,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/background" />
 
                 <TextView
-                    android:id="@+id/text_name"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -68,14 +68,14 @@
                     app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
                 <TextView
-                    android:id="@+id/text_email"
+                    android:id="@+id/tv_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="hoangvudepzai@gmail.com"
+                    android:text="hoangvudepzai"
                     android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
                 <Button
                     android:id="@+id/btn_change_address"
@@ -87,7 +87,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_email" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
                 <Button
                     android:id="@+id/btn_change_password"
