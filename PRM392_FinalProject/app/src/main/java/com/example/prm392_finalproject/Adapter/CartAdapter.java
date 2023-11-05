@@ -79,12 +79,6 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                         else
                         {
                             cart_product_dto.setQuantity(cart_product_dto.getQuantity()-1);
-                            for(Cart_Product_DTO cart_product_dto1 : CartSingleton.getInstance().getCartSelected()){
-                                if (cart_product_dto1.getId() == product.getId()){
-                                    cart_product_dto1.setQuantity(cart_product_dto1.getQuantity()-1);
-                                    break;
-                                }
-                            }
                         }
                         notifyDataSetChanged();
                         tvTotalCost.setText(String.valueOf((int) getTotalCost()));
@@ -102,13 +96,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                     {
                         cart_product_dto.setQuantity(cart_product_dto.getQuantity()+1);
                         notifyDataSetChanged();
-                        for(Cart_Product_DTO cart_product_dto1 : CartSingleton.getInstance().getCartSelected()){
-                            if (cart_product_dto1.getId() == product.getId()){
-                                cart_product_dto1.setQuantity(cart_product_dto1.getQuantity()+1);
-                                tvTotalCost.setText(String.valueOf((int) getTotalCost()));
-                                break;
-                            }
-                        }
+                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
                         break;
                     }
                 }

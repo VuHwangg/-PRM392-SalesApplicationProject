@@ -46,7 +46,7 @@
             android:name=".Activity.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".EmployeeLoginActivity"
+            android:name=".Activity.EmployeeLoginActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.UserRegisterActivity"

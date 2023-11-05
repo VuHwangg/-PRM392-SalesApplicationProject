@@ -1,9 +1,11 @@
-package com.example.prm392_finalproject;
+package com.example.prm392_finalproject.Activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.prm392_finalproject.R;
 
 public class EmployeeLoginActivity extends AppCompatActivity {
 

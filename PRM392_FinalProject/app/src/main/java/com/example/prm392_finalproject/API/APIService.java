@@ -5,6 +5,8 @@ import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +20,17 @@ import retrofit2.http.Query;
 public interface APIService {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.21.106:8888/")
+//            .baseUrl("http://192.168.1.36:8888/")
+            .baseUrl("https://653b8a902e42fd0d54d54bb7.mockapi.io")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
 
-    @GET("api/v1/products")
-    Call<List<Home_Product_DTO>> listProductHomePage();
+//    @GET("api/v1/products")
+    @GET("productDTO")
+    Call<ArrayList<Home_Product_DTO>> listProductHomePage();
 
-    @GET("api/v1/products/{id}")
+    @GET("productDetail/{id}")
     Call<Product_Detail_DTO> getProductDetail(@Path("id") int id);
 
 //    @GET("api/v1/products")
