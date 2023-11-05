@@ -18,6 +18,7 @@ public class ProductMapper {
     public static ProductDTODetailResponse toProductDTODetailResponse(Product product) {
         return ProductDTODetailResponse.builder()
                 .id(product.getId())
+                .image(product.getImage())
                 .name(product.getName())
                 .price(product.getPrice())
                 .discount(product.getDiscount())
