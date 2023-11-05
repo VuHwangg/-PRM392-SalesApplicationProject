@@ -8,6 +8,7 @@ import java.util.List;
 public class CartSingleton {
     private static CartSingleton instance;
     private List<Cart_Product_DTO> cart = new ArrayList<>();
+    private List<Cart_Product_DTO> cartSelected = new ArrayList<>();
 
     public CartSingleton() {
     }
@@ -22,8 +23,11 @@ public class CartSingleton {
     public List<Cart_Product_DTO> getCart() {
         return cart;
     }
-
     public void setProductList(List<Cart_Product_DTO> cart) {
         this.cart =cart;
+    }
+
+    public List<Cart_Product_DTO> getCartSelected() {
+        return cartSelected;
     }
 }
