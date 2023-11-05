@@ -16,4 +16,7 @@ public class ProductDTODetailResponse {
     double price;
     double discount;
     String description;
+    String supplier;
+    boolean category;
+    String color;
 }
