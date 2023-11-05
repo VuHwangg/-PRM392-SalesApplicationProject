@@ -110,8 +110,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menu_search) {
-            Toast.makeText(this, "Search selected", Toast.LENGTH_SHORT).show();
+        if (id == R.id.menu_map) {
+            Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.menu_notification) {
             Toast.makeText(this, "Notification selected", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menu_option1) {
