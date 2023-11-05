@@ -113,7 +113,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/itemSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/custom_checkbox"

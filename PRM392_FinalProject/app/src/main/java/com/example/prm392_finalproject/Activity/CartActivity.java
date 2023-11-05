@@ -48,12 +48,6 @@ public class CartActivity extends AppCompatActivity {
         CartSingleton cartSingleton = CartSingleton.getInstance();
         mCartAdapter.setData(cartSingleton.getCart());
         revProduct.setAdapter(mCartAdapter);
-        double totalCost = 0;
-        for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart()){
-            totalCost += cart_product_dto.getPrice()*cart_product_dto.getQuantity();
-        }
-        tvCost.setText(String.valueOf((int) totalCost));
-
 
         // Cau hinh bottom navigation
         BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -84,5 +78,11 @@ public class CartActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        CartSingleton.getInstance().getCartSelected().clear();
     }
 }
