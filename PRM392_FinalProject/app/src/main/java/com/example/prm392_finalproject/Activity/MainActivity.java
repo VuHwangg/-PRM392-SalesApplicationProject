@@ -23,8 +23,6 @@ import com.example.prm392_finalproject.Adapter.ProductAdapter;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.EmployeeLoginActivity;
 import com.example.prm392_finalproject.R;
-import com.example.prm392_finalproject.UserLoginActivity;
-import com.example.prm392_finalproject.UserRegisterActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
