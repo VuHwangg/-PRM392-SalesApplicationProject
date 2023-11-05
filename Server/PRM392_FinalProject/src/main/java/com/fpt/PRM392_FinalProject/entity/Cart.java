@@ -17,7 +17,6 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-
     int quantity;
 
     @ManyToOne

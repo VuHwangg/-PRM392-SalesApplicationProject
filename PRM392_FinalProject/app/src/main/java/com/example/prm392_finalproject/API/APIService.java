@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -17,14 +18,18 @@ import retrofit2.http.Query;
 public interface APIService {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("https://653b8a902e42fd0d54d54bb7.mockapi.io")
+            .baseUrl("http://192.168.21.106:8888/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
 
-    @GET("/productDTO")
-    Call<ArrayList<Home_Product_DTO>> listProductHomePage();
+    @GET("api/v1/products")
+    Call<List<Home_Product_DTO>> listProductHomePage();
 
-    @GET("/productDetail/{id}")
+    @GET("api/v1/products/{id}")
     Call<Product_Detail_DTO> getProductDetail(@Path("id") int id);
+
+//    @GET("api/v1/products")
+//    Call<List<Home_Product_DTO>> getListProduct();
+
 }
