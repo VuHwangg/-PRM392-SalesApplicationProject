@@ -16,6 +16,9 @@
         android:theme="@style/Theme.PRM392_FinalProject"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ChangeAddressActivity"
             android:exported="false" />
         <activity
