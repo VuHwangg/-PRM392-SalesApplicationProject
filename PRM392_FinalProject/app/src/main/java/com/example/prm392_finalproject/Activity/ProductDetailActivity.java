@@ -69,13 +69,11 @@ public class ProductDetailActivity extends AppCompatActivity {
                     if(cart_product_dto.getId() == product.getId()){
                         cart_product_dto.setQuantity(cart_product_dto.getQuantity()+1);
                         check =true;
-                        Log.d("b","b1");
-                        Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thất bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if (check == false){
                     cartSingleton.getCart().add(new Cart_Product_DTO(product.getId(),product.getImage(),product.getName(),product.getPrice(),1, product.getColor()));
-                    Log.d("b","a1");
                     Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                 }
             }

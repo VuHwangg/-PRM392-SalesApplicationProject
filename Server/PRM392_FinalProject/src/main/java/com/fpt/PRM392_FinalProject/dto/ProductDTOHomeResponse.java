@@ -15,5 +15,5 @@ public class ProductDTOHomeResponse {
     String name;
     double price;
     double discount;
-    private String color;
+    String color;
 }

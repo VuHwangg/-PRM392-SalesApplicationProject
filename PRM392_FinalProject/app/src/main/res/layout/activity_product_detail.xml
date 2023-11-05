@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.ProductDetailActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +42,7 @@
                     android:id="@+id/img_productdetail"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="70dp"
                     android:background="@drawable/shape_edit_text"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
@@ -209,15 +210,16 @@
 
     <TextView
         android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/main_red"
         android:clickable="true"
-        android:drawableLeft="@drawable/ic_back"
+        android:drawableLeft="@drawable/ic_back2"
         android:drawablePadding="4dp"
         android:padding="10dp"
         android:text="Quay lại"
         android:textAllCaps="true"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
