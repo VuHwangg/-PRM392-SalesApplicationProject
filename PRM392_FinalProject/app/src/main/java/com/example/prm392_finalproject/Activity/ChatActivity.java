@@ -17,7 +17,15 @@ import com.example.prm392_finalproject.DTOModels.Message_DTO;
 import com.example.prm392_finalproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.type.DateTime;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +36,10 @@ public class ChatActivity extends AppCompatActivity {
     EditText editMess;
     ChatAdapter adapter;
     List<Message_DTO> list;
+    final String serverHost = "192.168.1.52";
+    Socket socketOfClient = null;
+    BufferedWriter os = null;
+    BufferedReader is = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +81,59 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void connectServer() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Gửi yêu cầu kết nối tới Server đang lắng nghe
+                    // trên máy 'localhost' cổng 9999.
+                    socketOfClient = new Socket(serverHost, 9999);
+
+                    // Tạo luồng đầu ra tại client (Gửi dữ liệu tới server)
+                    os = new BufferedWriter(new OutputStreamWriter(socketOfClient.getOutputStream()));
+
+                    // Luồng đầu vào tại Client (Nhận dữ liệu từ server).
+                    is = new BufferedReader(new InputStreamReader(socketOfClient.getInputStream()));
+
+                } catch (UnknownHostException e) {
+                    System.err.println("Don't know about host " + serverHost);
+                    return;
+                } catch (IOException e) {
+                    System.err.println("Couldn't get I/O for the connection to " + serverHost+"\n" + e.getMessage());
+                    return;
+                }
+
+                ///
+                try {
+                    // Đọc dữ liệu trả lời từ phía server
+                    // Bằng cách đọc luồng đầu vào của Socket tại Client.
+                    String responseLine;
+                    while ((responseLine = is.readLine()) != null) {
+                        final String res = responseLine;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //edtInput.setText(edtInput.getText() + "\n" + res);
+                                list.add(new Message_DTO("2","1",res, "11/06/2023"));
+                            }
+                        });
+                        if (responseLine.contains("QUIT")) {
+                            break;
+                        }
+                    }
+
+                    os.close();
+                    is.close();
+                    socketOfClient.close();
+                } catch (UnknownHostException e) {
+                    System.err.println("Trying to connect to unknown host: " + e);
+                } catch (IOException e) {
+                    System.err.println("IOException:  " + e);
+                }
+            }
+        }).start();
     }
+
 
     private void initview() {
         list = new ArrayList<>();
@@ -84,7 +148,22 @@ public class ChatActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessToFire();
+
+                final String text = editMess.getText().toString();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            os.write(text); // Ghi dữ liệu vào luồng đầu ra của Socket tại Client.
+                            os.newLine(); // kết thúc dòng
+                            os.flush(); // đẩy dữ liệu đi.
+                            list.add(new Message_DTO("1","2",text, "11/06/2023"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
             }
         });
     }
