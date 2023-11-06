@@ -21,6 +21,9 @@ import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CartActivity extends AppCompatActivity {
     private RecyclerView revProduct;
     private CartAdapter mCartAdapter;
@@ -87,6 +90,7 @@ public class CartActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         CartSingleton.getInstance().getCartSelected().clear();
+        //Update DB ở đây
     }
     public void goToPayment() {
         String costString = tvCost.getText().toString();
