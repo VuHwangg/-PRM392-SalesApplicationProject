@@ -2,6 +2,7 @@ package com.example.prm392_finalproject.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.Adapter.CartAdapter;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
+import com.example.prm392_finalproject.DTOModels.POST_Cart_DTO;
+import com.example.prm392_finalproject.DTOModels.POST_Cart_Product_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,6 +27,10 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity {
     private RecyclerView revProduct;
@@ -54,7 +62,7 @@ public class CartActivity extends AppCompatActivity {
         CartSingleton cartSingleton = CartSingleton.getInstance();
         mCartAdapter.setData(cartSingleton.getCart());
         revProduct.setAdapter(mCartAdapter);
-
+//        getCartData();// cmt 3 dong tren lai roi mo dong nay ra
         // Cau hinh bottom navigation
         BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setSelectedItemId(R.id.bottom_cart);
@@ -89,8 +97,8 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+//        postCartData();//call API ngon het thi xoa thang duoi di
         CartSingleton.getInstance().getCartSelected().clear();
-        //Update DB ở đây
     }
     public void goToPayment() {
         String costString = tvCost.getText().toString();
@@ -109,5 +117,45 @@ public class CartActivity extends AppCompatActivity {
         else {
             Toast.makeText(CartActivity.this,"Chon sản phẩm để thanh toán",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void getCartData(){
+        //thay thang 1 bang thang userID
+        APIService.apiService.listCart(1).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
+                CartSingleton.getInstance().getCart().clear();
+                CartSingleton.getInstance().getCartSelected().clear();
+                CartSingleton.getInstance().setProductList(response.body());
+                List<Cart_Product_DTO> list = response.body();
+                mCartAdapter.setData(list);
+                revProduct.setAdapter(mCartAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void postCartData(){
+        ArrayList<POST_Cart_Product_DTO> post_cart_product_dtos = new ArrayList<POST_Cart_Product_DTO>();
+        for (Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart()){
+            POST_Cart_Product_DTO post_cart_product_dto = new POST_Cart_Product_DTO(cart_product_dto.getId(),cart_product_dto.getQuantity());
+            post_cart_product_dtos.add(post_cart_product_dto);
+        }
+        POST_Cart_DTO cart = new POST_Cart_DTO(1,post_cart_product_dtos);
+        APIService.apiService.updateCart(cart).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("UpdateCart","Success");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("UpdateCart","Fail");
+            }
+        });
     }
 }

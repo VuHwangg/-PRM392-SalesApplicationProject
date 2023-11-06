@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.API.APIServiceTest;
 import com.example.prm392_finalproject.Adapter.OrderDetailAdapter;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
@@ -113,9 +114,22 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
-
             }
         });
     }
+//    private void getOrderDetail() {
+//        APIService.apiService.listOrderDetail(1).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
+//                List<Cart_Product_DTO> list = response.body();
+//                mOrderDetailAdapter.setData(list);
+//                revProductOrderDetail.setAdapter(mOrderDetailAdapter);
+//            }
+//            @Override
+//            public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
 }

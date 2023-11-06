@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.API.APIServiceTest;
 import com.example.prm392_finalproject.Adapter.OrderAdapter;
 import com.example.prm392_finalproject.DTOModels.Order_DTO;
@@ -96,4 +97,21 @@ public class OrderActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+//    public void getListOrder(){
+//        APIService.apiService.listOrder(1).enqueue(new Callback<ArrayList<Order_DTO>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<Order_DTO>> call, Response<ArrayList<Order_DTO>> response) {
+//                List<Order_DTO> list = response.body();
+//                mOrderAdapter.setData(list);
+//                revOrder.setAdapter(mOrderAdapter);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<Order_DTO>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+
 }
