@@ -20,7 +20,7 @@ import retrofit2.http.Path;
 public interface APILoginService {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     APILoginService apiLoginService = new Retrofit.Builder()
-            .baseUrl("http://192.168.21.106:8888/")
+            .baseUrl("http://10.33.33.203:8888/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APILoginService.class);
@@ -28,6 +28,5 @@ public interface APILoginService {
     //    @GET("api/v1/products")
     @POST("api/v1/login")
     Call<User_Login_DTO_Response> login(@Body User_Login_DTO_Requset userLoginDtoRequset);
-
 
 }
