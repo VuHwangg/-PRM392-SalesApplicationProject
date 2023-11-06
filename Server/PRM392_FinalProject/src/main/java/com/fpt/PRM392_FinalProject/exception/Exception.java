@@ -17,8 +17,19 @@ public class Exception extends RuntimeException{
 
     public static Exception notFound(String message) {
         return Exception.builder()
+                .httpStatus(HttpStatus.NOT_FOUND)
                  .error(CustomError.builder()
                         .code("404")
+                        .message(message)
+                        .build())
+                .build();
+    }
+
+    public static Exception badRequest(String message) {
+        return Exception.builder()
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .error(CustomError.builder()
+                        .code("400")
                         .message(message)
                         .build())
                 .build();
