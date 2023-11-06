@@ -64,7 +64,11 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
         initview();
+        connectServer();
 
+    }
+
+    private void connectServer() {
     }
 
     private void initview() {
@@ -75,6 +79,7 @@ public class ChatActivity extends AppCompatActivity {
         button = findViewById(R.id.chat1);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
