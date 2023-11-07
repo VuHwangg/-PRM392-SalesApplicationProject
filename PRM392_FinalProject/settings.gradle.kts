@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "PRM392_FinalProject"
 include(":app")
- 
+include(":myapplication")
