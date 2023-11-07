@@ -65,8 +65,11 @@ public interface APIService {
     @POST("/cart")
     Call<Void> updateCart(@Body POST_Cart_DTO cart);
 
-    @PUT("order/{id}")//truyen vào orderID tra ve true fa
+    @PUT("order/{id}")//truyen vào orderID thay doi trang thai ve huy don
     Call<Order_DTO> cancelOrder(@Path("id") int id);
+
+    @GET("numProduct/{id}")//tra ve so luong product trong cart(chi dem product khong can tong quantity)
+    Call<Integer> productInCart(@Path("id") int id);
 
 //    @GET("api/v1/products")
 //    Call<List<Home_Product_DTO>> getListProduct();

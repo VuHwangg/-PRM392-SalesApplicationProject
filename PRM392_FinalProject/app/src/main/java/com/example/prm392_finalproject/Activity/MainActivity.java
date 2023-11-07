@@ -72,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     }
                 } else if (id == R.id.bottom_order) {
-                    if(UserDataManager.getUserPreference() == null){
-                        directToLogin();
-                    }else {
+//                    if(UserDataManager.getUserPreference() == null){
+//                        directToLogin();
+//                    }else {
                         Intent intent = new Intent(getApplicationContext(),OrderActivity.class);
                         startActivity(intent);
                         finish();
-                    }
+//                    }
                 } else if (id == R.id.bottom_chat) {
                     if(UserDataManager.getUserPreference() == null){
                         directToLogin();
