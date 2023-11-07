@@ -22,6 +22,7 @@ import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.Adapter.ProductAdapter;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -41,20 +42,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        APIServiceTest.apiService.listCart().enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
-//            @Override
-//            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
-//                CartSingleton.getInstance().setProductList(response.body());
-//                if (!CartSingleton.getInstance().getCart().isEmpty()){
-//                    sendPushNotification(CartSingleton.getInstance().getCart().size());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
-//
-//            }
-//        });
         revProduct = findViewById(R.id.rev_home);
         mProductAdapter = new ProductAdapter(MainActivity.this, new ProductAdapter.IClickItemListener() {
             // Định nghĩa interface onClickItemProduct
@@ -77,21 +64,37 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if (id == R.id.bottom_home) {
                 } else if (id == R.id.bottom_cart) {
-                    Intent intent = new Intent(getApplicationContext(),CartActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(UserDataManager.getUserPreference() == null){
+                        directToLogin();
+                    }else {
+                        Intent intent = new Intent(getApplicationContext(),CartActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else if (id == R.id.bottom_order) {
-                    Intent intent = new Intent(getApplicationContext(),OrderActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(UserDataManager.getUserPreference() == null){
+                        directToLogin();
+                    }else {
+                        Intent intent = new Intent(getApplicationContext(),OrderActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else if (id == R.id.bottom_chat) {
-                    Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(UserDataManager.getUserPreference() == null){
+                        directToLogin();
+                    }else {
+                        Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else if (id == R.id.bottom_account) {
-                    Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(UserDataManager.getUserPreference() == null){
+                        directToLogin();
+                    }else {
+                        Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
                 return true;
             }
@@ -178,5 +181,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return null;
+    }
+
+    private void directToLogin(){
+        Intent intent = new Intent(getApplicationContext(),UserLoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

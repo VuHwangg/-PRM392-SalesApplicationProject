@@ -21,6 +21,7 @@ import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Cart_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Cart_Product_DTO;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -62,7 +63,7 @@ public class CartActivity extends AppCompatActivity {
         CartSingleton cartSingleton = CartSingleton.getInstance();
         mCartAdapter.setData(cartSingleton.getCart());
         revProduct.setAdapter(mCartAdapter);
-//        getCartData();// cmt 3 dong tren lai roi mo dong nay ra
+//        getCartData();//xoa 3 dong tren
         // Cau hinh bottom navigation
         BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setSelectedItemId(R.id.bottom_cart);
