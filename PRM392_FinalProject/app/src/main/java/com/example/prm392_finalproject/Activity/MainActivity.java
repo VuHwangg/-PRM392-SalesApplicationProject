@@ -64,13 +64,13 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if (id == R.id.bottom_home) {
                 } else if (id == R.id.bottom_cart) {
-                    if(UserDataManager.getUserPreference() == null){
-                        directToLogin();
-                    }else {
+//                    if(UserDataManager.getUserPreference() == null){
+//                        directToLogin();
+//                    }else {
                         Intent intent = new Intent(getApplicationContext(),CartActivity.class);
                         startActivity(intent);
                         finish();
-                    }
+//                    }
                 } else if (id == R.id.bottom_order) {
 //                    if(UserDataManager.getUserPreference() == null){
 //                        directToLogin();
@@ -80,21 +80,21 @@ public class MainActivity extends AppCompatActivity {
                         finish();
 //                    }
                 } else if (id == R.id.bottom_chat) {
-                    if(UserDataManager.getUserPreference() == null){
-                        directToLogin();
-                    }else {
+//                    if(UserDataManager.getUserPreference() == null){
+//                        directToLogin();
+//                    }else {
                         Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
                         startActivity(intent);
                         finish();
-                    }
+//                    }
                 } else if (id == R.id.bottom_account) {
-                    if(UserDataManager.getUserPreference() == null){
-                        directToLogin();
-                    }else {
+//                    if(UserDataManager.getUserPreference() == null){
+//                        directToLogin();
+//                    }else {
                         Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
                         startActivity(intent);
                         finish();
-                    }
+//                    }
                 }
                 return true;
             }

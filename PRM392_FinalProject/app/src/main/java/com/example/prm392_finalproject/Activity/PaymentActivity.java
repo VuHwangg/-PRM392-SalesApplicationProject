@@ -22,10 +22,10 @@ import com.example.prm392_finalproject.Singleton.CartSingleton;
 
 import org.json.JSONObject;
 
-import vn.zalopay.sdk.Environment;
-import vn.zalopay.sdk.ZaloPayError;
-import vn.zalopay.sdk.ZaloPaySDK;
-import vn.zalopay.sdk.listeners.PayOrderListener;
+//import vn.zalopay.sdk.Environment;
+//import vn.zalopay.sdk.ZaloPayError;
+//import vn.zalopay.sdk.ZaloPaySDK;
+//import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -36,12 +36,12 @@ public class PaymentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        // ZaloPay SDK Init
-        ZaloPaySDK.init(2553, Environment.SANDBOX);
+//        StrictMode.ThreadPolicy policy = new
+//                StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+//
+//        // ZaloPay SDK Init
+//        ZaloPaySDK.init(2553, Environment.SANDBOX);
         setContentView(R.layout.activity_payment);
         paymentCost=findViewById(R.id.tv_payment_cost);
         payment = findViewById(R.id.btn_payment_zalo);
@@ -61,7 +61,7 @@ public class PaymentActivity extends AppCompatActivity {
                     Toast.makeText(PaymentActivity.this,"Vui lòng nhập đủ thông tin",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    requestZalo();
+//                    requestZalo();
                     Log.d("dấdasd","sdadada");
                 }
             }
@@ -74,43 +74,43 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
-    private void requestZalo() {
-        CreateOrder orderApi = new CreateOrder();
-        try {
-            String totalPrice = "3000000";
-            int x = (int) totalCost;
-            JSONObject data = orderApi.createOrder(Integer.toString(x));
-            Log.d("Amount", Double.toString(totalCost));
-            String code = data.getString("return_code");
-            Log.d("Amount2", code);
-            if (code.equals("1")) {
-                String token = data.getString("zp_trans_token");
-                ZaloPaySDK.getInstance().payOrder(PaymentActivity.this,token,"demozpdk://app", new PayOrderListener(){
-
-                    @Override
-                    public void onPaymentSucceeded(String s, String s1, String s2) {
-
-                    }
-
-                    @Override
-                    public void onPaymentCanceled(String s, String s1) {
-
-                    }
-
-                    @Override
-                    public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
-
-                    }
-                });
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        ZaloPaySDK.getInstance().onResult(intent);
-    }
+//    private void requestZalo() {
+//        CreateOrder orderApi = new CreateOrder();
+//        try {
+//            String totalPrice = "3000000";
+//            int x = (int) totalCost;
+//            JSONObject data = orderApi.createOrder(Integer.toString(x));
+//            Log.d("Amount", Double.toString(totalCost));
+//            String code = data.getString("return_code");
+//            Log.d("Amount2", code);
+//            if (code.equals("1")) {
+//                String token = data.getString("zp_trans_token");
+//                ZaloPaySDK.getInstance().payOrder(PaymentActivity.this,token,"demozpdk://app", new PayOrderListener(){
+//
+//                    @Override
+//                    public void onPaymentSucceeded(String s, String s1, String s2) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPaymentCanceled(String s, String s1) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
+//
+//                    }
+//                });
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        super.onNewIntent(intent);
+//        ZaloPaySDK.getInstance().onResult(intent);
+//    }
 }
