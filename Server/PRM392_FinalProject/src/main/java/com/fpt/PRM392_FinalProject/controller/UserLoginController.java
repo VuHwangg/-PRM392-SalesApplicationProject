@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/login")
 public class UserLoginController {
 
     UserService userService;
 
-    @PostMapping("login")
+    @PostMapping
     public UserDTOLoginResponse login(@RequestBody UserDTOLoginRequest loginRequest) {
         return userService.login(loginRequest);
     }
