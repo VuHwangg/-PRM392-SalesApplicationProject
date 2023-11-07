@@ -17,6 +17,7 @@ import com.example.prm392_finalproject.DTOModels.Message_DTO;
 import com.example.prm392_finalproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.gson.Gson;
 import com.google.type.DateTime;
 
 import java.io.BufferedReader;
@@ -114,7 +115,10 @@ public class ChatActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 //edtInput.setText(edtInput.getText() + "\n" + res);
-                                list.add(new Message_DTO("2","1",res, "11/06/2023"));
+
+                                Gson gson = new Gson();
+                                Message_DTO mess = gson.fromJson(res, Message_DTO.class);
+                                list.add(mess);
                             }
                         });
                         if (responseLine.contains("QUIT")) {
@@ -154,6 +158,8 @@ public class ChatActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
+                            Gson gson = new Gson();
+                            String mess = gson.toJson(new Message_DTO("1","2",text, "11/06/2023"));
                             os.write(text); // Ghi dữ liệu vào luồng đầu ra của Socket tại Client.
                             os.newLine(); // kết thúc dòng
                             os.flush(); // đẩy dữ liệu đi.
