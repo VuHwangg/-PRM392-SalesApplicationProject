@@ -72,7 +72,7 @@ public interface APIService {
     @GET("numProduct/{id}")//tra ve so luong product trong cart(chi dem product khong can tong quantity)
     Call<Integer> productInCart(@Path("id") int id);
 
-    @POST("/order")//update len mot order chua thong tin don hang va list product(order detail)
+    @POST("/order")//update len mot order chua thong tin don hang va list product(order detail), tam thoi de uID la 1
     Call<POST_Order_DTO>  addOrder(@Body POST_Order_DTO post_order_dto);
 
 //    @GET("api/v1/products")

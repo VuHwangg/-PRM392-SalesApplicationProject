@@ -16,11 +16,22 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.prm392_finalproject.API.APIService;
+import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.CreateOrder;
+import com.example.prm392_finalproject.DTOModels.POST_Cart_Product_DTO;
+import com.example.prm392_finalproject.DTOModels.POST_Order_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 
 import org.json.JSONObject;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 //import vn.zalopay.sdk.Environment;
 //import vn.zalopay.sdk.ZaloPayError;
@@ -61,6 +72,7 @@ public class PaymentActivity extends AppCompatActivity {
                 }
                 else{
 //                    requestZalo();
+                    addOrder();
                     Log.d("dấdasd","sdadada");
                 }
             }
@@ -112,4 +124,26 @@ public class PaymentActivity extends AppCompatActivity {
 //        super.onNewIntent(intent);
 //        ZaloPaySDK.getInstance().onResult(intent);
 //    }
+    public void addOrder(){
+        ArrayList<POST_Cart_Product_DTO> post_cart_product_dtos = new ArrayList<POST_Cart_Product_DTO>();
+        for (Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCartSelected()){
+            POST_Cart_Product_DTO post_cart_product_dto = new POST_Cart_Product_DTO(cart_product_dto.getId(),cart_product_dto.getQuantity());
+            post_cart_product_dtos.add(post_cart_product_dto);
+        }
+        POST_Order_DTO post_order_dto = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            post_order_dto = new POST_Order_DTO(1, phone.getText().toString(), address.getText().toString(), LocalDate.now(), totalCost, post_cart_product_dtos);
+        }
+        APIService.apiService.addOrder(post_order_dto).enqueue(new Callback<POST_Order_DTO>() {
+            @Override
+            public void onResponse(Call<POST_Order_DTO> call, Response<POST_Order_DTO> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<POST_Order_DTO> call, Throwable t) {
+
+            }
+        });
+    }
 }
