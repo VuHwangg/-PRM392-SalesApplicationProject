@@ -39,7 +39,6 @@ public class PaymentActivity extends AppCompatActivity {
 //        StrictMode.ThreadPolicy policy = new
 //                StrictMode.ThreadPolicy.Builder().permitAll().build();
 //        StrictMode.setThreadPolicy(policy);
-//
 //        // ZaloPay SDK Init
 //        ZaloPaySDK.init(2553, Environment.SANDBOX);
         setContentView(R.layout.activity_payment);
