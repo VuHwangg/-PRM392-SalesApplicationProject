@@ -4,6 +4,7 @@ import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Order_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Cart_DTO;
+import com.example.prm392_finalproject.DTOModels.POST_Order_DTO;
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -70,6 +71,9 @@ public interface APIService {
 
     @GET("numProduct/{id}")//tra ve so luong product trong cart(chi dem product khong can tong quantity)
     Call<Integer> productInCart(@Path("id") int id);
+
+    @POST("/order")//update len mot order chua thong tin don hang va list product(order detail)
+    Call<POST_Order_DTO>  addOrder(@Body POST_Order_DTO post_order_dto);
 
 //    @GET("api/v1/products")
 //    Call<List<Home_Product_DTO>> getListProduct();
