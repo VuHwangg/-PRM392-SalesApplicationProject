@@ -131,6 +131,7 @@ public class CartActivity extends AppCompatActivity {
                 List<Cart_Product_DTO> list = response.body();
                 mCartAdapter.setData(list);
                 revProduct.setAdapter(mCartAdapter);
+                Log.d("getCartData", String.valueOf(list.get(0).getId()));
             }
 
             @Override
@@ -148,8 +149,6 @@ public class CartActivity extends AppCompatActivity {
             post_cart_product_dtos.add(post_cart_product_dto);
         }
         POST_Cart_DTO cart = new POST_Cart_DTO(UserDataManager.getUserPreference().getId(), post_cart_product_dtos);
-        Log.d("doi den",  String.valueOf(cart.getPost_cart_dtos().get(0).getId()));
-        Log.d("doi den",  String.valueOf(cart.getPost_cart_dtos().get(1).getId()));
         APIService.apiService.updateCart(cart).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
