@@ -1,5 +1,7 @@
 package com.example.prm392_finalproject.API;
 
+import com.example.prm392_finalproject.DTOModels.Cart_DTO_Add_Request;
+import com.example.prm392_finalproject.DTOModels.Cart_DTO_Add_Response;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Order_DTO;
@@ -87,6 +89,8 @@ public interface APIService {
     @PUT("updateAccountInformation")
     Call<Void> updateAccountInformation(@Body User_UpdateInformation_DTO user_updateInformation_dto);
 
+    @POST("cart/add")
+    Call<Cart_DTO_Add_Response> addToCart(@Body Cart_DTO_Add_Request cartDtoAddRequest);
 
 //    @GET("api/v1/products")
 //    Call<List<Home_Product_DTO>> getListProduct();
