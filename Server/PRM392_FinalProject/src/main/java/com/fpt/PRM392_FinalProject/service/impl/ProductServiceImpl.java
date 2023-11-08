@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTODetailResponse getProductById(int id) {
         Product product = productRepository
                 .findById(id)
-                .orElseThrow(() -> Exception.notFound("Product dose not exits"));
+                .orElseThrow(() -> Exception.badRequest("Product dose not exits", "api/v1/products/{id}"));
         return ProductMapper.toProductDTODetailResponse(product);
     }
 }
