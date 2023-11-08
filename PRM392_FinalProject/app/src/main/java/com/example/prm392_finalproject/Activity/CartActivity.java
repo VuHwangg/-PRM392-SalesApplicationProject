@@ -25,6 +25,7 @@ import com.example.prm392_finalproject.Session.UserDataManager;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.protobuf.StringValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,10 +97,9 @@ public class CartActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-//        postCartData();//call API ngon het thi xoa thang duoi di
-        CartSingleton.getInstance().getCartSelected().clear();
+    protected void onPause() {
+        super.onPause();
+        postCartData();//call API ngon het thi xoa thang duoi di
     }
     public void goToPayment() {
         String costString = tvCost.getText().toString();
@@ -147,16 +147,17 @@ public class CartActivity extends AppCompatActivity {
             post_cart_product_dtos.add(post_cart_product_dto);
         }
         POST_Cart_DTO cart = new POST_Cart_DTO(1,post_cart_product_dtos);
-        APIService.apiService.updateCart(cart).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.d("UpdateCart","Success");
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("UpdateCart","Fail");
-            }
-        });
+        Log.d("abvcddasd", String.valueOf(cart.getPost_cart_dtos().get(0).getId()));
+//        APIService.apiService.updateCart(cart).enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                Log.d("UpdateCart","Success");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Log.d("UpdateCart","Fail");
+//            }
+//        });
     }
 }
