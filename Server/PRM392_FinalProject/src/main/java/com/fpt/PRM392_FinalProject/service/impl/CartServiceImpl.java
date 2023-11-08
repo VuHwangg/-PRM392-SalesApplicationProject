@@ -36,7 +36,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     @Override
     public CartDTOUpdateRequest updateCart(CartDTOUpdateRequest cartDTOUpdateRequest) {
-        //TODO: Checking the customer id is exits in database
+        //TODO: Checking the customer id is exits in database and productId
 
         List<Cart> cartList = cartRepository.findAllByCustomer_Id(cartDTOUpdateRequest.getCusID());
         for (Cart c: cartList) {

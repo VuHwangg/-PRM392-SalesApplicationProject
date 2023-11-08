@@ -1,6 +1,8 @@
 package com.example.prm392_finalproject.DTOModels;
 
-public class POST_Cart_Product_DTO {
+import java.io.Serializable;
+
+public class POST_Cart_Product_DTO implements Serializable {
     private int id;
     private int quantity;
 

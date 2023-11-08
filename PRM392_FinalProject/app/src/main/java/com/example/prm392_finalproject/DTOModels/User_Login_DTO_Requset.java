@@ -1,6 +1,8 @@
 package com.example.prm392_finalproject.DTOModels;
 
-public class User_Login_DTO_Requset {
+import java.io.Serializable;
+
+public class User_Login_DTO_Requset implements Serializable {
     private String username;
     private String password;
 
