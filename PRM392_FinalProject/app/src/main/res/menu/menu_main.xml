@@ -24,8 +24,6 @@
                 android:title="option1"/>
             <item android:id="@+id/menu_option2"
                 android:title="option2"/>
-            <item android:id="@+id/menu_option3"
-                android:title="option3"/>
         </menu>
     </item>
 

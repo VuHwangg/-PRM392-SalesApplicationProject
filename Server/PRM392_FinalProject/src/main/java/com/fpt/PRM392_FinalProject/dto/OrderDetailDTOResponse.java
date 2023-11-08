@@ -8,9 +8,12 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class POST_Cart_Product_DTO {
+public class OrderDetailDTOResponse {
     int id;
+    String image;
+    String name;
+    double price;
     int quantity;
+    String color;
 }

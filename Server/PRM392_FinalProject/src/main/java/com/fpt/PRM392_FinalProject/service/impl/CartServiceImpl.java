@@ -1,11 +1,10 @@
 package com.fpt.PRM392_FinalProject.service.impl;
 
-import com.fpt.PRM392_FinalProject.dto.CartDTOListResponse;
-import com.fpt.PRM392_FinalProject.dto.CartDTOUpdateRequest;
-import com.fpt.PRM392_FinalProject.dto.POST_Cart_Product_DTO;
+import com.fpt.PRM392_FinalProject.dto.*;
 import com.fpt.PRM392_FinalProject.entity.Cart;
 import com.fpt.PRM392_FinalProject.entity.Customer;
 import com.fpt.PRM392_FinalProject.entity.Product;
+import com.fpt.PRM392_FinalProject.exception.Exception;
 import com.fpt.PRM392_FinalProject.mapper.CartMapper;
 import com.fpt.PRM392_FinalProject.repository.CartRepository;
 import com.fpt.PRM392_FinalProject.service.CartService;
@@ -36,7 +35,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     @Override
     public CartDTOUpdateRequest updateCart(CartDTOUpdateRequest cartDTOUpdateRequest) {
-        //TODO: Checking the customer id is exits in database
+        //TODO: Checking the customer id is exits in database and productId
 
         List<Cart> cartList = cartRepository.findAllByCustomer_Id(cartDTOUpdateRequest.getCusID());
         for (Cart c: cartList) {
@@ -55,6 +54,36 @@ public class CartServiceImpl implements CartService {
             cartRepository.save(cart);
         }
         return cartDTOUpdateRequest;
+    }
+
+    @Override
+    public Integer getProductQuantityInCart(int id) {
+        return cartRepository.countAllByCustomer_Id(id);
+    }
+
+    @Override
+    public CartDTOAddResponse addToCart(CartDTOAddRequest cartDTOAddRequest) {
+        //TODO: Checking the customer id is exits in database and productId
+        Cart cart = cartRepository.
+                findByCustomer_IdAndProduct_Id(cartDTOAddRequest.getCustomerId(), cartDTOAddRequest.getProductId());
+        if (cart != null) {
+            cart.setQuantity(cart.getQuantity() + 1);
+
+        } else {
+            cart = Cart.builder()
+                    .quantity(1)
+                    .customer(Customer.builder()
+                            .id(cartDTOAddRequest.getCustomerId())
+                            .build()
+                    )
+                    .product(Product.builder()
+                            .id(cartDTOAddRequest.getProductId())
+                            .build()
+                    )
+                    .build();
+        }
+        Cart cartAdded = cartRepository.save(cart);
+        return CartMapper.toCartDTOAddResponse(cartAdded);
     }
 
 

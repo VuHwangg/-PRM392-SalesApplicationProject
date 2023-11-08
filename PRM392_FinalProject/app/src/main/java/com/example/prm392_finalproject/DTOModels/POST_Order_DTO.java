@@ -1,11 +1,12 @@
 package com.example.prm392_finalproject.DTOModels;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class POST_Order_DTO {
+public class POST_Order_DTO implements Serializable {
     private int customerID;
     private String customerPhone;
     private String customerAddress;

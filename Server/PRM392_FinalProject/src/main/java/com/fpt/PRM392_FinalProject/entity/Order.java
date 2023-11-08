@@ -27,10 +27,10 @@ public class Order {
     String phone;
     String address;
     LocalDate date;
-    float total;
+    double total;
     int status;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     List<OrderDetail> orderDetailList;
 
 }

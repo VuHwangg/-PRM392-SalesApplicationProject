@@ -64,7 +64,7 @@
                     android:background="@drawable/shape_edit_text"
                     android:drawableLeft="@drawable/ic_person"
                     android:drawablePadding="8dp"
-                    android:hint="Họ tên người nhận hàng"
+                    android:hint="Họ và tên"
                     android:inputType="text"
                     android:padding="12dp"
                     android:textColor="@color/black" />

@@ -1,6 +1,7 @@
 package com.example.prm392_finalproject.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,9 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.prm392_finalproject.API.APIService;
+import com.example.prm392_finalproject.DTOModels.Cart_DTO_Add_Request;
+import com.example.prm392_finalproject.DTOModels.Cart_DTO_Add_Response;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 
 import retrofit2.Call;
@@ -66,6 +70,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 //                    Intent intent = new Intent(getApplicationContext(),UserLoginActivity.class);
 //                    startActivity(intent);
 //                }else {
+                    CallApiAddToCart();
                     boolean check = false;
                     CartSingleton cartSingleton = CartSingleton.getInstance();
                     for (Cart_Product_DTO cart_product_dto : cartSingleton.getCart()) {
@@ -105,10 +110,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     }
     private void callAPIProductDetail(int id) {
+
         APIService.apiService.getProductDetail(id).enqueue(new Callback<Product_Detail_DTO>() {
             @Override
             public void onResponse(Call<Product_Detail_DTO> call, Response<Product_Detail_DTO> response) {
                 product = response.body();
+                Log.d("productDetail", String.valueOf(product.getId()));
                 if (product != null) {
                     Glide.with(ProductDetailActivity.this)
                             .load(product.getImage())
@@ -134,5 +141,20 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void CallApiAddToCart() {
+        Cart_DTO_Add_Request cart = new Cart_DTO_Add_Request(UserDataManager.getUserPreference().getId(), product.getId());
+        APIService.apiService.addToCart(cart).enqueue(new Callback<Cart_DTO_Add_Response>() {
+            @Override
+            public void onResponse(Call<Cart_DTO_Add_Response> call, Response<Cart_DTO_Add_Response> response) {
+                Toast.makeText(ProductDetailActivity.this, "Call API Success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Cart_DTO_Add_Response> call, Throwable t) {
+                Toast.makeText(ProductDetailActivity.this, "Call API failure", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

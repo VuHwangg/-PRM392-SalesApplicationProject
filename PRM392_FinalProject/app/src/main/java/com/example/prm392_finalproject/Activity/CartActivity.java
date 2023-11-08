@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.Adapter.CartAdapter;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
-import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Cart_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Cart_Product_DTO;
 import com.example.prm392_finalproject.R;
@@ -27,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.protobuf.StringValue;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +37,9 @@ import retrofit2.Response;
 public class CartActivity extends AppCompatActivity {
     private RecyclerView revProduct;
     private CartAdapter mCartAdapter;
-    private MainActivity mMainActivity;
-    private View mView;
     private TextView tvCost;
     private Button btnCheckout;
+    DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +53,17 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-        // Context của fragment
         revProduct = findViewById(R.id.rev_cart);
         tvCost = findViewById(R.id.tv_cart_cost);
         mCartAdapter = new CartAdapter(this,tvCost);
         // Layout hiện thị là dạng liner
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainActivity);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         revProduct.setLayoutManager(linearLayoutManager);
-        CartSingleton cartSingleton = CartSingleton.getInstance();
-        mCartAdapter.setData(cartSingleton.getCart());
-        revProduct.setAdapter(mCartAdapter);
-//        getCartData();//xoa 3 dong tren
+//        CartSingleton cartSingleton = CartSingleton.getInstance();
+//        mCartAdapter.setData(cartSingleton.getCart());
+//        revProduct.setAdapter(mCartAdapter);
+        getCartData();//xoa 3 dong tren
+
         // Cau hinh bottom navigation
         BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setSelectedItemId(R.id.bottom_cart);
@@ -99,7 +98,9 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
         postCartData();//call API ngon het thi xoa thang duoi di
+//        CartSingleton.getInstance().getCartSelected().clear();
     }
     public void goToPayment() {
         String costString = tvCost.getText().toString();
@@ -122,7 +123,7 @@ public class CartActivity extends AppCompatActivity {
 
     public void getCartData(){
         //thay thang 1 bang thang userID
-        APIService.apiService.listCart(1).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
+        APIService.apiService.listCart(UserDataManager.getUserPreference().getId()).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
             @Override
             public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
                 CartSingleton.getInstance().getCart().clear();
@@ -131,6 +132,7 @@ public class CartActivity extends AppCompatActivity {
                 List<Cart_Product_DTO> list = response.body();
                 mCartAdapter.setData(list);
                 revProduct.setAdapter(mCartAdapter);
+                Log.d("getCartData", String.valueOf(list.get(0).getId()));
             }
 
             @Override
@@ -141,23 +143,23 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void postCartData(){
+
         ArrayList<POST_Cart_Product_DTO> post_cart_product_dtos = new ArrayList<POST_Cart_Product_DTO>();
         for (Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart()){
             POST_Cart_Product_DTO post_cart_product_dto = new POST_Cart_Product_DTO(cart_product_dto.getId(),cart_product_dto.getQuantity());
             post_cart_product_dtos.add(post_cart_product_dto);
         }
-        POST_Cart_DTO cart = new POST_Cart_DTO(1,post_cart_product_dtos);
-        Log.d("abvcddasd", String.valueOf(cart.getPost_cart_dtos().get(0).getId()));
-//        APIService.apiService.updateCart(cart).enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                Log.d("UpdateCart","Success");
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Log.d("UpdateCart","Fail");
-//            }
-//        });
+        POST_Cart_DTO cart = new POST_Cart_DTO(UserDataManager.getUserPreference().getId(), post_cart_product_dtos);
+        APIService.apiService.updateCart(cart).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("UpdateCart","Success");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("UpdateCart","Fail");
+            }
+        });
     }
 }

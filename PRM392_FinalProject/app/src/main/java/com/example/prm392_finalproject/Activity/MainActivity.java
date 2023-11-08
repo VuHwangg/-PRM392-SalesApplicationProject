@@ -22,6 +22,7 @@ import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.Adapter.ProductAdapter;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -36,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView revProduct;
     private ProductAdapter mProductAdapter;
-
     private BottomNavigationView mBottomNavigationView;
+    private boolean notificationOn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,13 @@ public class MainActivity extends AppCompatActivity {
         revProduct.setLayoutManager(gridLayoutManager);
         callAPIHomePage();
 
+        //Send notification
+        if(UserDataManager.getNotify()){
+            //call api lay number of product
 
+            //send
+            sendPushNotification(3);
+        }
     }
 
     @Override
@@ -73,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.menu_notification) {
             Toast.makeText(this, "Notification selected", Toast.LENGTH_SHORT).show();
+            if (notificationOn) {
+                item.setIcon(R.drawable.ic_notification_off);
+            } else {
+                item.setIcon(R.drawable.ic_notification);
+            }
+            notificationOn = !notificationOn;
         } else if (id == R.id.menu_option1) {
             Toast.makeText(this, "Menu option 1 selected", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
@@ -81,11 +94,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Menu option 2 selected", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), UserRegisterActivity.class);
             startActivity(intent);
-        } else if (id == R.id.menu_option3) {
-            Toast.makeText(this, "Menu option 3 selected", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), EmployeeLoginActivity.class);
-            startActivity(intent);
-        }
+        } 
         return true;
     }
 

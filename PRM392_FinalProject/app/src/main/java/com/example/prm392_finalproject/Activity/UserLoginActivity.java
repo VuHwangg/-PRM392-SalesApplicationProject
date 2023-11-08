@@ -2,6 +2,7 @@ package com.example.prm392_finalproject.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private EditText edt_username, edt_password;
     private Button btn_login;
-    private TextView tv_login;
+    private TextView btn_goto_register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class UserLoginActivity extends AppCompatActivity {
         edt_username = findViewById(R.id.edt_username);
         edt_password = findViewById(R.id.edt_password);
         btn_login = findViewById(R.id.btn_login);
-        tv_login = findViewById(R.id.tv_login);
+        btn_goto_register = findViewById(R.id.btn_goto_register);
 
         btn_login.setOnClickListener(view -> {
             // TODO: Client Input Validation HCAVuu
@@ -75,12 +76,10 @@ public class UserLoginActivity extends AppCompatActivity {
 
         });
 
-        tv_login.setOnClickListener(view ->{
-            User_Login_DTO_Response userLoginDtoResponse = UserDataManager.getUserPreference();
-            if (userLoginDtoResponse == null) {
-                Toast.makeText(UserLoginActivity.this, "Qua den", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(UserLoginActivity.this, userLoginDtoResponse.getName().toString(), Toast.LENGTH_SHORT).show();
+        btn_goto_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), UserRegisterActivity.class));
             }
         });
 

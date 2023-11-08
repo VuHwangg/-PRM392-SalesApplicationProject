@@ -24,10 +24,13 @@ import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.example.prm392_finalproject.VNPAY.VNP_SdkCompletedCallback;
 import com.example.prm392_finalproject.VNPAY.VNPay;
 
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,7 +70,11 @@ public class PaymentActivity extends AppCompatActivity {
         if (bundle != null) {
             totalCost = (double) bundle.get("totalPrice");
         }
-        paymentCost.setText(Double.toString(totalCost) + " VNĐ");
+//        paymentCost.setText(Double.toString(totalCost) + " VNĐ");
+
+        DecimalFormat decimalFormat = new DecimalFormat("#,### VNĐ");
+        String formattedCost = decimalFormat.format(totalCost);
+        paymentCost.setText(formattedCost);
         payment.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("SetTextI18n")
