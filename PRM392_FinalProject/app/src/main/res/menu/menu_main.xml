@@ -9,6 +9,12 @@
         android:icon="@drawable/ic_map"/>
 
     <item
+        android:id="@+id/menu_notification"
+        android:title=""
+        app:showAsAction="always"
+        android:icon="@drawable/ic_notification"/>
+
+    <item
         app:showAsAction="always"
         android:title=" "
         android:icon="@drawable/ic_menu">
@@ -18,8 +24,6 @@
                 android:title="option1"/>
             <item android:id="@+id/menu_option2"
                 android:title="option2"/>
-            <item android:id="@+id/menu_option3"
-                android:title="option3"/>
         </menu>
     </item>
 

@@ -91,7 +91,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    cancleOrder();
+                    cancleOrder();
                     btnCancel.setBackgroundColor(Color.parseColor("#70000000"));
                     btnCancel.setText("Đơn hàng đã được hủy");
                     Toast.makeText(OrderDetailActivity.this, "Hủy thành công", Toast.LENGTH_SHORT).show();

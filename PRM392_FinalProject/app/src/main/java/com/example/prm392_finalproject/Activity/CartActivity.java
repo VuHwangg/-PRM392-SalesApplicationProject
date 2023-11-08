@@ -25,6 +25,7 @@ import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,10 +36,9 @@ import retrofit2.Response;
 public class CartActivity extends AppCompatActivity {
     private RecyclerView revProduct;
     private CartAdapter mCartAdapter;
-    private MainActivity mMainActivity;
-    private View mView;
     private TextView tvCost;
     private Button btnCheckout;
+    DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +52,11 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-        // Context của fragment
         revProduct = findViewById(R.id.rev_cart);
         tvCost = findViewById(R.id.tv_cart_cost);
         mCartAdapter = new CartAdapter(this,tvCost);
         // Layout hiện thị là dạng liner
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainActivity);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         revProduct.setLayoutManager(linearLayoutManager);
 //        CartSingleton cartSingleton = CartSingleton.getInstance();
 //        mCartAdapter.setData(cartSingleton.getCart());

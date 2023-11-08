@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView revProduct;
     private ProductAdapter mProductAdapter;
-
     private BottomNavigationView mBottomNavigationView;
+    private boolean notificationOn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,14 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.menu_map) {
             Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
             startActivity(intent);
+        } else if (id == R.id.menu_notification) {
+            Toast.makeText(this, "Notification selected", Toast.LENGTH_SHORT).show();
+            if (notificationOn) {
+                item.setIcon(R.drawable.ic_notification_off);
+            } else {
+                item.setIcon(R.drawable.ic_notification);
+            }
+            notificationOn = !notificationOn;
         } else if (id == R.id.menu_option1) {
             Toast.makeText(this, "Menu option 1 selected", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
