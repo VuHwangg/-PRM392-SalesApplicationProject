@@ -7,10 +7,7 @@ import com.fpt.PRM392_FinalProject.service.OrderService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +16,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequestMapping("api/v1/order")
 public class OrderController {
+    private static final int STATUS_CANCEL = 4;
     OrderService orderService;
 
     @GetMapping("/{id}")
@@ -30,4 +28,10 @@ public class OrderController {
     public List<OrderDetailDTOResponse> getOrderDetailByOrderId(@PathVariable int id) {
         return orderService.getOrderDetailByOrderId(id);
     }
+
+    @PutMapping("/{id}")
+    public OrderDTOResponse changeOrderStatus(@PathVariable int id) {
+        return orderService.changeOrderStatus(id, STATUS_CANCEL);
+    }
+
 }

@@ -12,4 +12,6 @@ public interface CartService {
     List<CartDTOListResponse> getCartsByUserId(int id);
 
     CartDTOUpdateRequest updateCart(CartDTOUpdateRequest cartDTOUpdateRequest);
+
+    Integer getProductQuantityInCart(int id);
 }

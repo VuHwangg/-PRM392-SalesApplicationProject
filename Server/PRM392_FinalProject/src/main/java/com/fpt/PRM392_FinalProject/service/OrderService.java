@@ -10,4 +10,6 @@ public interface OrderService {
     List<OrderDTOResponse> getOrderByUserId(int id);
 
     List<OrderDetailDTOResponse> getOrderDetailByOrderId(int id);
+
+    OrderDTOResponse changeOrderStatus(int id, int status);
 }
