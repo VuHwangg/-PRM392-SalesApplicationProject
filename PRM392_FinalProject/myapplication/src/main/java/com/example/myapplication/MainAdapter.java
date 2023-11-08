@@ -15,58 +15,76 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class MainAdapter  extends  RecyclerView.Adapter<MainAdapter.MainViewHolder>{
-    private List<String> lst;
-    private Context context;
+public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private List<Message_DTO> messageList;
+    private static final int VIEW_TYPE_SEND = 1;
+    private static final int VIEW_TYPE_RECEIVE = 2;
 
-    public MainAdapter(List<String> lst, Context context) {
-        this.lst = lst;
-        this.context = context;
+    @Override
+    public int getItemViewType(int position) {
+        Message_DTO message = messageList.get(position);
+        if (message.sendid.equals(String.valueOf(VIEW_TYPE_SEND))) {
+            return VIEW_TYPE_SEND;
+        } else {
+            return VIEW_TYPE_RECEIVE;
+        }
     }
 
+    public MainAdapter(List<Message_DTO> messageList) {
+        this.messageList = messageList;
+    }
     @NonNull
     @Override
-    public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main,parent,false);
-        return new MainViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        if (viewType == VIEW_TYPE_SEND) {
+            view = inflater.inflate(R.layout.item_sendmessage, parent, false);
+            return new SendMessViewHolder(view);
+        } else {
+            view = inflater.inflate(R.layout.item_received, parent, false);
+            return new ReceivedViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-        String string = lst.get(position);
-        if(string== null){
-            return;
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Message_DTO message = messageList.get(position);
+
+        switch (holder.getItemViewType()) {
+            case VIEW_TYPE_SEND:
+                SendMessViewHolder sendHolder = (SendMessViewHolder) holder;
+                sendHolder.txtmess.setText(message.mess);
+                sendHolder.txttime.setText(message.DateTime);
+                break;
+            case VIEW_TYPE_RECEIVE:
+                ReceivedViewHolder receivedHolder = (ReceivedViewHolder) holder;
+                receivedHolder.txtmess.setText(message.mess);
+                receivedHolder.txttime.setText(message.DateTime);
+                break;
         }
-        holder.tv.setText(string);
-        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ChatActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("sendid",string);
-                intent.putExtras(bundle);
-                context.startActivities(new Intent[]{intent});
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        if(lst != null){
-            return lst.size();
-        }
-        return 0;
+        return messageList.size();
     }
 
-    class  MainViewHolder extends RecyclerView.ViewHolder{
-        private TextView tv;
-        private ImageView imageView;
-        private ConstraintLayout constraintLayout;
-        public MainViewHolder(@NonNull View itemView) {
+    class SendMessViewHolder extends  RecyclerView.ViewHolder{
+        TextView txtmess, txttime;
+        public SendMessViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv = itemView.findViewById(R.id.textView);
-            imageView = itemView.findViewById(R.id.imageView);
-            constraintLayout = itemView.findViewById(R.id.layout1);
+            txtmess = itemView.findViewById(R.id.txtmesssend);
+            txttime = itemView.findViewById(R.id.txttimesend);
+        }
+    }
+    class ReceivedViewHolder extends  RecyclerView.ViewHolder{
+        TextView txtmess, txttime;
+        public ReceivedViewHolder(@NonNull View itemView) {
+            super(itemView);
+            txtmess = itemView.findViewById(R.id.txtmessreceived);
+            txttime = itemView.findViewById(R.id.txttimereceived);
         }
     }
 }

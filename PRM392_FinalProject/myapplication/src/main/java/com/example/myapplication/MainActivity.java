@@ -15,16 +15,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private List<String> lst;
-    private  MainAdapter mainAdapter;
-    private String serverIP = "10.0.2.15";
-    private int serverPort = 1234;
-    @Override
+    private List<Message_DTO> lst;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this, ChatActivity.class);
-        startActivity(intent);
+
 
 
     }
