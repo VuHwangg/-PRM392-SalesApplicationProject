@@ -32,8 +32,8 @@ public class OrderDetailActivity extends AppCompatActivity {
     private Button btnCancel;
     private RecyclerView revProductOrderDetail;
     private OrderDetailAdapter mOrderDetailAdapter;
-
     private Order_DTO order;
+    private int orderStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +56,20 @@ public class OrderDetailActivity extends AppCompatActivity {
             if (order != null) {
                 tvID.setText(order.getId() + "");
 
-                if (order.getStatus() == 0) {
+                orderStatus = order.getStatus();
+                if (orderStatus == 0) {
                     tvStatus.setText("Đã đặt hàng");
                     tvStatus.setTextColor(Color.parseColor("#80000000"));
-                } else if (order.getStatus() == 1) {
+                } else if (orderStatus == 1) {
                     tvStatus.setText("Đã xác nhận");
                     tvStatus.setTextColor(Color.parseColor("#9C27B0"));
-                } else if (order.getStatus() == 2) {
+                } else if (orderStatus == 2) {
                     tvStatus.setText("Đang giao hàng");
                     tvStatus.setTextColor(Color.parseColor("#3F51B5"));
-                } else if (order.getStatus() == 3) {
+                } else if (orderStatus == 3) {
                     tvStatus.setText("Đã giao hàng");
                     tvStatus.setTextColor(Color.parseColor("#369C3A"));
-                } else if (order.getStatus() == 4) {
+                } else if (orderStatus == 4) {
                     tvStatus.setText("Đơn hàng bị hủy");
                     tvStatus.setTextColor(Color.parseColor("#CC3125"));
                 }
@@ -85,12 +86,26 @@ public class OrderDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(OrderDetailActivity.this, "Hủy đơn hàng thành công", Toast.LENGTH_SHORT).show();
+
+
+        if (orderStatus == 0 || orderStatus == 1) {
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                  cancleOrder();
+                    btnCancel.setBackgroundColor(Color.parseColor("#70000000"));
+                    btnCancel.setText("Đơn hàng đã được hủy");
+                    Toast.makeText(OrderDetailActivity.this, "Hủy thành công", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            if (orderStatus == 4) {
+                btnCancel.setText("Đơn hàng đã được hủy");
             }
-        });
+            btnCancel.setBackgroundColor(Color.parseColor("#70000000"));
+        }
+
+
         mOrderDetailAdapter = new OrderDetailAdapter(OrderDetailActivity.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(OrderDetailActivity.this);
         revProductOrderDetail.setLayoutManager(linearLayoutManager);
@@ -118,7 +133,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         });
     }
 //    private void getOrderDetail() {
-//        APIService.apiService.listOrderDetail(1).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
+//        APIService.apiService.listOrderDetail(order.getId()).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
 //            @Override
 //            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
 //                List<Cart_Product_DTO> list = response.body();
@@ -131,5 +146,20 @@ public class OrderDetailActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+
+
+    private void cancleOrder() {
+        APIService.apiService.cancelOrder(order.getId()).enqueue(new Callback<Order_DTO>() {
+            @Override
+            public void onResponse(Call<Order_DTO> call, Response<Order_DTO> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Order_DTO> call, Throwable t) {
+
+            }
+        });
+    }
 
 }

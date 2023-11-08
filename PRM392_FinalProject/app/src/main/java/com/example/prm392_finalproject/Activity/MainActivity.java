@@ -22,7 +22,6 @@ import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.Adapter.ProductAdapter;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.R;
-import com.example.prm392_finalproject.Session.UserDataManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -37,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView revProduct;
     private ProductAdapter mProductAdapter;
+
+    private BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,50 +56,7 @@ public class MainActivity extends AppCompatActivity {
         revProduct.setLayoutManager(gridLayoutManager);
         callAPIHomePage();
 
-        // Cau hinh bottom navigation
-        BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
-        mBottomNavigationView.setSelectedItemId(R.id.bottom_home);
-        mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.bottom_home) {
-                } else if (id == R.id.bottom_cart) {
-//                    if(UserDataManager.getUserPreference() == null){
-//                        directToLogin();
-//                    }else {
-                        Intent intent = new Intent(getApplicationContext(),CartActivity.class);
-                        startActivity(intent);
-                        finish();
-//                    }
-                } else if (id == R.id.bottom_order) {
-//                    if(UserDataManager.getUserPreference() == null){
-//                        directToLogin();
-//                    }else {
-                        Intent intent = new Intent(getApplicationContext(),OrderActivity.class);
-                        startActivity(intent);
-                        finish();
-//                    }
-                } else if (id == R.id.bottom_chat) {
-//                    if(UserDataManager.getUserPreference() == null){
-//                        directToLogin();
-//                    }else {
-                        Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
-                        startActivity(intent);
-                        finish();
-//                    }
-                } else if (id == R.id.bottom_account) {
-//                    if(UserDataManager.getUserPreference() == null){
-//                        directToLogin();
-//                    }else {
-                        Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
-                        startActivity(intent);
-                        finish();
-//                    }
-                }
-                return true;
-            }
-        });
+
     }
 
     @Override
@@ -186,6 +144,54 @@ public class MainActivity extends AppCompatActivity {
     private void directToLogin(){
         Intent intent = new Intent(getApplicationContext(),UserLoginActivity.class);
         startActivity(intent);
-        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Cau hinh bottom navigation
+        mBottomNavigationView = findViewById(R.id.bottom_navigation);
+        mBottomNavigationView.setSelectedItemId(R.id.bottom_home);
+        mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.bottom_home) {
+                } else if (id == R.id.bottom_cart) {
+//                    if(UserDataManager.getUserPreference() == null){
+//                        directToLogin();
+//                    }else {
+                        Intent intent = new Intent(getApplicationContext(),CartActivity.class);
+                        startActivity(intent);
+                        finish();
+//                    }
+                } else if (id == R.id.bottom_order) {
+//                    if(UserDataManager.getUserPreference() == null){
+//                        directToLogin();
+//                    }else {
+                    Intent intent = new Intent(getApplicationContext(),OrderActivity.class);
+                    startActivity(intent);
+                    finish();
+//                    }
+                } else if (id == R.id.bottom_chat) {
+//                    if(UserDataManager.getUserPreference() == null){
+//                        directToLogin();
+//                    }else {
+                    Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
+                    startActivity(intent);
+                    finish();
+//                    }
+                } else if (id == R.id.bottom_account) {
+//                    if(UserDataManager.getUserPreference() == null){
+//                        directToLogin();
+//                    }else {
+                    Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
+                    startActivity(intent);
+                    finish();
+//                    }
+                }
+                return true;
+            }
+        });
     }
 }

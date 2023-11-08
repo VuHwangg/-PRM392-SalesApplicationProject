@@ -1,7 +1,6 @@
 package com.example.prm392_finalproject.Activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -63,19 +62,24 @@ public class ProductDetailActivity extends AppCompatActivity {
         btn_addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean check =false;
-                CartSingleton cartSingleton = CartSingleton.getInstance();
-                for(Cart_Product_DTO cart_product_dto : cartSingleton.getCart()){
-                    if(cart_product_dto.getId() == product.getId()){
-                        cart_product_dto.setQuantity(cart_product_dto.getQuantity()+1);
-                        check =true;
+//                if(UserDataManager.getUserPreference() == null){
+//                    Intent intent = new Intent(getApplicationContext(),UserLoginActivity.class);
+//                    startActivity(intent);
+//                }else {
+                    boolean check = false;
+                    CartSingleton cartSingleton = CartSingleton.getInstance();
+                    for (Cart_Product_DTO cart_product_dto : cartSingleton.getCart()) {
+                        if (cart_product_dto.getId() == product.getId()) {
+                            cart_product_dto.setQuantity(cart_product_dto.getQuantity() + 1);
+                            check = true;
+                            Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    if (check == false) {
+                        cartSingleton.getCart().add(new Cart_Product_DTO(product.getId(), product.getImage(), product.getName(), product.getPrice(), 1, product.getColor()));
                         Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
                     }
-                }
-                if (check == false){
-                    cartSingleton.getCart().add(new Cart_Product_DTO(product.getId(),product.getImage(),product.getName(),product.getPrice(),1, product.getColor()));
-                    Toast.makeText(ProductDetailActivity.this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show();
-                }
+//                }
             }
         });
 

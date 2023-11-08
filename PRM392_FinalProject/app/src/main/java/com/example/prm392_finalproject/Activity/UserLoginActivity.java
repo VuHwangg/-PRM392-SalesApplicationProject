@@ -16,8 +16,6 @@ import com.example.prm392_finalproject.DTOModels.User_Login_DTO_Response;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Session.UserDataManager;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,9 +84,5 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
-
 }

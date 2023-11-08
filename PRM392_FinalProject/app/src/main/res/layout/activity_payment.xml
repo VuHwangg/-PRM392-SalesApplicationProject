@@ -124,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/shape_edit_text"
-                    android:drawableLeft="@drawable/ic_map"
+                    android:drawableLeft="@drawable/ic_map2"
                     android:drawablePadding="8dp"
                     android:hint="Địa chỉ nhận hàng"
                     android:inputType="textMultiLine"
