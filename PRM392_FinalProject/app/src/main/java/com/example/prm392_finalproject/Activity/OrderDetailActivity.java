@@ -2,6 +2,7 @@ package com.example.prm392_finalproject.Activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,7 +52,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.btn_cancel);
         Bundle myBundle = getIntent().getExtras();
         if (myBundle != null) {
-            Order_DTO order = (Order_DTO) myBundle.get("object_order");
+            order = (Order_DTO) myBundle.get("Order");
+            Log.d("order",String.valueOf(order.getId()));
             if (order != null) {
                 tvID.setText(order.getId() + "");
 

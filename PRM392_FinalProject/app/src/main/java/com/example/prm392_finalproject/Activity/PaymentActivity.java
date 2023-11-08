@@ -20,6 +20,7 @@ import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Order_DTO;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.example.prm392_finalproject.VNPAY.VNP_SdkCompletedCallback;
 import com.example.prm392_finalproject.VNPAY.VNPay;
@@ -84,12 +85,12 @@ public class PaymentActivity extends AppCompatActivity {
                     Toast.makeText(PaymentActivity.this,"Vui lòng nhập đủ thông tin",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    try {
-                        openSdk();
-                    } catch (UnsupportedEncodingException e) {
-                        throw new RuntimeException(e);
-                    }
-//                    addOrder();
+//                    try {
+//                        openSdk();
+//                    } catch (UnsupportedEncodingException e) {
+//                        throw new RuntimeException(e);
+//                    }
+                    addOrder();
                     Log.d("dấdasd","sdadada");
                 }
             }
@@ -117,8 +118,13 @@ public class PaymentActivity extends AppCompatActivity {
         }
         POST_Order_DTO post_order_dto = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            post_order_dto = new POST_Order_DTO(1, phone.getText().toString(), address.getText().toString(), LocalDate.now(), totalCost, post_cart_product_dtos);
+            post_order_dto = new POST_Order_DTO(UserDataManager.getUserPreference().getId(), phone.getText().toString(), address.getText().toString(), LocalDate.now(), totalCost, post_cart_product_dtos);
         }
+        Log.d("sad",String.valueOf(post_order_dto.getCustomerID()));
+        Log.d("sad",String.valueOf(post_order_dto.getProducts()));
+        Log.d("sad",String.valueOf(post_order_dto.getOrderDate()));
+        Log.d("sad",String.valueOf(post_order_dto.getCustomerPhone()));
+        Log.d("sad",String.valueOf(post_order_dto.getCustomerAddress()));
         APIService.apiService.addOrder(post_order_dto).enqueue(new Callback<POST_Order_DTO>() {
             @Override
             public void onResponse(Call<POST_Order_DTO> call, Response<POST_Order_DTO> response) {

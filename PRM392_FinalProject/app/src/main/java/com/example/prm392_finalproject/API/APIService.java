@@ -31,7 +31,7 @@ import retrofit2.http.Query;
 public interface APIService {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.21.106:8888/api/v1/") //nao chay thi cmt thang duoi mo thang nay ra
+            .baseUrl("http://192.168.1.30:8888/api/v1/") //nao chay thi cmt thang duoi mo thang nay ra
 //            .baseUrl("https://653b8a902e42fd0d54d54bb7.mockapi.io")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
