@@ -1,5 +1,11 @@
 package com.example.prm392_finalproject.Activity;
 
+import android.Manifest;
+import android.app.LocaleManager;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -7,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.prm392_finalproject.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,15 +57,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                    },99);
+        }else {
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+//            if (location != null) {
+                // Add a marker in FPT University and move the camera
+                LatLng fpt_university_hola = new LatLng(21.0130, 105.5265);
+                mMap.addMarker(new MarkerOptions()
+                        .position(fpt_university_hola)
+                        .title("Marker in FPT University Hoa Lac "));
 
-        // Add a marker in FPT University and move the camera
-        LatLng fpt_university_hola = new LatLng(21.015145846865344, 105.52612927497405);
-        mMap.addMarker(new MarkerOptions()
-                .position(fpt_university_hola)
-                .title("Marker in FPT University Hoa Lac "));
+                // Zoom the map to a desired level
+                float zoomLevel = 15.0f; // Adjust this value to control the zoom level
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fpt_university_hola, zoomLevel));
 
-        // Zoom the map to a desired level
-        float zoomLevel = 15.0f; // Adjust this value to control the zoom level
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fpt_university_hola, zoomLevel));
+
     }
 }
