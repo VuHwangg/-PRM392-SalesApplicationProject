@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 
 public class UserDataManager {
     public static final String USER = "USER";
+    public static final String NOTIFY = "NOTIFY";
     private static Gson gson;
     private static  UserDataManager instance;
     private UserSharedPreference userSharedPreference;
@@ -35,6 +36,14 @@ public class UserDataManager {
         if (json.isEmpty()) return null;
         User_Login_DTO_Response userLoginDtoResponse = gson.fromJson(json, User_Login_DTO_Response.class);
         return userLoginDtoResponse;
+    }
+
+    public static void setNotify(boolean isNotify){
+        UserDataManager.getInstance().userSharedPreference.putBooleanValue(NOTIFY,isNotify);
+    }
+
+    public static boolean getNotify(){
+        return UserDataManager.getInstance().userSharedPreference.getBooleanValue(NOTIFY);
     }
 
 }
