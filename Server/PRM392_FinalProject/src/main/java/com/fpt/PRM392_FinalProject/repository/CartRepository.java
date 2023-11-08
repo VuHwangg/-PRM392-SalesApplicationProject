@@ -11,4 +11,5 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 
     Void deleteAllById (int id);
 
+    Integer countAllByCustomer_Id(int id);
 }
