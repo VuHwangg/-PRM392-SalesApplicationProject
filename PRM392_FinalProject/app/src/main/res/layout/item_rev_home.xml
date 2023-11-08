@@ -27,29 +27,32 @@
 
         <TextView
             android:id="@+id/tv_name_product"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="6dp"
             android:text="Iphone15"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_price_product"
             app:layout_constraintEnd_toEndOf="@+id/img_product"
             app:layout_constraintStart_toStartOf="@+id/img_product"
             app:layout_constraintTop_toBottomOf="@+id/img_product" />
 
         <TextView
             android:id="@+id/tv_price_product"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="6dp"
             android:text="25000000 VND"
+            android:textAlignment="center"
             android:textColor="@color/main_red"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_name_product"
-            app:layout_constraintStart_toStartOf="@+id/tv_name_product"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name_product" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_discount"

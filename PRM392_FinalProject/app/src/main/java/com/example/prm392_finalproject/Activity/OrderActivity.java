@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.API.APIServiceTest;
 import com.example.prm392_finalproject.Adapter.OrderAdapter;
 import com.example.prm392_finalproject.DTOModels.Order_DTO;
@@ -42,7 +41,6 @@ public class OrderActivity extends AppCompatActivity {
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         revOrder.setLayoutManager(linearLayoutManager);
-        getListOrder();
 
 
         // Cau hinh bottom navigation
@@ -75,6 +73,14 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Cap nhat lai trang thai
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getListOrder();
+    }
+
     private void getListOrder() {
         APIServiceTest.apiService.listOrder().enqueue(new Callback<ArrayList<Order_DTO>>() {
             @Override
@@ -99,6 +105,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 //    public void getListOrder(){
+    //// Thay  listOrder(1) bang listOrder(userID)
 //        APIService.apiService.listOrder(1).enqueue(new Callback<ArrayList<Order_DTO>>() {
 //            @Override
 //            public void onResponse(Call<ArrayList<Order_DTO>> call, Response<ArrayList<Order_DTO>> response) {

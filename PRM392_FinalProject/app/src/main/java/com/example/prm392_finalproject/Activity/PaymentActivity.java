@@ -1,10 +1,8 @@
 package com.example.prm392_finalproject.Activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,13 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
-import com.example.prm392_finalproject.DTOModels.CreateOrder;
 import com.example.prm392_finalproject.DTOModels.POST_Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Order_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
-
-import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,7 +35,7 @@ import retrofit2.Response;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    TextView paymentCost;
+    TextView paymentCost, btnBack;
     EditText phone,address;
     Button payment;
     double totalCost = 0;
@@ -53,15 +48,17 @@ public class PaymentActivity extends AppCompatActivity {
 //        // ZaloPay SDK Init
 //        ZaloPaySDK.init(2553, Environment.SANDBOX);
         setContentView(R.layout.activity_payment);
+        btnBack = findViewById(R.id.btn_back);
         paymentCost=findViewById(R.id.tv_payment_cost);
         payment = findViewById(R.id.btn_payment_zalo);
         phone = findViewById(R.id.edt_phone_num);
         address = findViewById(R.id.edt_address);
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             totalCost = (double) bundle.get("totalPrice");
         }
-        paymentCost.setText(Double.toString(totalCost));
+        paymentCost.setText(Double.toString(totalCost) + " VNĐ");
         payment.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("SetTextI18n")
@@ -75,6 +72,13 @@ public class PaymentActivity extends AppCompatActivity {
                     addOrder();
                     Log.d("dấdasd","sdadada");
                 }
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
