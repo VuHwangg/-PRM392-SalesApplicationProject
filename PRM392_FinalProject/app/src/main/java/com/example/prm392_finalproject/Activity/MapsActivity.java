@@ -1,7 +1,6 @@
 package com.example.prm392_finalproject.Activity;
 
 import android.Manifest;
-import android.app.LocaleManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -77,7 +76,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .title("Marker in FPT University Hoa Lac "));
 
                 // Zoom the map to a desired level
-                float zoomLevel = 15.0f; // Adjust this value to control the zoom level
+                float zoomLevel = 12.0f; // Adjust this value to control the zoom level
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fpt_university_hola, zoomLevel));
 
 

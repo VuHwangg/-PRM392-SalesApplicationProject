@@ -79,11 +79,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Menu option 2 selected", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), UserRegisterActivity.class);
             startActivity(intent);
-        } else if (id == R.id.menu_option3) {
-            Toast.makeText(this, "Menu option 3 selected", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), EmployeeLoginActivity.class);
-            startActivity(intent);
-        }
+        } 
         return true;
     }
 
