@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.io.IOException;
@@ -22,84 +23,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        serverThread = new ServerThread();
-        serverThread.startServer();
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
 
-//        recyclerView = findViewById(R.id.recyclerview_chat);
-////        lst = GetList();
-//        mainAdapter = new MainAdapter(lst,this);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        recyclerView.setAdapter(mainAdapter);
-//        recyclerView.setLayoutManager(linearLayoutManager);
 
     }
 
-    private List<String> GetList() {
-        return null;
-    }
-    class ServerThread extends Thread implements Runnable{
-        private boolean serverRunning;
-        private ServerSocket serverSocket;
-        private int count=0;
-        public  void startServer(){
-            serverRunning = true;
-            start();
-        }
 
-        @Override
-        public void run() {
-            try {
-                serverSocket = new ServerSocket(serverPort);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-                while (serverRunning){
-                    Socket socket = serverSocket.accept();
-                    count++;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-
-                    PrintWriter ouput_Server = new PrintWriter(socket.getOutputStream());
-                    ouput_Server.write("Welcom to Server: " + count);
-                    ouput_Server.flush();
-                    socket.close();
-
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            if(!serverRunning){
-                try {
-                    serverSocket.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        public  void  stopServer(){
-            serverRunning = false;
-
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if(serverSocket!= null && !serverSocket.isClosed()){
-                        try {
-                            serverSocket.close();
-
-                        } catch (IOException e) {
-                        }
-                    }
-                }
-            }).start();
-        }
-    }
-    private  ServerThread serverThread;
 }
