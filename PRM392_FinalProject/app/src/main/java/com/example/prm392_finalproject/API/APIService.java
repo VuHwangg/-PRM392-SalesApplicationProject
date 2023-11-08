@@ -6,10 +6,12 @@ import com.example.prm392_finalproject.DTOModels.Order_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Cart_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Order_DTO;
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
+import com.example.prm392_finalproject.DTOModels.User_ChangePassword_DTO;
+import com.example.prm392_finalproject.DTOModels.User_UpdateInformation_DTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.checkerframework.checker.units.qual.A;
+//import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +76,16 @@ public interface APIService {
 
     @POST("/order")//update len mot order chua thong tin don hang va list product(order detail), tam thoi de uID la 1
     Call<POST_Order_DTO>  addOrder(@Body POST_Order_DTO post_order_dto);
+
+    @GET("/confirmPassword") //xac nhan ton tai user co id la userID va mk la password
+    Call<Boolean> confirmPassword(@Body User_ChangePassword_DTO user_changePassword_dto);
+
+    @PUT("/changePassword")
+    Call<Void> changePassword(@Body User_ChangePassword_DTO user_changePassword_dto);
+
+    @PUT("/updateAccountInformation")
+    Call<Void> updateAccountInformation(@Body User_UpdateInformation_DTO user_updateInformation_dto);
+
 
 //    @GET("api/v1/products")
 //    Call<List<Home_Product_DTO>> getListProduct();

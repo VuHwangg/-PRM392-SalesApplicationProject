@@ -59,7 +59,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Integer getProductQuantityInCart(int id) {
-        return null;
+        return cartRepository.countAllByCustomer_Id(id);
     }
 
 
