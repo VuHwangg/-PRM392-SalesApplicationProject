@@ -109,6 +109,7 @@ public class ChatActivity extends AppCompatActivity {
                                     Gson gson = new Gson();
                                     Message_DTO receivedMessageDto = new Message_DTO("2","1", receivedMessage,"1");
                                     list.add(receivedMessageDto);
+
                                     adapter.notifyItemInserted(list.size() - 1);
                                     // Scroll tới vị trí mới nhất trong RecyclerView
                                     recyclerView.smoothScrollToPosition(list.size() - 1);
@@ -133,6 +134,10 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String text = editMess.getText().toString();
+                Message_DTO receivedMessageDto = new Message_DTO("1","2",text,"1");
+                list.add(receivedMessageDto);
+                adapter.notifyItemInserted(list.size() - 1);
+                 int a=list.size();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -141,10 +146,11 @@ public class ChatActivity extends AppCompatActivity {
                             if (os != null) {
                                 Gson gson = new Gson();
                                 String message = editMess.getText().toString();
-                                Message_DTO receivedMessageDto = new Message_DTO("1","2", message,"1");
+
                                 os.write(message);
                                 os.newLine();
                                 os.flush();
+                                editMess.getText().clear();
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
