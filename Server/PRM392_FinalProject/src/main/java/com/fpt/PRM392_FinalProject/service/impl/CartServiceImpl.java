@@ -57,5 +57,10 @@ public class CartServiceImpl implements CartService {
         return cartDTOUpdateRequest;
     }
 
+    @Override
+    public Integer getProductQuantityInCart(int id) {
+        return null;
+    }
+
 
 }

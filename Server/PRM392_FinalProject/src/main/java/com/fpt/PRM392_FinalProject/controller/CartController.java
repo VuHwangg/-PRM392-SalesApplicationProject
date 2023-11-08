@@ -27,4 +27,9 @@ public class CartController {
     public CartDTOUpdateRequest updateCart(@RequestBody CartDTOUpdateRequest cartDTOUpdateRequest) {
         return cartService.updateCart(cartDTOUpdateRequest);
     }
+
+    @GetMapping("/numproduct/{id}")
+    public Integer getProductQuantityInCart(@PathVariable int id) {
+        return cartService.getProductQuantityInCart(id);
+    }
 }

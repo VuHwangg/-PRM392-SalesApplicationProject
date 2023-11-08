@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         serverThread = new ServerThread();
         serverThread.startServer();
 
-        recyclerView = findViewById(R.id.recyclerview_chat);
-//        lst = GetList();
-        mainAdapter = new MainAdapter(lst,this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setAdapter(mainAdapter);
-        recyclerView.setLayoutManager(linearLayoutManager);
+//        recyclerView = findViewById(R.id.recyclerview_chat);
+////        lst = GetList();
+//        mainAdapter = new MainAdapter(lst,this);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        recyclerView.setAdapter(mainAdapter);
+//        recyclerView.setLayoutManager(linearLayoutManager);
 
     }
 
@@ -87,29 +87,18 @@ public class MainActivity extends AppCompatActivity {
             serverRunning = false;
 
 
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if(serverSocket!= null && !serverSocket.isClosed()){
-//                        try {
-//                            Log.d("123456", "run1: ");
-//                            serverSocket.close();
-//                            Log.d("123456", "run2: ");
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    Log.d("123456", "run3: ");
-//                                   tvStatus.setText("Server Stopped");
-//                                    Log.d("123456", "run4: ");
-//                                }
-//                            });
-//                        } catch (IOException e) {
-//                            Log.d("123456", "run: ");
-//
-//                        }
-//                    }
-//                }
-//            }).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if(serverSocket!= null && !serverSocket.isClosed()){
+                        try {
+                            serverSocket.close();
+
+                        } catch (IOException e) {
+                        }
+                    }
+                }
+            }).start();
         }
     }
     private  ServerThread serverThread;
