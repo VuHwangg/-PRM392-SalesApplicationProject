@@ -28,7 +28,7 @@ public class CartController {
         return cartService.updateCart(cartDTOUpdateRequest);
     }
 
-    @GetMapping("/numproduct/{id}")
+    @GetMapping("/quantity/{id}")
     public Integer getProductQuantityInCart(@PathVariable int id) {
         return cartService.getProductQuantityInCart(id);
     }

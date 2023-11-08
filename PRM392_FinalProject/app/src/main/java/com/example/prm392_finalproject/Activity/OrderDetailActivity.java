@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_finalproject.API.APIService;
-import com.example.prm392_finalproject.API.APIServiceTest;
 import com.example.prm392_finalproject.Adapter.OrderDetailAdapter;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Order_DTO;
@@ -119,21 +118,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void getOrderDetail() {
-        APIServiceTest.apiService.listOrderDetail().enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
-                List<Cart_Product_DTO> list = response.body();
-                mOrderDetailAdapter.setData(list);
-                revProductOrderDetail.setAdapter(mOrderDetailAdapter);
-            }
-            @Override
-            public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
-            }
-        });
-    }
 //    private void getOrderDetail() {
-//        APIService.apiService.listOrderDetail(order.getId()).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
+//        APIServiceTest.apiService.listOrderDetail().enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
 //            @Override
 //            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
 //                List<Cart_Product_DTO> list = response.body();
@@ -142,10 +128,24 @@ public class OrderDetailActivity extends AppCompatActivity {
 //            }
 //            @Override
 //            public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
-//
 //            }
 //        });
 //    }
+
+    private void getOrderDetail() {
+        APIService.apiService.listOrderDetail(order.getId()).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
+                List<Cart_Product_DTO> list = response.body();
+                mOrderDetailAdapter.setData(list);
+                revProductOrderDetail.setAdapter(mOrderDetailAdapter);
+            }
+            @Override
+            public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
+
+            }
+        });
+    }
 
 
     private void cancleOrder() {

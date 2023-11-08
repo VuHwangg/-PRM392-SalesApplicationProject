@@ -9,10 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prm392_finalproject.API.APIServiceTest;
+import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.Adapter.OrderAdapter;
 import com.example.prm392_finalproject.DTOModels.Order_DTO;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -81,32 +82,8 @@ public class OrderActivity extends AppCompatActivity {
         getListOrder();
     }
 
-    private void getListOrder() {
-        APIServiceTest.apiService.listOrder().enqueue(new Callback<ArrayList<Order_DTO>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Order_DTO>> call, Response<ArrayList<Order_DTO>> response) {
-                List<Order_DTO> list = response.body();
-                mOrderAdapter.setData(list);
-                revOrder.setAdapter(mOrderAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Order_DTO>> call, Throwable t) {
-
-            }
-        });
-    }
-    private void onClicGoToOrderDetail(Order_DTO order) {
-        Intent intent = new Intent(this, OrderDetailActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Order", order);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-//    public void getListOrder(){
-    //// Thay  listOrder(1) bang listOrder(userID)
-//        APIService.apiService.listOrder(1).enqueue(new Callback<ArrayList<Order_DTO>>() {
+//    private void getListOrder() {
+//        APIServiceTest.apiService.listOrder().enqueue(new Callback<ArrayList<Order_DTO>>() {
 //            @Override
 //            public void onResponse(Call<ArrayList<Order_DTO>> call, Response<ArrayList<Order_DTO>> response) {
 //                List<Order_DTO> list = response.body();
@@ -120,5 +97,29 @@ public class OrderActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+    private void onClicGoToOrderDetail(Order_DTO order) {
+        Intent intent = new Intent(this, OrderDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Order", order);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void getListOrder(){
+    // Thay  listOrder(1) bang listOrder(userID)
+        APIService.apiService.listOrder(UserDataManager.getUserPreference().getId()).enqueue(new Callback<ArrayList<Order_DTO>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Order_DTO>> call, Response<ArrayList<Order_DTO>> response) {
+                List<Order_DTO> list = response.body();
+                mOrderAdapter.setData(list);
+                revOrder.setAdapter(mOrderAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Order_DTO>> call, Throwable t) {
+
+            }
+        });
+    }
 
 }

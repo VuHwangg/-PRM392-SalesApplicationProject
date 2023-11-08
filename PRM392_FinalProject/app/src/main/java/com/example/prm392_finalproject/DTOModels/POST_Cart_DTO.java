@@ -1,8 +1,9 @@
 package com.example.prm392_finalproject.DTOModels;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class POST_Cart_DTO {
+public class POST_Cart_DTO implements Serializable {
     private int cusID;
     private ArrayList<POST_Cart_Product_DTO> post_cart_dtos;
 
