@@ -17,7 +17,7 @@ import com.example.prm392_finalproject.R;
 
 import java.util.List;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
+public class   OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
     private Context mContext;
     private List<Order_DTO> mListOrder;
