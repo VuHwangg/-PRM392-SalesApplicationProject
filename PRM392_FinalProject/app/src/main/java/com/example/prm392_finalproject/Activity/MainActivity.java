@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.menu_map) {
             Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.menu_notification) {
-            Toast.makeText(this, "Notification selected", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menu_option1) {
             Toast.makeText(this, "Menu option 1 selected", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);

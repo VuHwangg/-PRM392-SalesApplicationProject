@@ -9,12 +9,6 @@
         android:icon="@drawable/ic_map"/>
 
     <item
-        android:id="@+id/menu_notification"
-        android:title=""
-        app:showAsAction="always"
-        android:icon="@drawable/ic_notification"/>
-
-    <item
         app:showAsAction="always"
         android:title=" "
         android:icon="@drawable/ic_menu">
