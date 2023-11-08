@@ -22,6 +22,7 @@ import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.Adapter.ProductAdapter;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -56,7 +57,13 @@ public class MainActivity extends AppCompatActivity {
         revProduct.setLayoutManager(gridLayoutManager);
         callAPIHomePage();
 
+        //Send notification
+        if(UserDataManager.getNotify()){
+            //call api lay number of product
 
+            //send
+            sendPushNotification(3);
+        }
     }
 
     @Override
