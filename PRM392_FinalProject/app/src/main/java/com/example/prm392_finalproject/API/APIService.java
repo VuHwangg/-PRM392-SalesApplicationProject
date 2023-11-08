@@ -59,22 +59,22 @@ public interface APIService {
 //
 //    @GET("productDetail/{id}")//Viet Anh doi duong dan o day
 //    Call<Product_Detail_DTO> getProductDetail(@Path("id") int id);
-    @GET("/cart/{id}")//truyen vao id nguoi dung
+    @GET("/cart/{id}")//truyen vao id nguoi dung ***OK
     Call<ArrayList<Cart_Product_DTO>> listCart(@Path("id") int id);
-    @GET("/order/{id}")//truyen vao id nguoi dung, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra, nho sua lai id nguoi dung ca thang detail cung the
+    @GET("/order/{id}")//***OK truyen vao id nguoi dung, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra, nho sua lai id nguoi dung ca thang detail cung the
     Call<ArrayList<Order_DTO>> listOrder(@Path("id") int id);
-    @GET("/orderDeatail/{id}")//truyen vao id cua order, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra
+    @GET("/detail/{id}")// ***OK truyen vao id cua order, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra
     Call<ArrayList<Cart_Product_DTO>> listOrderDetail(@Path("id") int id);
-    @POST("/cart")
+    @POST("/cart") //***OK
     Call<Void> updateCart(@Body POST_Cart_DTO cart);
 
-    @PUT("order/{id}")//truyen vào orderID thay doi trang thai ve huy don
+    @PUT("order/{id}")//***OK truyen vào orderID thay doi trang thai ve huy don
     Call<Order_DTO> cancelOrder(@Path("id") int id);
 
-    @GET("numProduct/{id}")//tra ve so luong product trong cart(chi dem product khong can tong quantity)
+    @GET("quantity/{id}")// ***OK tra ve so luong product trong cart(chi dem product khong can tong quantity)
     Call<Integer> productInCart(@Path("id") int id);
 
-    @POST("/order")//update len mot order chua thong tin don hang va list product(order detail), tam thoi de uID la 1
+    @POST("/order")// ***OK update len mot order chua thong tin don hang va list product(order detail), tam thoi de uID la 1
     Call<POST_Order_DTO>  addOrder(@Body POST_Order_DTO post_order_dto);
 
     @GET("/confirmPassword") //xac nhan ton tai user co id la userID va mk la password
