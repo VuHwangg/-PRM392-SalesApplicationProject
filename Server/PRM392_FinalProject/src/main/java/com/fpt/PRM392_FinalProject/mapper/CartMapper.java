@@ -1,6 +1,7 @@
 package com.fpt.PRM392_FinalProject.mapper;
 
 import com.fpt.PRM392_FinalProject.dto.CartDTOListResponse;
+import com.fpt.PRM392_FinalProject.dto.CartDTOUpdateRequest;
 import com.fpt.PRM392_FinalProject.entity.Cart;
 
 public class CartMapper {
@@ -14,4 +15,5 @@ public class CartMapper {
                 .color(cart.getProduct().getColor())
                 .build();
     }
+
 }

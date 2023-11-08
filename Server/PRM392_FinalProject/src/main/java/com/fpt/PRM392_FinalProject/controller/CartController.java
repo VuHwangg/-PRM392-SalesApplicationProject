@@ -1,14 +1,13 @@
 package com.fpt.PRM392_FinalProject.controller;
 
 import com.fpt.PRM392_FinalProject.dto.CartDTOListResponse;
+import com.fpt.PRM392_FinalProject.dto.CartDTOUpdateRequest;
 import com.fpt.PRM392_FinalProject.service.CartService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +21,10 @@ public class CartController {
     @GetMapping("/{id}")
     public List<CartDTOListResponse> getCartsByUserId(@PathVariable int id) {
         return cartService.getCartsByUserId(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> updateCart(@RequestBody CartDTOUpdateRequest cartDTOUpdateRequest) {
+        return cartService.updateCart(cartDTOUpdateRequest);
     }
 }
