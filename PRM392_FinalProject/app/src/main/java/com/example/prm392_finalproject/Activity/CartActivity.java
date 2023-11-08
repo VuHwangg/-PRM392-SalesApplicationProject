@@ -24,6 +24,7 @@ import com.example.prm392_finalproject.Session.UserDataManager;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.protobuf.StringValue;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -131,6 +132,7 @@ public class CartActivity extends AppCompatActivity {
                 List<Cart_Product_DTO> list = response.body();
                 mCartAdapter.setData(list);
                 revProduct.setAdapter(mCartAdapter);
+                Log.d("getCartData", String.valueOf(list.get(0).getId()));
             }
 
             @Override

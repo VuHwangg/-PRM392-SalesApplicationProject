@@ -1,11 +1,10 @@
 package com.fpt.PRM392_FinalProject.service.impl;
 
-import com.fpt.PRM392_FinalProject.dto.CartDTOListResponse;
-import com.fpt.PRM392_FinalProject.dto.CartDTOUpdateRequest;
-import com.fpt.PRM392_FinalProject.dto.POST_Cart_Product_DTO;
+import com.fpt.PRM392_FinalProject.dto.*;
 import com.fpt.PRM392_FinalProject.entity.Cart;
 import com.fpt.PRM392_FinalProject.entity.Customer;
 import com.fpt.PRM392_FinalProject.entity.Product;
+import com.fpt.PRM392_FinalProject.exception.Exception;
 import com.fpt.PRM392_FinalProject.mapper.CartMapper;
 import com.fpt.PRM392_FinalProject.repository.CartRepository;
 import com.fpt.PRM392_FinalProject.service.CartService;
@@ -60,6 +59,31 @@ public class CartServiceImpl implements CartService {
     @Override
     public Integer getProductQuantityInCart(int id) {
         return cartRepository.countAllByCustomer_Id(id);
+    }
+
+    @Override
+    public CartDTOAddResponse addToCart(CartDTOAddRequest cartDTOAddRequest) {
+        //TODO: Checking the customer id is exits in database and productId
+        Cart cart = cartRepository.
+                findByCustomer_IdAndProduct_Id(cartDTOAddRequest.getCustomerId(), cartDTOAddRequest.getProductId());
+        if (cart != null) {
+            cart.setQuantity(cart.getQuantity() + 1);
+
+        } else {
+            cart = Cart.builder()
+                    .quantity(1)
+                    .customer(Customer.builder()
+                            .id(cartDTOAddRequest.getCustomerId())
+                            .build()
+                    )
+                    .product(Product.builder()
+                            .id(cartDTOAddRequest.getProductId())
+                            .build()
+                    )
+                    .build();
+        }
+        Cart cartAdded = cartRepository.save(cart);
+        return CartMapper.toCartDTOAddResponse(cartAdded);
     }
 
 
