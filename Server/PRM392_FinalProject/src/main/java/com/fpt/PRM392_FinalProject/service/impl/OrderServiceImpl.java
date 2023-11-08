@@ -1,19 +1,24 @@
 package com.fpt.PRM392_FinalProject.service.impl;
 
+import com.fpt.PRM392_FinalProject.dto.OrderDTOAddRequest;
 import com.fpt.PRM392_FinalProject.dto.OrderDTOResponse;
 import com.fpt.PRM392_FinalProject.dto.OrderDetailDTOResponse;
 import com.fpt.PRM392_FinalProject.entity.Order;
+import com.fpt.PRM392_FinalProject.entity.OrderDetail;
+import com.fpt.PRM392_FinalProject.entity.Product;
 import com.fpt.PRM392_FinalProject.exception.Exception;
 import com.fpt.PRM392_FinalProject.mapper.OrderDetailMapper;
 import com.fpt.PRM392_FinalProject.mapper.OrderMapper;
 import com.fpt.PRM392_FinalProject.repository.OrderDetailRepository;
 import com.fpt.PRM392_FinalProject.repository.OrderRepository;
+import com.fpt.PRM392_FinalProject.repository.ProductRepository;
 import com.fpt.PRM392_FinalProject.service.OrderService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +28,9 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
     OrderDetailRepository orderDetailRepository;
+    ProductRepository productRepository;
+
+    static final int STATUS_ORDERED = 1;
 
     @Override
     public List<OrderDTOResponse> getOrderByUserId(int id) {
@@ -48,5 +56,37 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
 
         return OrderMapper.toOrderDTOResponse(order);
+    }
+
+    @Override
+    public OrderDTOAddRequest addOrder(OrderDTOAddRequest orderDTOAddRequest) {
+        //TODO: checking user exits
+
+        // Create new order
+        Order order = OrderMapper.toOrder(orderDTOAddRequest);
+        order.setStatus(STATUS_ORDERED);
+        // Create order detail add to new order
+        List<OrderDetail> orderDetailList = new ArrayList<>();
+        orderDTOAddRequest.getProducts().forEach((orderDetailDTOAddRequest) ->{
+
+            //checking product exits
+            Product product = productRepository
+                    .findById(orderDetailDTOAddRequest.getId())
+                    .orElseThrow(() -> Exception.badRequest("Product not exits", "api/v1/order"));
+
+            orderDetailList.add(
+                    OrderDetail.builder()
+                            .price(product.getPrice() * orderDetailDTOAddRequest.getQuantity())
+                            .quantity(orderDetailDTOAddRequest.getQuantity())
+                            .product(Product.builder().id(product.getId()).build())
+                            .build()
+            );
+        });
+
+        order.setOrderDetailList(orderDetailList);
+        // Save to database
+        orderRepository.save(order);
+        // Return
+        return orderDTOAddRequest;
     }
 }
