@@ -29,14 +29,15 @@ import retrofit2.http.Query;
 public interface APIService {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     APIService apiService = new Retrofit.Builder()
-//            .baseUrl("http://192.168.1.36:8888/") //nao chay thi cmt thang duoi mo thang nay ra
-            .baseUrl("https://653b8a902e42fd0d54d54bb7.mockapi.io")
+            .baseUrl("http://192.168.21.106:8888/api/v1/") //nao chay thi cmt thang duoi mo thang nay ra
+//            .baseUrl("https://653b8a902e42fd0d54d54bb7.mockapi.io")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
 
 //    @GET("api/v1/products")
 ////////////////////////////////////////////        Gia lap         ///////////////////////////////////////////////////
+    /*
     @GET("productDTO")
     Call<ArrayList<Home_Product_DTO>> listProductHomePage();
 
@@ -49,23 +50,23 @@ public interface APIService {
     @GET("/orderDeatail")
     Call<ArrayList<Cart_Product_DTO>> listOrderDetail();
 
-
+    */
 //////////////////////////////////////           Call that             /////////////////////////////////////////////////////////
 
     //tat ca id deu dang de mac dinh la 1 nhe
 
-//    @GET("productDTO") //Viet Anh doi duong dan o day
-//    Call<ArrayList<Home_Product_DTO>> listProductHomePage();
-//
-//    @GET("productDetail/{id}")//Viet Anh doi duong dan o day
-//    Call<Product_Detail_DTO> getProductDetail(@Path("id") int id);
-    @GET("/cart/{id}")//truyen vao id nguoi dung ***OK
+    @GET("products") //Viet Anh doi duong dan o day
+    Call<ArrayList<Home_Product_DTO>> listProductHomePage();
+
+    @GET("products/{id}")//Viet Anh doi duong dan o day
+    Call<Product_Detail_DTO> getProductDetail(@Path("id") int id);
+    @GET("cart/{id}")//truyen vao id nguoi dung ***OK
     Call<ArrayList<Cart_Product_DTO>> listCart(@Path("id") int id);
-    @GET("/order/{id}")//***OK truyen vao id nguoi dung, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra, nho sua lai id nguoi dung ca thang detail cung the
+    @GET("order/{id}")//***OK truyen vao id nguoi dung, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra, nho sua lai id nguoi dung ca thang detail cung the
     Call<ArrayList<Order_DTO>> listOrder(@Path("id") int id);
-    @GET("/detail/{id}")// ***OK truyen vao id cua order, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra
+    @GET("detail/{id}")// ***OK truyen vao id cua order, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra
     Call<ArrayList<Cart_Product_DTO>> listOrderDetail(@Path("id") int id);
-    @POST("/cart") //***OK
+    @POST("cart") //***OK
     Call<Void> updateCart(@Body POST_Cart_DTO cart);
 
     @PUT("order/{id}")//***OK truyen vào orderID thay doi trang thai ve huy don
@@ -74,16 +75,16 @@ public interface APIService {
     @GET("quantity/{id}")// ***OK tra ve so luong product trong cart(chi dem product khong can tong quantity)
     Call<Integer> productInCart(@Path("id") int id);
 
-    @POST("/order")// ***OK update len mot order chua thong tin don hang va list product(order detail), tam thoi de uID la 1
+    @POST("order")// ***OK update len mot order chua thong tin don hang va list product(order detail), tam thoi de uID la 1
     Call<POST_Order_DTO>  addOrder(@Body POST_Order_DTO post_order_dto);
 
-    @GET("/confirmPassword") //xac nhan ton tai user co id la userID va mk la password
+    @GET("confirmPassword") //xac nhan ton tai user co id la userID va mk la password
     Call<Boolean> confirmPassword(@Body User_ChangePassword_DTO user_changePassword_dto);
 
-    @PUT("/changePassword")
+    @PUT("changePassword")
     Call<Void> changePassword(@Body User_ChangePassword_DTO user_changePassword_dto);
 
-    @PUT("/updateAccountInformation")
+    @PUT("updateAccountInformation")
     Call<Void> updateAccountInformation(@Body User_UpdateInformation_DTO user_updateInformation_dto);
 
 

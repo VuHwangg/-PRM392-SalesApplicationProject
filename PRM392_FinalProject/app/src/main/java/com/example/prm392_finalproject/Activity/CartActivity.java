@@ -96,8 +96,9 @@ public class CartActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
+
         postCartData();//call API ngon het thi xoa thang duoi di
 //        CartSingleton.getInstance().getCartSelected().clear();
     }
@@ -141,12 +142,13 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void postCartData(){
+
         ArrayList<POST_Cart_Product_DTO> post_cart_product_dtos = new ArrayList<POST_Cart_Product_DTO>();
         for (Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart()){
             POST_Cart_Product_DTO post_cart_product_dto = new POST_Cart_Product_DTO(cart_product_dto.getId(),cart_product_dto.getQuantity());
             post_cart_product_dtos.add(post_cart_product_dto);
         }
-        POST_Cart_DTO cart = new POST_Cart_DTO(1,post_cart_product_dtos);
+        POST_Cart_DTO cart = new POST_Cart_DTO(UserDataManager.getUserPreference().getId(), post_cart_product_dtos);
         APIService.apiService.updateCart(cart).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

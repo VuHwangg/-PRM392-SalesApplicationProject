@@ -60,9 +60,6 @@
             android:name=".Activity.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.EmployeeLoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.UserRegisterActivity"
             android:exported="false" />
         <activity
