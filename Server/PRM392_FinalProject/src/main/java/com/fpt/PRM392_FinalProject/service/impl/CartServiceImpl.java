@@ -35,7 +35,9 @@ public class CartServiceImpl implements CartService {
 
     @Transactional
     @Override
-    public ResponseEntity<?> updateCart(CartDTOUpdateRequest cartDTOUpdateRequest) {
+    public CartDTOUpdateRequest updateCart(CartDTOUpdateRequest cartDTOUpdateRequest) {
+        //TODO: Checking the customer id is exits in database
+
         List<Cart> cartList = cartRepository.findAllByCustomer_Id(cartDTOUpdateRequest.getCusID());
         for (Cart c: cartList) {
             cartRepository.deleteById(c.getId());
@@ -52,7 +54,7 @@ public class CartServiceImpl implements CartService {
                     .build();
             cartRepository.save(cart);
         }
-        return ResponseEntity.ok().build();
+        return cartDTOUpdateRequest;
     }
 
 

@@ -11,5 +11,5 @@ import java.util.List;
 public interface CartService {
     List<CartDTOListResponse> getCartsByUserId(int id);
 
-    ResponseEntity<?> updateCart(CartDTOUpdateRequest cartDTOUpdateRequest);
+    CartDTOUpdateRequest updateCart(CartDTOUpdateRequest cartDTOUpdateRequest);
 }

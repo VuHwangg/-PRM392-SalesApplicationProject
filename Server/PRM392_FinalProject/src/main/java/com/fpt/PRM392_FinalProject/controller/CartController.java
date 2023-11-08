@@ -24,7 +24,7 @@ public class CartController {
     }
 
     @PostMapping
-    public ResponseEntity<?> updateCart(@RequestBody CartDTOUpdateRequest cartDTOUpdateRequest) {
+    public CartDTOUpdateRequest updateCart(@RequestBody CartDTOUpdateRequest cartDTOUpdateRequest) {
         return cartService.updateCart(cartDTOUpdateRequest);
     }
 }
