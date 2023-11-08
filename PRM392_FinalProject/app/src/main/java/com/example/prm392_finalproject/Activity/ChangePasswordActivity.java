@@ -15,6 +15,7 @@ import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.DTOModels.Order_DTO;
 import com.example.prm392_finalproject.DTOModels.User_ChangePassword_DTO;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +62,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private void ChangePassword(){
         User_ChangePassword_DTO user = new User_ChangePassword_DTO();
         //can them userID
-        user.setUserID(1);
+        user.setUserID(UserDataManager.getUserPreference().getId());
         user.setPassword(String.valueOf(edtOldPassword.getText()));
 
         APIService.apiService.confirmPassword(user).enqueue(new Callback<Boolean>() {

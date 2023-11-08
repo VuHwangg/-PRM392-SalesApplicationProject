@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.DTOModels.User_UpdateInformation_DTO;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,7 +61,7 @@ public class ChangeAddressActivity extends AppCompatActivity {
     public void UpdateAccountInformation(){
         User_UpdateInformation_DTO user = new User_UpdateInformation_DTO();
         //can them userid
-        user.setUserID(1);
+        user.setUserID(UserDataManager.getUserPreference().getId());
         user.setNewName(String.valueOf(edtName.getText()));
         user.setNewPhone(String.valueOf(edtPhoneNum.getText()));
         user.setNewAddress(String.valueOf(edtAddress.getText()));

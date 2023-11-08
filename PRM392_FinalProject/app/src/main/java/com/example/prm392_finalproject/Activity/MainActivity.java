@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         callAPIHomePage();
 
         //Send notification
-        if(UserDataManager.getNotify()){
+        if(UserDataManager.getNotify() && UserDataManager.getUserPreference() != null){
             //call api lay number of product
 
             //send
