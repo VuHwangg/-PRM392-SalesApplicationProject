@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationBarView;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AccountActivity extends AppCompatActivity {
 
-    private TextView tvName, tvUsername;
+    private TextView tvName, tvPhone;
     private Button btnChangeAddress, btnChangePassword, btnLogout;
 
     @Override
@@ -28,10 +28,13 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
 
         tvName = findViewById(R.id.tv_name);
-        tvUsername = findViewById(R.id.tv_username);
+        tvPhone = findViewById(R.id.tv_username);
         btnChangeAddress = findViewById(R.id.btn_change_address);
         btnChangePassword = findViewById(R.id.btn_change_password);
         btnLogout = findViewById(R.id.btn_logout);
+
+        tvName.setText(UserDataManager.getUserPreference().getName());
+        tvPhone.setText(UserDataManager.getUserPreference().getPhone());
 
         btnChangeAddress.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -26,7 +26,6 @@ import com.example.prm392_finalproject.Session.UserDataManager;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.protobuf.StringValue;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -105,11 +104,9 @@ public class CartActivity extends AppCompatActivity {
 //        CartSingleton.getInstance().getCartSelected().clear();
     }
     public void goToPayment() {
-        String costString = tvCost.getText().toString();
         double costDouble = 0;
-        try {
-            costDouble = Double.parseDouble(costString);
-        } catch (NumberFormatException e) {
+        for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCartSelected()){
+            costDouble+= cart_product_dto.getPrice()*cart_product_dto.getQuantity();
         }
         if(costDouble>0){
             Intent intent = new Intent(this, PaymentActivity.class);

@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -26,7 +25,6 @@ import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Session.UserDataManager;
-import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

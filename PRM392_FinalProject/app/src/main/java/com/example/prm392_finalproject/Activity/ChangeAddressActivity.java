@@ -38,6 +38,10 @@ public class ChangeAddressActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         btnUpdate = findViewById(R.id.btn_update);
 
+        edtName.setText(UserDataManager.getUserPreference().getName());
+        edtAddress.setText(UserDataManager.getUserPreference().getAddress());
+        edtPhoneNum.setText(UserDataManager.getUserPreference().getPhone());
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
