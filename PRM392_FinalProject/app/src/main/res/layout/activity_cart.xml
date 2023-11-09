@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tiến hành thanh toán"
-        android:background="@drawable/shape_button_green"
+        android:background="@drawable/shape_button_blue"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
