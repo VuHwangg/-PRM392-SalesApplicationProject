@@ -1,12 +1,15 @@
 package com.example.prm392_finalproject.Activity;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,7 +27,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class OrderDetailActivity extends AppCompatActivity {
     private TextView tvID, tvStatus, tvName, tvPhonenum, tvAddress, tvCost;
     private TextView btnBack;
@@ -51,7 +54,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.btn_cancel);
         Bundle myBundle = getIntent().getExtras();
         if (myBundle != null) {
-            Order_DTO order = (Order_DTO) myBundle.get("object_order");
+            order = (Order_DTO) myBundle.get("Order");
+            Log.d("order",String.valueOf(order.getId()));
             if (order != null) {
                 tvID.setText(order.getId() + "");
 
@@ -89,6 +93,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         if (orderStatus == 0 || orderStatus == 1) {
             btnCancel.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View view) {
                     cancleOrder();
@@ -132,6 +137,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 //        });
 //    }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void getOrderDetail() {
         APIService.apiService.listOrderDetail(order.getId()).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
             @Override
@@ -148,6 +154,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void cancleOrder() {
         APIService.apiService.cancelOrder(order.getId()).enqueue(new Callback<Order_DTO>() {
             @Override

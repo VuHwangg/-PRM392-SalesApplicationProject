@@ -19,15 +19,20 @@ import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.POST_Order_DTO;
+import com.example.prm392_finalproject.GsonAdapter.LocalDateAdapter;
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.example.prm392_finalproject.VNPAY.VNP_SdkCompletedCallback;
 import com.example.prm392_finalproject.VNPAY.VNPay;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.text.DecimalFormat;
@@ -49,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class PaymentActivity extends AppCompatActivity {
 
     TextView paymentCost, btnBack;
@@ -85,7 +90,7 @@ public class PaymentActivity extends AppCompatActivity {
                     } catch (UnsupportedEncodingException e) {
                         throw new RuntimeException(e);
                     }
-//                    addOrder();
+                    addOrder();
                     Log.d("dấdasd","sdadada");
                 }
             }
@@ -105,6 +110,7 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void addOrder(){
         ArrayList<POST_Cart_Product_DTO> post_cart_product_dtos = new ArrayList<POST_Cart_Product_DTO>();
         for (Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCartSelected()){
@@ -113,8 +119,18 @@ public class PaymentActivity extends AppCompatActivity {
         }
         POST_Order_DTO post_order_dto = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            post_order_dto = new POST_Order_DTO(1, phone.getText().toString(), address.getText().toString(), LocalDate.now(), totalCost, post_cart_product_dtos);
+            post_order_dto = new POST_Order_DTO(UserDataManager.getUserPreference().getId(), phone.getText().toString(), address.getText().toString(), LocalDate.now(), totalCost, post_cart_product_dtos);
         }
+        Log.d("sad",String.valueOf(post_order_dto.getCustomerID()));
+        Log.d("sad",String.valueOf(post_order_dto.getProducts()));
+        Log.d("sad",String.valueOf(post_order_dto.getOrderDate()));
+        Log.d("sad",String.valueOf(post_order_dto.getCustomerPhone()));
+        Log.d("sad",String.valueOf(post_order_dto.getCustomerAddress()));
+        Gson gson = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        }
+        Log.d("doiden",gson.toJson(post_order_dto));
         APIService.apiService.addOrder(post_order_dto).enqueue(new Callback<POST_Order_DTO>() {
             @Override
             public void onResponse(Call<POST_Order_DTO> call, Response<POST_Order_DTO> response) {

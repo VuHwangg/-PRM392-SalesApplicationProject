@@ -1,5 +1,6 @@
 package com.example.prm392_finalproject.Activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,7 +26,7 @@ import com.example.prm392_finalproject.Singleton.CartSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ProductDetailActivity extends AppCompatActivity {
     private ImageView image;
     private TextView tvName, tvDes, tvPrice, tvDiscount, tvCategory, tvColor, tvSupplier;
@@ -109,6 +111,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             actionBar.hide();
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void callAPIProductDetail(int id) {
 
         APIService.apiService.getProductDetail(id).enqueue(new Callback<Product_Detail_DTO>() {

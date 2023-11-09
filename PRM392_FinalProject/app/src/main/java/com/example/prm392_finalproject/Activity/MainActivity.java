@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,7 +34,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView revProduct;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
     private boolean notificationOn = true;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,17 +63,37 @@ public class MainActivity extends AppCompatActivity {
         callAPIHomePage();
 
         //Send notification
-        if(UserDataManager.getNotify()){
+        if(UserDataManager.getNotify() && UserDataManager.getUserPreference() != null){
             //call api lay number of product
+            APIService.apiService.productInCart(UserDataManager.getUserPreference().getId()).enqueue(new Callback<Integer>() {
+                @Override
+                public void onResponse(Call<Integer> call, Response<Integer> response) {
 
-            //send
-            sendPushNotification(3);
+                    //sendPushNotification(response.body());
+
+                    int productNumber = response.body();
+                    if(productNumber > 0)
+                        sendPushNotification("Gio hang cua ban co "+productNumber+" san pham chua thanh toan!");
+                    else
+                        sendPushNotification("Ban khong co san pham nao trong gio hang. Mua ngay!");
+                }
+
+                @Override
+                public void onFailure(Call<Integer> call, Throwable t) {
+
+                }
+            });
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.getItem(1);
+        if(UserDataManager.getNotify())
+            item.setIcon(R.drawable.ic_notification);
+        else
+            item.setIcon(R.drawable.ic_notification_off);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -83,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.menu_notification) {
             Toast.makeText(this, "Notification selected", Toast.LENGTH_SHORT).show();
-            if (notificationOn) {
+            if (UserDataManager.getNotify()) {
                 item.setIcon(R.drawable.ic_notification_off);
             } else {
                 item.setIcon(R.drawable.ic_notification);
             }
-            notificationOn = !notificationOn;
+            UserDataManager.setNotify(!UserDataManager.getNotify());
         } else if (id == R.id.menu_option1) {
             Toast.makeText(this, "Menu option 1 selected", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
@@ -109,12 +131,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void sendPushNotification(int cartSize)
+    private void sendPushNotification(String content)
     {   String channelID = "CHANNEL_ID_NOTIFICATION";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),channelID);
         builder.setSmallIcon(R.drawable.ic_shopping_cart)
                 .setContentTitle("Thong bao")
-                .setContentText("Gio hang cua ban co "+cartSize+" san pham chua thanh toan!")
+                .setContentText(content)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         Intent intent = new Intent(getApplicationContext(),CartActivity.class);
