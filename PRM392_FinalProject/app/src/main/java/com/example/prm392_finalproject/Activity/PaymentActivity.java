@@ -54,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class PaymentActivity extends AppCompatActivity {
 
     TextView paymentCost, btnBack;
@@ -89,11 +89,11 @@ public class PaymentActivity extends AppCompatActivity {
                     Toast.makeText(PaymentActivity.this,"Vui lòng nhập đủ thông tin",Toast.LENGTH_SHORT).show();
                 }
                 else{
-//                    try {
-//                        openSdk();
-//                    } catch (UnsupportedEncodingException e) {
-//                        throw new RuntimeException(e);
-//                    }
+                    try {
+                        openSdk();
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
                     addOrder();
                     Log.d("dấdasd","sdadada");
                 }
@@ -114,6 +114,7 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void addOrder(){
         ArrayList<POST_Cart_Product_DTO> post_cart_product_dtos = new ArrayList<POST_Cart_Product_DTO>();
         for (Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCartSelected()){

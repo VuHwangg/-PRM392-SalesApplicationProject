@@ -1,6 +1,7 @@
 package com.example.prm392_finalproject.Activity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +22,7 @@ import com.example.prm392_finalproject.Session.UserDataManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ChangePasswordActivity extends AppCompatActivity {
 
     private EditText edtOldPassword, edtNewPassword, edtRePassword;
