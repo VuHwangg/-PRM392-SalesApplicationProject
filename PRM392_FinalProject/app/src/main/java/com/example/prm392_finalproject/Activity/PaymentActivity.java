@@ -28,14 +28,10 @@ import com.example.prm392_finalproject.VNPAY.VNPay;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,7 +54,7 @@ import retrofit2.Response;
 public class PaymentActivity extends AppCompatActivity {
 
     TextView paymentCost, btnBack;
-    EditText phone,address;
+    EditText phone,address, name;
     Button payment;
     double totalCost = 0;
     @Override
@@ -70,6 +66,11 @@ public class PaymentActivity extends AppCompatActivity {
         payment = findViewById(R.id.btn_payment_zalo);
         phone = findViewById(R.id.edt_phone_num);
         address = findViewById(R.id.edt_address);
+        name = findViewById(R.id.edt_name);
+
+        name.setText(UserDataManager.getUserPreference().getName());
+        address.setText(UserDataManager.getUserPreference().getAddress());
+        phone.setText(UserDataManager.getUserPreference().getPhone());
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

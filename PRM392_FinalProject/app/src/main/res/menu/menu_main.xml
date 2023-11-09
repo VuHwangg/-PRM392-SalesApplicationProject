@@ -14,18 +14,18 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_notification"/>
 
-    <item
-        app:showAsAction="always"
-        android:title=" "
-        android:icon="@drawable/ic_menu">
+<!--    <item-->
+<!--        app:showAsAction="always"-->
+<!--        android:title=" "-->
+<!--        android:icon="@drawable/ic_menu">-->
 
-        <menu>
-            <item android:id="@+id/menu_option1"
-                android:title="option1"/>
-            <item android:id="@+id/menu_option2"
-                android:title="option2"/>
-        </menu>
-    </item>
+<!--        <menu>-->
+<!--            <item android:id="@+id/menu_option1"-->
+<!--                android:title="option1"/>-->
+<!--            <item android:id="@+id/menu_option2"-->
+<!--                android:title="option2"/>-->
+<!--        </menu>-->
+<!--    </item>-->
 
 
 </menu>

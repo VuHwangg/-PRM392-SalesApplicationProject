@@ -80,7 +80,7 @@ public class   OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewH
         holder.tvOrderUsername.setText(order.getCustomerName());
         holder.tvOrderPhonenum.setText(order.getPhone());
         holder.tvOrderAddress.setText(order.getAddress());
-        holder.tvOrderCost.setText(MainActivity.formattedPrice(order.getPrice()) + "VNĐ");
+        holder.tvOrderCost.setText(MainActivity.formattedPrice(order.getPrice()));
         holder.cvOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

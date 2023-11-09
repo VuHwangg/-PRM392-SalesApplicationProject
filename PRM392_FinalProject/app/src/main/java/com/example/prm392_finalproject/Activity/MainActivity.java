@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -26,7 +25,6 @@ import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Session.UserDataManager;
-import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -87,22 +85,16 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
             startActivity(intent);
         } else if (id == R.id.menu_notification) {
-            Toast.makeText(this, "Notification selected", Toast.LENGTH_SHORT).show();
+
             if (UserDataManager.getNotify()) {
                 item.setIcon(R.drawable.ic_notification_off);
+                Toast.makeText(this, "Thông báo được tắt", Toast.LENGTH_SHORT).show();
             } else {
                 item.setIcon(R.drawable.ic_notification);
+                Toast.makeText(this, "Thông báo được bật", Toast.LENGTH_SHORT).show();
             }
             UserDataManager.setNotify(!UserDataManager.getNotify());
-        } else if (id == R.id.menu_option1) {
-            Toast.makeText(this, "Menu option 1 selected", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.menu_option2) {
-            Toast.makeText(this, "Menu option 2 selected", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), UserRegisterActivity.class);
-            startActivity(intent);
-        } 
+        }
         return true;
     }
 

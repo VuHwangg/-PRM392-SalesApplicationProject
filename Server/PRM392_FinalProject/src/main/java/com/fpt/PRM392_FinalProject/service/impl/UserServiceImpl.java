@@ -1,5 +1,6 @@
 package com.fpt.PRM392_FinalProject.service.impl;
 
+import com.fpt.PRM392_FinalProject.dto.UserDTOChangePasswordRequest;
 import com.fpt.PRM392_FinalProject.dto.UserDTOLoginRequest;
 import com.fpt.PRM392_FinalProject.dto.UserDTOLoginResponse;
 import com.fpt.PRM392_FinalProject.entity.Customer;
@@ -31,4 +32,19 @@ public class UserServiceImpl implements UserService {
         }
         return UserMapper.toUserDTOLoginResponse(customer);
     }
+
+    @Override
+    public Boolean confirmPassword(UserDTOChangePasswordRequest userDTOChangePasswordRequest) {
+        Customer customer = userRepository.findById(userDTOChangePasswordRequest.getUserID())
+                .orElseThrow(() -> {
+                    throw Exception.badRequest("User dose not exits", "api/v1/user");
+                });
+
+        Boolean isCorrect = false;
+        if (customer.getPassword().equals(userDTOChangePasswordRequest.getPassword()))
+            isCorrect = true;
+
+        return isCorrect;
+    }
+
 }

@@ -10,7 +10,7 @@ public class UserDataManager {
     public static final String USER = "USER";
     public static final String NOTIFY = "NOTIFY";
     private static Gson gson;
-    private static  UserDataManager instance;
+    private static UserDataManager instance;
     private UserSharedPreference userSharedPreference;
 
     public static void init(Context context) {

@@ -7,19 +7,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.prm392_finalproject.R;
+import com.example.prm392_finalproject.Session.UserDataManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AccountActivity extends AppCompatActivity {
 
-    private TextView tvName, tvUsername;
+    private TextView tvName, tvPhone;
     private Button btnChangeAddress, btnChangePassword, btnLogout;
 
     @Override
@@ -28,10 +28,13 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
 
         tvName = findViewById(R.id.tv_name);
-        tvUsername = findViewById(R.id.tv_username);
+        tvPhone = findViewById(R.id.tv_username);
         btnChangeAddress = findViewById(R.id.btn_change_address);
         btnChangePassword = findViewById(R.id.btn_change_password);
         btnLogout = findViewById(R.id.btn_logout);
+
+        tvName.setText(UserDataManager.getUserPreference().getName());
+        tvPhone.setText(UserDataManager.getUserPreference().getPhone());
 
         btnChangeAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +55,10 @@ public class AccountActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AccountActivity.this, "Logout clicked", Toast.LENGTH_SHORT).show();
+                UserDataManager.setUserJsonString(null);
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
