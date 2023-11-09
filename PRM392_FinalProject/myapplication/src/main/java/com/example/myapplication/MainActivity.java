@@ -29,44 +29,61 @@ public class MainActivity extends AppCompatActivity {
     final String serverHost = "192.168.1.52";
     final int serverport = 9999;
     private boolean isRunning = true;
-    List<ClientHandler> connectedClients = new ArrayList<>();
+    private   ClientHandler client;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initview();
-        startServer();
+
         recyclerView = findViewById(R.id.recyclerview_chat);
         adapter = new MainAdapter(messageList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
+        messageList.add(new Message_DTO("1", "2","Welcome to my store!" , "11/06/2023"));
+        adapter.notifyItemInserted(messageList.size() - 1);
+        recyclerView.scrollToPosition(messageList.size() - 1);
+        initview();
+        startServer();
 
     }
 
     private void sendMessage(final String text) {
-        messageList.add(new Message_DTO("1", "2", text, "11/06/2023"));
+
         final String a = text;
         sendMessageToClient(a);
+        messageList.add(new Message_DTO("1", "2", text, "11/06/2023"));
         adapter.notifyItemInserted(messageList.size() - 1);
         recyclerView.scrollToPosition(messageList.size() - 1);
 
     }
     private void sendMessageToClient(final String text) {
         // Lặp qua tất cả các client đang kết nối và gửi dữ liệu tới từng client
-        for (ClientHandler client : connectedClients) {
-            try {
-                // Tạo một PrintWriter từ socket của client để gửi dữ liệu
-                PrintWriter writer = new PrintWriter(client.clientSocket.getOutputStream(), true);
-                writer.println(text);
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Xử lý lỗi nếu có
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                        PrintWriter writer = new PrintWriter(client.clientSocket.getOutputStream(), true);
+                        writer.println(text);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Xử lý lỗi nếu có
+                }
             }
+        }).start();
+    }
+    private void sendHelloToClient(ClientHandler client) {
+        try {
+            PrintWriter writer = new PrintWriter(client.clientSocket.getOutputStream(), true);
+            writer.println("Welcome to my store!");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Xử lý lỗi nếu có
         }
     }
-
     private void startServer() {
         new Thread(new ServerThread()).start();
     }
@@ -80,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
                     Socket socket = serverSocket.accept();
                     Log.d("Server1232", "Client connected: " + socket.getInetAddress().toString());
 
-                    ClientHandler client = new ClientHandler(socket);
-                    connectedClients.add(client);
+                     client = new ClientHandler(socket);
+
+                    sendHelloToClient(client);
 
                     Thread clientThread = new Thread(client);
                     clientThread.start();
