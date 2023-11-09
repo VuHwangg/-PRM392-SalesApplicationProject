@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prm392_finalproject.Activity.MainActivity;
 import com.example.prm392_finalproject.DTOModels.Order_DTO;
 import com.example.prm392_finalproject.R;
 
@@ -79,7 +80,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.tvOrderUsername.setText(order.getCustomerName());
         holder.tvOrderPhonenum.setText(order.getPhone());
         holder.tvOrderAddress.setText(order.getAddress());
-        holder.tvOrderCost.setText(order.getPrice() + "");
+        holder.tvOrderCost.setText(MainActivity.formattedPrice(order.getPrice()) + "VNĐ");
         holder.cvOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

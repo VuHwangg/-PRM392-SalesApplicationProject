@@ -70,11 +70,7 @@ public class PaymentActivity extends AppCompatActivity {
         if (bundle != null) {
             totalCost = (double) bundle.get("totalPrice");
         }
-//        paymentCost.setText(Double.toString(totalCost) + " VNĐ");
-
-        DecimalFormat decimalFormat = new DecimalFormat("#,### VNĐ");
-        String formattedCost = decimalFormat.format(totalCost);
-        paymentCost.setText(formattedCost);
+        paymentCost.setText(MainActivity.formattedPrice(totalCost) + "VNĐ");
         payment.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("SetTextI18n")

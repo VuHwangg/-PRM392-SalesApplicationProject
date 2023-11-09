@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.prm392_finalproject.Activity.MainActivity;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.R;
 
@@ -54,8 +55,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 .centerCrop()
                 .into(holder.imgProduct);
         holder.tvName.setText(product.getName());
-        holder.tvPrice.setText((int) product.getPrice() + " VNĐ");
-        holder.tvDiscount.setText((double) product.getDiscount() + "%");
+        holder.tvPrice.setText(MainActivity.formattedPrice(product.getPrice()) + "VNĐ");
+        holder.tvDiscount.setText((int) product.getDiscount() + "%");
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

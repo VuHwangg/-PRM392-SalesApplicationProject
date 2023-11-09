@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.prm392_finalproject.Activity.MainActivity;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
@@ -56,8 +57,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                 .centerCrop()
                 .into(holder.imgProduct);
         holder.tvName.setText(product.getName());
-
-        holder.tvPrice.setText((int) product.getPrice() + " VNĐ");
+        holder.tvPrice.setText(MainActivity.formattedPrice(product.getPrice())  + " VNĐ");
         holder.tvQuantity.setText(String.valueOf((int) product.getQuantity()));
         holder.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +81,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                             cart_product_dto.setQuantity(cart_product_dto.getQuantity()-1);
                         }
                         notifyDataSetChanged();
-                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                        tvTotalCost.setText(MainActivity.formattedPrice(getTotalCost()));
                         break;
                     }
                 }
@@ -96,7 +96,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                     {
                         cart_product_dto.setQuantity(cart_product_dto.getQuantity()+1);
                         notifyDataSetChanged();
-                        tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                        tvTotalCost.setText(MainActivity.formattedPrice(getTotalCost()));
                         break;
                     }
                 }
@@ -114,7 +114,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                         for(Cart_Product_DTO cart_product_dto1 : CartSingleton.getInstance().getCartSelected()){
                             if(cart_product_dto1.getId() == product.getId()){
                                 CartSingleton.getInstance().getCartSelected().remove(cart_product_dto1);
-                                tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                                tvTotalCost.setText(MainActivity.formattedPrice(getTotalCost()));
                                 break;
                             }
                         }
@@ -129,7 +129,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
                     CartSingleton.getInstance().getCartSelected().add(product);
-                    tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                    tvTotalCost.setText(MainActivity.formattedPrice(getTotalCost()));
                 }else{
                     for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCartSelected()){
                         if(cart_product_dto.getId() == product.getId()){
@@ -137,7 +137,7 @@ public class CartAdapter  extends RecyclerView.Adapter<CartAdapter.CartViewHolde
                             break;
                         }
                     }
-                    tvTotalCost.setText(String.valueOf((int) getTotalCost()));
+                    tvTotalCost.setText(MainActivity.formattedPrice(getTotalCost()));
                 }
             }
         });

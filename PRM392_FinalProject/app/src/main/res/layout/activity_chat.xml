@@ -29,11 +29,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:background="@drawable/shape_button_red2"
+            android:paddingHorizontal="18dp"
+            android:background="@drawable/shape_button_blue"
             android:text="Gửi"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:drawableRight="@drawable/ic_send_sms"
+            android:drawablePadding="-16dp"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -26,6 +26,7 @@ import com.example.prm392_finalproject.Session.UserDataManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -204,5 +205,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    // Format 100000000 -> 100,000,000
+    public static String formattedPrice (int price) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(price);
+    }
+    public static String formattedPrice(double price) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(price);
     }
 }
