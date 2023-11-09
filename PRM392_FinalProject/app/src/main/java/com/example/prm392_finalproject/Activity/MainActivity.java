@@ -60,9 +60,17 @@ public class MainActivity extends AppCompatActivity {
         //Send notification
         if(UserDataManager.getNotify() && UserDataManager.getUserPreference() != null){
             //call api lay number of product
+            APIService.apiService.productInCart(UserDataManager.getUserPreference().getId()).enqueue(new Callback<Integer>() {
+                @Override
+                public void onResponse(Call<Integer> call, Response<Integer> response) {
+                    sendPushNotification(response.body());
+                }
 
-            //send
-            sendPushNotification(3);
+                @Override
+                public void onFailure(Call<Integer> call, Throwable t) {
+
+                }
+            });
         }
     }
 
