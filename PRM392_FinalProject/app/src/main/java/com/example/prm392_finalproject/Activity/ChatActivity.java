@@ -38,7 +38,7 @@ public class ChatActivity extends AppCompatActivity {
     EditText editMess;
     MessageAdapter adapter;
     List<Message_DTO> list = new ArrayList<>();
-    final String serverHost = "192.168.1.52";
+    final String serverHost = "10.0.2.15";
     private boolean aBoolean = true;
     Socket socketOfClient = null;
     BufferedWriter os = null;
