@@ -2,6 +2,7 @@ package com.example.prm392_finalproject.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -98,7 +99,11 @@ public class ChatActivity extends AppCompatActivity {
                     socketOfClient = new Socket(serverHost, 9999);
                     os = new BufferedWriter(new OutputStreamWriter(socketOfClient.getOutputStream()));
                     is = new BufferedReader(new InputStreamReader(socketOfClient.getInputStream()));
-
+                    if (socketOfClient.isConnected()) {
+                        Log.d("1234321","ok");
+                    } else {
+                        // Kết nối thất bại
+                    }
                     while (aBoolean) {
                         final String receivedMessage = is.readLine();
                         if (receivedMessage != null) {
