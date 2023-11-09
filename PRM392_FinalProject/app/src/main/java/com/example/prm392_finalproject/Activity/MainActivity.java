@@ -65,7 +65,14 @@ public class MainActivity extends AppCompatActivity {
             APIService.apiService.productInCart(UserDataManager.getUserPreference().getId()).enqueue(new Callback<Integer>() {
                 @Override
                 public void onResponse(Call<Integer> call, Response<Integer> response) {
+
                     //sendPushNotification(response.body());
+
+                    int productNumber = response.body();
+                    if(productNumber > 0)
+                        sendPushNotification("Gio hang cua ban co "+productNumber+" san pham chua thanh toan!");
+                    else
+                        sendPushNotification("Ban khong co san pham nao trong gio hang. Mua ngay!");
                 }
 
                 @Override
@@ -121,12 +128,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void sendPushNotification(int cartSize)
+    private void sendPushNotification(String content)
     {   String channelID = "CHANNEL_ID_NOTIFICATION";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),channelID);
         builder.setSmallIcon(R.drawable.ic_shopping_cart)
                 .setContentTitle("Thong bao")
-                .setContentText("Gio hang cua ban co "+cartSize+" san pham chua thanh toan!")
+                .setContentText(content)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         Intent intent = new Intent(getApplicationContext(),CartActivity.class);
