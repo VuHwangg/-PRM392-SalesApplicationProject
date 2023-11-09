@@ -18,11 +18,8 @@ import com.example.prm392_finalproject.GsonAdapter.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-//import org.checkerframework.checker.units.qual.A;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -32,13 +29,12 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public interface APIService {
     Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.5:8888/api/v1/") //nao chay thi cmt thang duoi mo thang nay ra
+            .baseUrl("http://192.168.0.102:8888/api/v1/") //nao chay thi cmt thang duoi mo thang nay ra
 //            .baseUrl("https://653b8a902e42fd0d54d54bb7.mockapi.io")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
