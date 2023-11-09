@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        User_Login_DTO_Response user = new User_Login_DTO_Response(1, "vuhoang", "Hoang Chu ANh Vu", "Lang Son", "08123123");
+//        UserDataManager.setUserJsonString(user);
         revProduct = findViewById(R.id.rev_home);
         mProductAdapter = new ProductAdapter(MainActivity.this, new ProductAdapter.IClickItemListener() {
             // Định nghĩa interface onClickItemProduct
