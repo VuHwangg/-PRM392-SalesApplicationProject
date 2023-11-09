@@ -105,10 +105,12 @@ public class CartActivity extends AppCompatActivity {
 //        CartSingleton.getInstance().getCartSelected().clear();
     }
     public void goToPayment() {
-        String costString = tvCost.getText().toString();
         double costDouble = 0;
+        for(Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCartSelected()){
+            costDouble+= cart_product_dto.getPrice()*cart_product_dto.getQuantity();
+        }
         try {
-            costDouble = Double.parseDouble(costString);
+            costDouble = Double.parseDouble(tvCost.getText().toString());
         } catch (NumberFormatException e) {
         }
         if(costDouble>0){

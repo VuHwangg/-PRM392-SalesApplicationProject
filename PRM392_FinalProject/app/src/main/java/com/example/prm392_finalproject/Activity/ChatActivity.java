@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_finalproject.Adapter.ChatAdapter;
+import com.example.prm392_finalproject.Adapter.MessageAdapter;
 import com.example.prm392_finalproject.DTOModels.Message_DTO;
 import com.example.prm392_finalproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
