@@ -77,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.getItem(1);
+        if(UserDataManager.getNotify())
+            item.setIcon(R.drawable.ic_notification);
+        else
+            item.setIcon(R.drawable.ic_notification_off);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -88,12 +93,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.menu_notification) {
             Toast.makeText(this, "Notification selected", Toast.LENGTH_SHORT).show();
-            if (notificationOn) {
+            if (UserDataManager.getNotify()) {
                 item.setIcon(R.drawable.ic_notification_off);
             } else {
                 item.setIcon(R.drawable.ic_notification);
             }
-            notificationOn = !notificationOn;
+            UserDataManager.setNotify(!UserDataManager.getNotify());
         } else if (id == R.id.menu_option1) {
             Toast.makeText(this, "Menu option 1 selected", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
@@ -180,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }else {
                         Intent intent = new Intent(getApplicationContext(),CartActivity.class);
                         startActivity(intent);
-                        finish();
+
 //                    }
                 } else if (id == R.id.bottom_order) {
 //                    if(UserDataManager.getUserPreference() == null){
@@ -188,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }else {
                     Intent intent = new Intent(getApplicationContext(),OrderActivity.class);
                     startActivity(intent);
-                    finish();
+
 //                    }
                 } else if (id == R.id.bottom_chat) {
 //                    if(UserDataManager.getUserPreference() == null){
@@ -196,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }else {
                     Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
                     startActivity(intent);
-                    finish();
+
 //                    }
                 } else if (id == R.id.bottom_account) {
 //                    if(UserDataManager.getUserPreference() == null){
@@ -204,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }else {
                     Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
                     startActivity(intent);
-                    finish();
+
 //                    }
                 }
                 return true;
