@@ -22,6 +22,7 @@ import com.example.prm392_finalproject.Session.UserDataManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -54,7 +55,8 @@ public class UserLoginActivity extends AppCompatActivity {
             String username = edt_username.getText().toString().trim();
             String password = edt_password.getText().toString().trim();
             if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(UserLoginActivity.this, "Username Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserLoginActivity.this, "Không được để trống bất kỳ ô nào", Toast.LENGTH_SHORT).show();
+                
             }
             if (!username.isEmpty() && !password.isEmpty()) {
                 User_Login_DTO_Requset userLoginDtoRequset = new User_Login_DTO_Requset(username, password);
@@ -76,6 +78,7 @@ public class UserLoginActivity extends AppCompatActivity {
                     }
                 });
             }
+            
 
         });
 
