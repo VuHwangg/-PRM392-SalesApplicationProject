@@ -80,7 +80,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 tvName.setText(order.getCustomerName());
                 tvPhonenum.setText(order.getPhone());
                 tvAddress.setText(order.getAddress());
-                tvCost.setText(order.getPrice() + "");
+                tvCost.setText(MainActivity.formattedPrice(order.getPrice()));
             }
         }
         btnBack.setOnClickListener(new View.OnClickListener() {

@@ -126,7 +126,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             .into(image);
                     tvName.setText(product.getName());
                     tvDes.setText(product.getDescription());
-                    tvPrice.setText((int) product.getPrice() + "VNĐ");
+                    tvPrice.setText(MainActivity.formattedPrice(product.getPrice()) + "VNĐ");
                     tvDiscount.setText("Giảm giá " + (double) product.getDiscount() + "%");
                     tvColor.setText(product.getColor());
                     if(product.isCategory()){

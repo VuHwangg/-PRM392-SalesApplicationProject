@@ -30,6 +30,7 @@ import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        User_Login_DTO_Response user = new User_Login_DTO_Response(1, "vuhoang", "Hoang Chu ANh Vu", "Lang Son", "08123123");
+//        UserDataManager.setUserJsonString(user);
         revProduct = findViewById(R.id.rev_home);
         mProductAdapter = new ProductAdapter(MainActivity.this, new ProductAdapter.IClickItemListener() {
             // Định nghĩa interface onClickItemProduct
@@ -172,42 +175,39 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if (id == R.id.bottom_home) {
                 } else if (id == R.id.bottom_cart) {
-//                    if(UserDataManager.getUserPreference() == null){
-//                        directToLogin();
-//                    }else {
+                    if(UserDataManager.getUserPreference() == null){
+                        directToLogin();
+                    }else {
                         Intent intent = new Intent(getApplicationContext(),CartActivity.class);
                         startActivity(intent);
-
-//                    }
+                    }
                 } else if (id == R.id.bottom_order) {
-//                    if(UserDataManager.getUserPreference() == null){
-//                        directToLogin();
-//                    }else {
-                    Intent intent = new Intent(getApplicationContext(),OrderActivity.class);
-                    startActivity(intent);
-
-//                    }
+                    if(UserDataManager.getUserPreference() == null){
+                        directToLogin();
+                    }else {
+                        Intent intent = new Intent(getApplicationContext(),OrderActivity.class);
+                        startActivity(intent);
+                    }
                 } else if (id == R.id.bottom_chat) {
-//                    if(UserDataManager.getUserPreference() == null){
-//                        directToLogin();
-//                    }else {
-                    Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
-                    startActivity(intent);
-
-//                    }
+                    if(UserDataManager.getUserPreference() == null){
+                        directToLogin();
+                    }else {
+                        Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
+                        startActivity(intent);
+                    }
                 } else if (id == R.id.bottom_account) {
-//                    if(UserDataManager.getUserPreference() == null){
-//                        directToLogin();
-//                    }else {
-                    Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
-                    startActivity(intent);
-
-//                    }
+                    if(UserDataManager.getUserPreference() == null){
+                        directToLogin();
+                    }else {
+                        Intent intent = new Intent(getApplicationContext(),AccountActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 return true;
             }
         });
     }
+
 
     public void sendCartNotification(){
         if(UserDataManager.getNotify() && UserDataManager.getUserPreference() != null){
@@ -233,5 +233,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    // Format 100000000 -> 100,000,000
+    public static String formattedPrice (int price) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(price);
+    }
+    public static String formattedPrice(double price) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(price);
     }
 }

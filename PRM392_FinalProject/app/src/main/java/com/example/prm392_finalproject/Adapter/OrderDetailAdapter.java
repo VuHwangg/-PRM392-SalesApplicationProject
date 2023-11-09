@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.prm392_finalproject.Activity.MainActivity;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.R;
 
@@ -49,7 +50,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
                 .centerCrop()
                 .into(holder.imgProduct);
         holder.tvName.setText(productOrder.getName());
-        holder.tvPrice.setText(productOrder.getPrice() +"");
+        holder.tvPrice.setText(MainActivity.formattedPrice(productOrder.getPrice())  +" VNĐ");
         holder.tvQuantity.setText(productOrder.getQuantity()+"");
     }
 
