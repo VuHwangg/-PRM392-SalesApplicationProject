@@ -1,10 +1,12 @@
 package com.example.prm392_finalproject.Activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +25,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class OrderActivity extends AppCompatActivity {
     private RecyclerView revOrder;
     private OrderAdapter mOrderAdapter;
@@ -105,6 +107,7 @@ public class OrderActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void getListOrder(){
     // Thay  listOrder(1) bang listOrder(userID)
         APIService.apiService.listOrder(UserDataManager.getUserPreference().getId()).enqueue(new Callback<ArrayList<Order_DTO>>() {

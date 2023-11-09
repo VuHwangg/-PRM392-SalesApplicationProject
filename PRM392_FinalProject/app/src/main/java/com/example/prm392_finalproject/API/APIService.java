@@ -1,5 +1,9 @@
 package com.example.prm392_finalproject.API;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.example.prm392_finalproject.DTOModels.Cart_DTO_Add_Request;
 import com.example.prm392_finalproject.DTOModels.Cart_DTO_Add_Response;
 import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
@@ -10,11 +14,13 @@ import com.example.prm392_finalproject.DTOModels.POST_Order_DTO;
 import com.example.prm392_finalproject.DTOModels.Product_Detail_DTO;
 import com.example.prm392_finalproject.DTOModels.User_ChangePassword_DTO;
 import com.example.prm392_finalproject.DTOModels.User_UpdateInformation_DTO;
+import com.example.prm392_finalproject.GsonAdapter.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 //import org.checkerframework.checker.units.qual.A;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +34,11 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public interface APIService {
-    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.5:8888/api/v1/") //nao chay thi cmt thang duoi mo thang nay ra
+            .baseUrl("http://192.168.21.106:8888/api/v1/") //nao chay thi cmt thang duoi mo thang nay ra
 //            .baseUrl("https://653b8a902e42fd0d54d54bb7.mockapi.io")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
@@ -66,7 +73,7 @@ public interface APIService {
     Call<ArrayList<Cart_Product_DTO>> listCart(@Path("id") int id);
     @GET("order/{id}")//***OK truyen vao id nguoi dung, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra, nho sua lai id nguoi dung ca thang detail cung the
     Call<ArrayList<Order_DTO>> listOrder(@Path("id") int id);
-    @GET("detail/{id}")// ***OK truyen vao id cua order, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra
+    @GET("order/detail/{id}")// ***OK truyen vao id cua order, dung thang nay thi vao OrderActivity xoa cmt thang cu lai uncmt thang moi o duoi ra
     Call<ArrayList<Cart_Product_DTO>> listOrderDetail(@Path("id") int id);
     @POST("cart") //***OK
     Call<Void> updateCart(@Body POST_Cart_DTO cart);

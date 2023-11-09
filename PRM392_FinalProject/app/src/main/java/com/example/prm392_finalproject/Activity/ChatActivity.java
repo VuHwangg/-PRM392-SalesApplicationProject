@@ -1,7 +1,9 @@
 package com.example.prm392_finalproject.Activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,14 +34,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Button button;
     EditText editMess;
     MessageAdapter adapter;
     List<Message_DTO> list = new ArrayList<>();
-    final String serverHost = "192.168.1.52";
+    final String serverHost = "10.0.2.15";
     private boolean aBoolean = true;
     Socket socketOfClient = null;
     BufferedWriter os = null;
@@ -98,7 +101,11 @@ public class ChatActivity extends AppCompatActivity {
                     socketOfClient = new Socket(serverHost, 9999);
                     os = new BufferedWriter(new OutputStreamWriter(socketOfClient.getOutputStream()));
                     is = new BufferedReader(new InputStreamReader(socketOfClient.getInputStream()));
-
+                    if (socketOfClient.isConnected()) {
+                        Log.d("1234321","ok");
+                    } else {
+                        // Kết nối thất bại
+                    }
                     while (aBoolean) {
                         final String receivedMessage = is.readLine();
                         if (receivedMessage != null) {

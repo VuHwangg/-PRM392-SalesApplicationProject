@@ -1,14 +1,16 @@
 package com.example.prm392_finalproject.Activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.prm392_finalproject.R;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class UserRegisterActivity extends AppCompatActivity {
 
     private TextView btn_goto_login;
