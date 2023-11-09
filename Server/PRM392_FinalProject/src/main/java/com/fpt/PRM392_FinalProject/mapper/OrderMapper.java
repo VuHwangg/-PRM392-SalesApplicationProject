@@ -1,6 +1,8 @@
 package com.fpt.PRM392_FinalProject.mapper;
 
+import com.fpt.PRM392_FinalProject.dto.OrderDTOAddRequest;
 import com.fpt.PRM392_FinalProject.dto.OrderDTOResponse;
+import com.fpt.PRM392_FinalProject.entity.Customer;
 import com.fpt.PRM392_FinalProject.entity.Order;
 
 public class OrderMapper {
@@ -12,6 +14,19 @@ public class OrderMapper {
                 .phone(order.getPhone())
                 .status(order.getStatus())
                 .price(order.getTotal())
+                .build();
+    }
+
+    public static Order toOrder(OrderDTOAddRequest orderDTOAddRequest) {
+        return Order.builder()
+                .customer(Customer.builder()
+                        .id(orderDTOAddRequest.getCustomerID())
+                        .build()
+                )
+                .phone(orderDTOAddRequest.getCustomerPhone())
+                .address(orderDTOAddRequest.getCustomerAddress())
+                .date(orderDTOAddRequest.getOrderDate())
+                .total(orderDTOAddRequest.getTotalPrice())
                 .build();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.prm392_finalproject.DTOModels;
 
-public class User_ChangePassword_DTO {
+import java.io.Serializable;
+
+public class User_ChangePassword_DTO implements Serializable {
     private int userID;
     private String password;
 

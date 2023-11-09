@@ -1,21 +1,19 @@
-package com.example.myapplication;
+package com.example.prm392_finalproject.Adapter;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.prm392_finalproject.DTOModels.Message_DTO;
+import com.example.prm392_finalproject.R;
 
 import java.util.List;
 
-public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Message_DTO> messageList;
     private static final int VIEW_TYPE_SEND = 1;
     private static final int VIEW_TYPE_RECEIVE = 2;
@@ -30,7 +28,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
-    public MainAdapter(List<Message_DTO> messageList) {
+    public MessageAdapter(List<Message_DTO> messageList) {
         this.messageList = messageList;
     }
     @NonNull

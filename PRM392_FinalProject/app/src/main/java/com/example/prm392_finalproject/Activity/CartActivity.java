@@ -24,7 +24,9 @@ import com.example.prm392_finalproject.Session.UserDataManager;
 import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.protobuf.StringValue;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,10 +37,9 @@ import retrofit2.Response;
 public class CartActivity extends AppCompatActivity {
     private RecyclerView revProduct;
     private CartAdapter mCartAdapter;
-    private MainActivity mMainActivity;
-    private View mView;
     private TextView tvCost;
     private Button btnCheckout;
+    DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +53,11 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-        // Context của fragment
         revProduct = findViewById(R.id.rev_cart);
         tvCost = findViewById(R.id.tv_cart_cost);
         mCartAdapter = new CartAdapter(this,tvCost);
         // Layout hiện thị là dạng liner
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mMainActivity);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         revProduct.setLayoutManager(linearLayoutManager);
 //        CartSingleton cartSingleton = CartSingleton.getInstance();
 //        mCartAdapter.setData(cartSingleton.getCart());
@@ -96,8 +96,9 @@ public class CartActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
+
         postCartData();//call API ngon het thi xoa thang duoi di
 //        CartSingleton.getInstance().getCartSelected().clear();
     }
@@ -131,6 +132,7 @@ public class CartActivity extends AppCompatActivity {
                 List<Cart_Product_DTO> list = response.body();
                 mCartAdapter.setData(list);
                 revProduct.setAdapter(mCartAdapter);
+                Log.d("getCartData", String.valueOf(list.get(0).getId()));
             }
 
             @Override
@@ -141,12 +143,13 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void postCartData(){
+
         ArrayList<POST_Cart_Product_DTO> post_cart_product_dtos = new ArrayList<POST_Cart_Product_DTO>();
         for (Cart_Product_DTO cart_product_dto : CartSingleton.getInstance().getCart()){
             POST_Cart_Product_DTO post_cart_product_dto = new POST_Cart_Product_DTO(cart_product_dto.getId(),cart_product_dto.getQuantity());
             post_cart_product_dtos.add(post_cart_product_dto);
         }
-        POST_Cart_DTO cart = new POST_Cart_DTO(1,post_cart_product_dtos);
+        POST_Cart_DTO cart = new POST_Cart_DTO(UserDataManager.getUserPreference().getId(), post_cart_product_dtos);
         APIService.apiService.updateCart(cart).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

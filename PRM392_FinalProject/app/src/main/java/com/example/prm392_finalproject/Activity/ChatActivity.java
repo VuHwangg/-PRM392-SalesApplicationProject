@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_finalproject.Adapter.ChatAdapter;
+import com.example.prm392_finalproject.Adapter.MessageAdapter;
 import com.example.prm392_finalproject.DTOModels.Message_DTO;
 import com.example.prm392_finalproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,16 +30,16 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Button button;
     EditText editMess;
-    ChatAdapter adapter;
-    List<Message_DTO> list;
+    MessageAdapter adapter;
+    List<Message_DTO> list = new ArrayList<>();
     final String serverHost = "192.168.1.52";
+    private boolean aBoolean = true;
     Socket socketOfClient = null;
     BufferedWriter os = null;
     BufferedReader is = null;
@@ -78,61 +80,45 @@ public class ChatActivity extends AppCompatActivity {
         });
         initview();
         connectServer();
-
+        recyclerView = findViewById(R.id.recyclerview_chat);
+        adapter = new MessageAdapter(list);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
     }
 
     private void connectServer() {
+        aBoolean = true;
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    // Gửi yêu cầu kết nối tới Server đang lắng nghe
-                    // trên máy 'localhost' cổng 9999.
+                    // Kết nối đến máy chủ
                     socketOfClient = new Socket(serverHost, 9999);
-
-                    // Tạo luồng đầu ra tại client (Gửi dữ liệu tới server)
                     os = new BufferedWriter(new OutputStreamWriter(socketOfClient.getOutputStream()));
-
-                    // Luồng đầu vào tại Client (Nhận dữ liệu từ server).
                     is = new BufferedReader(new InputStreamReader(socketOfClient.getInputStream()));
 
-                } catch (UnknownHostException e) {
-                    System.err.println("Don't know about host " + serverHost);
-                    return;
-                } catch (IOException e) {
-                    System.err.println("Couldn't get I/O for the connection to " + serverHost+"\n" + e.getMessage());
-                    return;
-                }
+                    while (aBoolean) {
+                        final String receivedMessage = is.readLine();
+                        if (receivedMessage != null) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Xử lý tin nhắn nhận được từ máy chủ (ví dụ: hiển thị lên RecyclerView)
+                                    Gson gson = new Gson();
+                                    Message_DTO receivedMessageDto = new Message_DTO("2","1", receivedMessage,"1");
+                                    list.add(receivedMessageDto);
 
-                ///
-                try {
-                    // Đọc dữ liệu trả lời từ phía server
-                    // Bằng cách đọc luồng đầu vào của Socket tại Client.
-                    String responseLine;
-                    while ((responseLine = is.readLine()) != null) {
-                        final String res = responseLine;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //edtInput.setText(edtInput.getText() + "\n" + res);
-
-                                Gson gson = new Gson();
-                                Message_DTO mess = gson.fromJson(res, Message_DTO.class);
-                                list.add(mess);
-                            }
-                        });
-                        if (responseLine.contains("QUIT")) {
-                            break;
+                                    adapter.notifyItemInserted(list.size() - 1);
+                                    // Scroll tới vị trí mới nhất trong RecyclerView
+                                    recyclerView.smoothScrollToPosition(list.size() - 1);
+                                }
+                            });
                         }
                     }
-
-                    os.close();
-                    is.close();
-                    socketOfClient.close();
-                } catch (UnknownHostException e) {
-                    System.err.println("Trying to connect to unknown host: " + e);
                 } catch (IOException e) {
-                    System.err.println("IOException:  " + e);
+                    aBoolean = false;
                 }
             }
         }).start();
@@ -140,30 +126,32 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private void initview() {
-        list = new ArrayList<>();
-       // adapter.notifyItemRangeInserted(list.size(),li);
-        recyclerView = findViewById(R.id.recyclerview_chat);
         editMess = findViewById(R.id.editinputtex);
         button = findViewById(R.id.chat1);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final String text = editMess.getText().toString();
+                Message_DTO receivedMessageDto = new Message_DTO("1","2",text,"1");
+                list.add(receivedMessageDto);
+                adapter.notifyItemInserted(list.size() - 1);
+                 int a=list.size();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Gson gson = new Gson();
-                            String mess = gson.toJson(new Message_DTO("1","2",text, "11/06/2023"));
-                            os.write(text); // Ghi dữ liệu vào luồng đầu ra của Socket tại Client.
-                            os.newLine(); // kết thúc dòng
-                            os.flush(); // đẩy dữ liệu đi.
-                            list.add(new Message_DTO("1","2",text, "11/06/2023"));
+                            // Gửi dữ liệu văn bản tới máy chủ
+                            if (os != null) {
+                                Gson gson = new Gson();
+                                String message = editMess.getText().toString();
+
+                                os.write(message);
+                                os.newLine();
+                                os.flush();
+                                editMess.getText().clear();
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -174,10 +162,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessToFire() {
-        String str_mess = editMess.getText().toString().trim();
-//        HashMap<String,>
-    }
+
 
 
 }

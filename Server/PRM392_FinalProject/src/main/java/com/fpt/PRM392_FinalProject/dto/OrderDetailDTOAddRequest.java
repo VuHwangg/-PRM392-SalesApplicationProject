@@ -8,9 +8,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class POST_Cart_Product_DTO {
+public class OrderDetailDTOAddRequest {
     int id;
     int quantity;
 }

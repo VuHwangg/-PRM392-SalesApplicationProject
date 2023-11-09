@@ -147,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/shape_button_zalopay"
-                android:text="Thanh toán bẳng zalo pay"
+                android:text="Thanh toán bẳng VN pay"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold">

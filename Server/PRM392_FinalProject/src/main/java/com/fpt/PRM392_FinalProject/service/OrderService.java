@@ -1,5 +1,6 @@
 package com.fpt.PRM392_FinalProject.service;
 
+import com.fpt.PRM392_FinalProject.dto.OrderDTOAddRequest;
 import com.fpt.PRM392_FinalProject.dto.OrderDTOResponse;
 import com.fpt.PRM392_FinalProject.dto.OrderDetailDTOResponse;
 import com.fpt.PRM392_FinalProject.entity.Order;
@@ -12,4 +13,6 @@ public interface OrderService {
     List<OrderDetailDTOResponse> getOrderDetailByOrderId(int id);
 
     OrderDTOResponse changeOrderStatus(int id, int status);
+
+    OrderDTOAddRequest addOrder(OrderDTOAddRequest orderDTOAddRequest);
 }

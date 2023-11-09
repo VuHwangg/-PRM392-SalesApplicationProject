@@ -1,6 +1,8 @@
 package com.example.prm392_finalproject.DTOModels;
 
-public class User_Login_DTO_Response {
+import java.io.Serializable;
+
+public class User_Login_DTO_Response implements Serializable {
     private int id;
     private String username;
     private String name;

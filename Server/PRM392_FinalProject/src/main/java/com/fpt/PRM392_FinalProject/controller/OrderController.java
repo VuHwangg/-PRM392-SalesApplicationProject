@@ -1,5 +1,6 @@
 package com.fpt.PRM392_FinalProject.controller;
 
+import com.fpt.PRM392_FinalProject.dto.OrderDTOAddRequest;
 import com.fpt.PRM392_FinalProject.dto.OrderDTOResponse;
 import com.fpt.PRM392_FinalProject.dto.OrderDetailDTOResponse;
 import com.fpt.PRM392_FinalProject.service.CartService;
@@ -32,6 +33,11 @@ public class OrderController {
     @PutMapping("/{id}")
     public OrderDTOResponse changeOrderStatus(@PathVariable int id) {
         return orderService.changeOrderStatus(id, STATUS_CANCEL);
+    }
+
+    @PostMapping()
+    public OrderDTOAddRequest addOrder(@RequestBody OrderDTOAddRequest orderDTOAddRequest){
+        return orderService.addOrder(orderDTOAddRequest);
     }
 
 }
