@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -21,9 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_finalproject.API.APIService;
 import com.example.prm392_finalproject.Adapter.ProductAdapter;
+import com.example.prm392_finalproject.DTOModels.Cart_Product_DTO;
 import com.example.prm392_finalproject.DTOModels.Home_Product_DTO;
 import com.example.prm392_finalproject.R;
 import com.example.prm392_finalproject.Session.UserDataManager;
+import com.example.prm392_finalproject.Singleton.CartSingleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -62,28 +65,8 @@ public class MainActivity extends AppCompatActivity {
         revProduct.setLayoutManager(gridLayoutManager);
         callAPIHomePage();
 
-        //Send notification
-        if(UserDataManager.getNotify() && UserDataManager.getUserPreference() != null){
-            //call api lay number of product
-            APIService.apiService.productInCart(UserDataManager.getUserPreference().getId()).enqueue(new Callback<Integer>() {
-                @Override
-                public void onResponse(Call<Integer> call, Response<Integer> response) {
-
-                    //sendPushNotification(response.body());
-
-                    int productNumber = response.body();
-                    if(productNumber > 0)
-                        sendPushNotification("Gio hang cua ban co "+productNumber+" san pham chua thanh toan!");
-                    else
-                        sendPushNotification("Ban khong co san pham nao trong gio hang. Mua ngay!");
-                }
-
-                @Override
-                public void onFailure(Call<Integer> call, Throwable t) {
-
-                }
-            });
-        }
+//        Send notification
+        sendCartNotification();
     }
 
     @Override
@@ -215,6 +198,33 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 return true;
+            }
+        });
+    }
+
+
+    public void sendCartNotification(){
+        if(UserDataManager.getNotify() && UserDataManager.getUserPreference() != null){
+            //call api lay number of product
+            getCartSize();
+        }
+    }
+    public void getCartSize(){
+        //thay thang 1 bang thang userID
+        APIService.apiService.listCart(UserDataManager.getUserPreference().getId()).enqueue(new Callback<ArrayList<Cart_Product_DTO>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Cart_Product_DTO>> call, Response<ArrayList<Cart_Product_DTO>> response) {
+                List<Cart_Product_DTO> list = response.body();
+                int productNumber = list.size();
+                if(productNumber > 0)
+                    sendPushNotification("Gio hang cua ban co "+productNumber+" san pham chua thanh toan!");
+                else
+                    sendPushNotification("Ban khong co san pham nao trong gio hang. Mua ngay!");
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Cart_Product_DTO>> call, Throwable t) {
+
             }
         });
     }
